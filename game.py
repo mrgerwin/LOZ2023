@@ -12,31 +12,78 @@ showSprite(octorok)
 
 nextFrame = clock()
 frame = 0
+backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
+playSound(backgroundMusic,10)
+dieOn=False
+
+def Die():
+    global dieOn
+    dieOn=True
+    stopSound(backgroundMusic)
+    changeSpriteImage(link, 0)
+    pause(125)
+    changeSpriteImage(link, 5)
+    pause(125)
+    changeSpriteImage(link, 2)
+    pause(125)
+    changeSpriteImage(link, 6)
+    pause(125)
+    changeSpriteImage(link, 0)
+    pause(125)
+    changeSpriteImage(link, 5)
+    pause(125)
+    changeSpriteImage(link, 2)
+    pause(125)
+    changeSpriteImage(link, 6)
+    pause(125)
+    changeSpriteImage(link, 0)
+    pause(125)
+    changeSpriteImage(link, 5)
+    pause(125)
+    changeSpriteImage(link, 2)
+    pause(125)
+    changeSpriteImage(link, 6)
+    pause(125)
+    changeSpriteImage(link, 0)
+    pause(125)
+    changeSpriteImage(link, 5)
+    pause(125)
+    changeSpriteImage(link, 2)
+    pause(125)
+    changeSpriteImage(link, 6)
+    pause(125)
+    changeSpriteImage(link, 0)
+    
 
 while True:
     if clock() >nextFrame:
         frame= (frame + 1)%2
         nextFrame += 80
         pause(10)
-        
-        if keyPressed("down"):
-            
-            link.orientation =0
-            link.move(frame)
-        if keyPressed("up"):
-            link.orientation =1
-            link.move(frame)
-        if keyPressed("right"):
-            link.orientation =2
-            link.move(frame)
-        if keyPressed("left"):
-            link.orientation =3
-            link.move(frame)
-        if keyPressed("space"):
-            changeSpriteImage(link, link.orientation + 8)
-        if keyPressed("h"):
-            changeSpriteImage(link, frame+12)
-        octorok.move(frame)
-        updateDisplay()
+        if dieOn == False:
+            if keyPressed("down"):
+                link.orientation =0
+                link.move(frame)
+            if keyPressed("up"):
+                link.orientation =1
+                link.move(frame)
+            if keyPressed("right"):
+                link.orientation =2
+                link.move(frame)
+            if keyPressed("left"):
+                link.orientation =3
+                link.move(frame)
+            if keyPressed("s"):
+                link.move(frame)
+            elif keyPressed("space"):
+                changeSpriteImage(link, link.orientation + 8)
+            elif keyPressed("d"):
+                Die()
+            elif keyPressed("h"):
+                changeSpriteImage(link, frame+12)
+            octorok.move(frame)
+            updateDisplay()
+        else:
+            pass
 
 endWait()
