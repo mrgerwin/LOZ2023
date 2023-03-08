@@ -1,13 +1,15 @@
 from pygame_functions import *
-from sprites import Player, Octorok
+from sprites import Player, Octorok, Leever
 
 screenSize(1024,768)
 setBackgroundColour('grey')
 setAutoUpdate(False)
 link = Player()
 octorok = Octorok()
+leever=Leever()
 showSprite(link)
 showSprite(octorok)
+showSprite(leever)
 #moveSprite(octorok, 200, 200)
 
 nextFrame = clock()
@@ -15,7 +17,6 @@ frame = 0
 backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
 playSound(backgroundMusic,10)
 dieOn=False
-
 def Die():
     global dieOn
     dieOn=True

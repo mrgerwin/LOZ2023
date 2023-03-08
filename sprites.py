@@ -68,3 +68,6 @@ class Octorok(Enemy):
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
         self.step += 1
+class Leever(Enemy):
+    def __init__(self):
+        Enemy.__init__(self,"Leever.png", 6, 1)
