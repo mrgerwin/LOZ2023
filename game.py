@@ -1,6 +1,7 @@
 from pygame_functions import *
 from sprites import Player, Octorok, Leever
 
+# You Can Do It Code!!! I Believe In You!!!
 screenSize(1024,768)
 setBackgroundColour('grey')
 setAutoUpdate(False)
@@ -83,6 +84,7 @@ while True:
             elif keyPressed("h"):
                 changeSpriteImage(link, frame+12)
             octorok.move(frame)
+            leever.move(frame)
             updateDisplay()
         else:
             pass

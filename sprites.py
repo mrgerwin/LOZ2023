@@ -71,3 +71,26 @@ class Octorok(Enemy):
 class Leever(Enemy):
     def __init__(self):
         Enemy.__init__(self,"Leever.png", 6, 1)
+        self.orientation = random.randint(0,3)
+        self.step = 0
+    def move(self, frame):
+        if self.step == 25:
+            self.speed = 0
+            
+        if self.step == 40:
+            self.orientation = random.randint(0,3)
+            self.speed = 3
+            self.step = 0
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+            self.changeImage(5)
+        elif self.orientation ==1:
+            self.rect.y = self.rect.y - self.speed
+            self.changeImage(5)
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(5)
+        else:
+            self.rect.x = self.rect.x - self.speed
+            self.changeImage(5)
+        self.step += 1 
