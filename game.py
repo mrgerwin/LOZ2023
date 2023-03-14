@@ -1,13 +1,15 @@
 from pygame_functions import *
-from sprites import Player, Octorok
+from sprites import Player, Octorok, BlueOctorok
 
 screenSize(1024,768)
 setBackgroundColour('grey')
 setAutoUpdate(False)
 link = Player()
+Blueoctorok = BlueOctorok
 octorok = Octorok()
 showSprite(link)
 showSprite(octorok)
+showSprite(Blueoctorok)
 #moveSprite(octorok, 200, 200)
 
 nextFrame = clock()
