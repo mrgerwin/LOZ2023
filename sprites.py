@@ -68,3 +68,23 @@ class Octorok(Enemy):
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
         self.step += 1
+
+class wizzrobe(Enemy):
+    def __init__(self):
+        Enemy.__init__(self, "blueghost2.png", 3, 2)
+        self.orientation = random.randint(0, 3)
+        self.step = 0
+        
+    
+    def move(self, frame):
+        self.step += 1
+        if self.step == 60:
+            self.rect.x = random.randint(0, 1024)
+            self.rect.y = random.randint(0, 768)
+            self.changeImage(0 + frame*3)
+            pause(100)
+            self.changeImage(1 + frame*3)
+            pause(100)
+            self.changeImage(2 + frame*3)
+            pause(100)
+            self.step = 0

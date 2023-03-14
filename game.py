@@ -1,14 +1,17 @@
 from pygame_functions import *
-from sprites import Player, Octorok
+from sprites import Player, Octorok, wizzrobe
+
 
 screenSize(1024,768)
 setBackgroundColour('grey')
 setAutoUpdate(False)
 link = Player()
 octorok = Octorok()
+wizzrobe = wizzrobe()
 showSprite(link)
 showSprite(octorok)
-#moveSprite(octorok, 200, 200)
+showSprite(wizzrobe)
+
 
 nextFrame = clock()
 frame = 0
@@ -36,6 +39,7 @@ while True:
             changeSpriteImage(link, link.orientation + 8)
         if keyPressed("h"):
             changeSpriteImage(link, frame+12)
+        wizzrobe.move(frame)
         octorok.move(frame)
         updateDisplay()
 
