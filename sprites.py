@@ -69,30 +69,34 @@ class Octorok(Enemy):
             self.changeImage(1 + frame*4)
         self.step += 1
         
+        
 class BlueOctorok(Enemy):
     def __init__(self):
-        Enemy.__init__(self,"BlueOctorok.png")
+        Enemy.__init__(self,"BlueOctorok.png",8,1)
         self.orientation = random.randint(0,3)
         self.step = 0
     def move(self, frame):
-        if self.step == 25:
+        if self.step == 15:
             self.speed = 0
             
         if self.step == 40:
-            self.orientation = random.randint(0,3)
-            self.speed = 3
+            self.orientation = random.randint(0,4)
+            self.speed = 6
             self.step = 0
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
-            self.changeImage(0 + frame *4)
+            self.changeImage(0 + frame )
         elif self.orientation ==1:
             self.rect.y = self.rect.y - self.speed
-            self.changeImage(2 + frame*4)
+            self.changeImage(2 + frame )
         elif self.orientation ==2:
             self.rect.x = self.rect.x + self.speed
-            self.changeImage(3 + frame*4)
+            self.changeImage(4 + frame )
         else:
             self.rect.x = self.rect.x - self.speed
-            self.changeImage(1 + frame*4)
+            self.changeImage(6 + frame )
         self.step += 1
-    
+        
+        
+        
+

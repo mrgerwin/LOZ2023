@@ -5,7 +5,7 @@ screenSize(1024,768)
 setBackgroundColour('grey')
 setAutoUpdate(False)
 link = Player()
-Blueoctorok = BlueOctorok
+Blueoctorok = BlueOctorok()
 octorok = Octorok()
 showSprite(link)
 showSprite(octorok)
@@ -39,6 +39,7 @@ while True:
         if keyPressed("h"):
             changeSpriteImage(link, frame+12)
         octorok.move(frame)
+        Blueoctorok.move(frame)
         updateDisplay()
 
 endWait()
