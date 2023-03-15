@@ -21,6 +21,9 @@ class Player(newSprite):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(3*2 + frame)
+            
+    def sword(self):
+        pass
 
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
@@ -68,3 +71,33 @@ class Octorok(Enemy):
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
         self.step += 1
+        
+class Tektite(Enemy):
+    def __init__(self):
+        Enemy.__init__(self, "Tektite.png", 1, 2)
+        self.time = 0
+        self.speedx = 0
+        self.speedy = 0
+        self.jump = False
+        
+    def move(self, frame):
+        if self.speedy <= 6 and self.jump == True:
+            self.speedy += 1
+        self.time += 1
+        jumpFrame = 50
+        
+        if self.time == jumpFrame:
+            self.jump = True
+            self.speedy = random.randint(-14, -7)
+            print(self.speedy)
+            self.speedx = random.randint(-6, 6)
+        
+        if self.time == jumpFrame + 25:
+            self.jump = False
+            self.time = 0
+            self.speedy = 0
+            self.speedx = 0
+            
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        
