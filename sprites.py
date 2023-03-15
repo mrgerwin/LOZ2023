@@ -21,9 +21,6 @@ class Player(newSprite):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(3*2 + frame)
-            
-    def sword(self):
-        pass
 
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
@@ -100,4 +97,31 @@ class Tektite(Enemy):
             
         self.rect.x += self.speedx
         self.rect.y += self.speedy
+        
+class Sword(newSprite):
+    def __init__(self, filename, framesX=1, framesY=1):
+        newSprite.__init__(self, filename, framesX, framesY)
+        self.orientation = 0
+        self.rect.x = 0
+        self.rect.y = 0
+    
+    def facing(self):
+        self.changeImage(self.orientation)
+        
+    def stab(self, x, y, orientation):
+        z = 0
+        w = 0
+        
+        if orientation - 2 < 0:
+            z = 32
+        else:
+            w = 32
+        
+        if orientation%2 == 1:
+            z *= -1
+            w *= -1
+            
+        self.orientation = orientation
+        self.rect.x = x + w
+        self.rect.y = y + z
         
