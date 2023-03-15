@@ -1,6 +1,6 @@
 from pygame_functions import *
 import random
-#This is a change
+
 class Player(newSprite):
     def __init__(self):
         newSprite.__init__(self, "LinkSimple.png", 14)
@@ -74,17 +74,37 @@ class wizzrobe(Enemy):
         Enemy.__init__(self, "blueghost2.png", 3, 2)
         self.orientation = random.randint(0, 3)
         self.step = 0
+        ShootReady = False
         
     
     def move(self, frame):
         self.step += 1
         if self.step == 60:
-            self.rect.x = random.randint(0, 1024)
-            self.rect.y = random.randint(0, 768)
+            self.rect.x = random.randint(50, 950)
+            self.rect.y = random.randint(75, 600)
             self.changeImage(0 + frame*3)
-            pause(100)
+            pause(250)
             self.changeImage(1 + frame*3)
-            pause(100)
+            pause(250)
             self.changeImage(2 + frame*3)
-            pause(100)
+            pause(250)
+            self.changeImage(0 + frame*3)
+            pause(200)
+            self.ShootReady = True
+            self.Shoot(frame)
             self.step = 0
+            
+        
+    def Shoot(self, frame):
+        if self.ShootReady == True:
+            Spellball= newSprite("Spellball.png")
+            Spellball.rect.x = self.rect.x
+            Spellball.rect.y = self.rect.y
+            #Spellball.speed = 3
+            ShootReady = False
+            showSprite(Spellball)
+            return Spellball
+        
+        return None
+            
+            
