@@ -1,6 +1,6 @@
 from pygame_functions import *
 import random
-
+#This is a change
 class Player(newSprite):
     def __init__(self):
         newSprite.__init__(self, "LinkSimple.png", 14)
