@@ -97,14 +97,25 @@ class wizzrobe(Enemy):
         
     def Shoot(self, frame):
         if self.ShootReady == True:
-            Spellball= newSprite("Spellball.png")
+            Spellball = newSprite("Spellball.png")
             Spellball.rect.x = self.rect.x
             Spellball.rect.y = self.rect.y
-            #Spellball.speed = 3
             ShootReady = False
             showSprite(Spellball)
             return Spellball
         
+        
         return None
+    
+    def Spellballmove(frame, playerx, playery):
+        global Spellball
+        if playerx < Spellball.x:
+            Spellball.x += 1
+        if playerx > Spellball.x:
+            Spellball.x -= 1
+        if playery < Spellball.y:
+            Spellball.y -= 1
+        if playery > Spellball.y:
+            Spellball.y += 1
             
             
