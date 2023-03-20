@@ -1,13 +1,16 @@
 from pygame_functions import *
-from sprites import Player, Octorok
+from sprites import Player, Octorok, WaterMonster
 
 screenSize(1024,768)
 setBackgroundColour('grey')
+#timer = clock
 setAutoUpdate(False)
 link = Player()
 octorok = Octorok()
+watermonster = WaterMonster()
 showSprite(link)
 showSprite(octorok)
+showSprite(watermonster)
 #moveSprite(octorok, 200, 200)
 
 nextFrame = clock()
@@ -37,6 +40,7 @@ while True:
         if keyPressed("h"):
             changeSpriteImage(link, frame+12)
         octorok.move(frame)
+        watermonster.move(frame)
         updateDisplay()
 
 endWait()
