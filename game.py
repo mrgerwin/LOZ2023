@@ -11,7 +11,7 @@ link = Player()
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 leever=Leever()
-leeverspawned=False
+leeverspawned=True
 showSprite(leever)
 wizzrobe = wizzrobe()
 showSprite(link)
@@ -35,6 +35,8 @@ a_rock.orientation = 0
 showSprite(a_rock)
 a_rock.rect.x = 500
 a_rock.rect.y = 350
+
+enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 
 nextFrame = clock()
 frame = 0
@@ -116,41 +118,31 @@ while True:
           if keyPressed("h"):
               changeSpriteImage(link, frame+12)
           if keyPressed("s"):
-                  link.move(frame)
-              elif keyPressed("space"):
-                  changeSpriteImage(link, link.orientation + 8)
-              elif keyPressed("d"):
-                  Die()
-              elif keyPressed("h"):
-                  changeSpriteImage(link, frame+12)
-              elif keyPressed("l"):
-                  leever.spawn(leever,frame)
-                  leeverspawned=True
-              if leeverspawned==True:
-                  leever.move(frame)
-
-          wizzrobe.move(frame)
+              link.move(frame)
+          if keyPressed("d"):
+              Die()
+        """
+          if keyPressed("l"):
+              leever.spawn(leever,frame)
+              leeverspawned=True
+          if leeverspawned==True:
+              leever.move(frame)
+        """
+        for enemy in enemies:
+            enemy.move(frame)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
-
-
-          if touching(octorok, sword):
-              hideSprite(octorok)
-
-
-          octorok.move(frame)
-
-          tektite.move(frame)
-          sword.facing()
-
-
-          Blueoctorok.move(frame)
-
-          watermonster.move(frame)
-
-          a_rock.move(frame)
+            if touching(enemy, sword):
+                hideSprite(enemy)
 
 
 
-          updateDisplay()
+        sword.facing()
+
+
+        a_rock.move(frame)
+
+
+
+        updateDisplay()
 
 endWait()
