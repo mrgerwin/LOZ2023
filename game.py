@@ -8,6 +8,7 @@ setAutoUpdate(False)
 link = Player()
 octorok = Octorok()
 leever=Leever()
+leeverspawned=False
 showSprite(link)
 showSprite(octorok)
 showSprite(leever)
@@ -83,8 +84,12 @@ while True:
                 Die()
             elif keyPressed("h"):
                 changeSpriteImage(link, frame+12)
+            elif keyPressed("l"):
+                leever.spawn(leever,frame)
+                leeverspawned=True
+            if leeverspawned==True:
+                leever.move(frame)
             octorok.move(frame)
-            leever.move(frame)
             updateDisplay()
         else:
             pass

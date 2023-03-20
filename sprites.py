@@ -73,24 +73,41 @@ class Leever(Enemy):
         Enemy.__init__(self,"Leever.png", 6, 1)
         self.orientation = random.randint(0,3)
         self.step = 0
+        self.changeImage(0)
     def move(self, frame):
         if self.step == 25:
-            self.speed = 0
+            pass
             
         if self.step == 40:
             self.orientation = random.randint(0,3)
             self.speed = 3
             self.step = 0
-        if self.orientation == 0:
-            self.rect.y = self.rect.y + self.speed
-            self.changeImage(5)
+        elif self.rect.x>=998:
+            self.rect.x =995
+            self.rect.x = self.rect.x - self.speed
+            self.changeImage(4+frame)
+        elif self.rect.x<=24:
+            self.rect.x = 27
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(4+frame)
         elif self.orientation ==1:
-            self.rect.y = self.rect.y - self.speed
-            self.changeImage(5)
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(4+frame)
         elif self.orientation ==2:
             self.rect.x = self.rect.x + self.speed
-            self.changeImage(5)
+            self.changeImage(4+frame)
         else:
             self.rect.x = self.rect.x - self.speed
-            self.changeImage(5)
+            self.changeImage(4+frame)
         self.step += 1 
+    def spawn(self,leever,frame):
+        self.changeImage(0)
+        pause(125)
+        self.changeImage(1)
+        pause(125)
+        self.changeImage(2)
+        pause(125)
+        self.changeImage(3)
+        pause(125)
+        self.changeImage(4)
+        pause(125)
