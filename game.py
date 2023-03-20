@@ -1,5 +1,6 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster
+from sprites import Player, Octorok, WaterMonster, Projectile
+
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -11,6 +12,12 @@ watermonster = WaterMonster()
 showSprite(link)
 showSprite(octorok)
 showSprite(watermonster)
+a_rock = Projectile()
+a_rock.orientation = 0
+showSprite(a_rock)
+a_rock.rect.x = 500
+a_rock.rect.y = 350
+
 #moveSprite(octorok, 200, 200)
 
 nextFrame = clock()
@@ -41,6 +48,9 @@ while True:
             changeSpriteImage(link, frame+12)
         octorok.move(frame)
         watermonster.move(frame)
+
+        a_rock.move(frame)
+
         updateDisplay()
 
 endWait()

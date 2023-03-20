@@ -77,6 +77,7 @@ class Octorok(Enemy):
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
         self.step += 1
+
 class WaterMonster(Enemy):
     def __init__(self):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
@@ -119,3 +120,23 @@ class WaterMonster(Enemy):
             self.frame =0
         #if self.frame == 3:
             #self.Originalimg = pygame.image.load("ROCKh.png")
+
+        
+class Projectile(newSprite):
+    def __init__(self):
+        newSprite.__init__(self,"Rocks.png", 2, 1)
+        self.speed = 3
+        
+    def move(self, frame):
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+        elif self.orientation ==1:
+            self.rect.y = self.rect.y - self.speed
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+        else:
+            self.rect.x = self.rect.x - self.speed
+            
+        self.changeImage(frame)
+        
+        
