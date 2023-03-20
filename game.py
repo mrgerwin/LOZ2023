@@ -41,7 +41,7 @@ while True:
         if keyPressed("h"):
             changeSpriteImage(link, frame+12)
         wizzrobe.move(frame)
-        wizzrobe.Spellballmove(link.rect.x, link.rect.y)
+        #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
         octorok.move(frame)
         updateDisplay()
 

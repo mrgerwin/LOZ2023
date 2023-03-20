@@ -74,39 +74,47 @@ class wizzrobe(Enemy):
         Enemy.__init__(self, "blueghost2.png", 3, 2)
         self.orientation = random.randint(0, 3)
         self.step = 0
-        ShootReady = False
+        self.ShootReady = False
         
     
     def move(self, frame):
-        self.step += 1
-        if self.step == 60:
+        if frame % 2 == 0:
+            self.step += 1
+            if self.ShootReady:
+                self.Shoot(frame)
+                self.ShootReady = False
+        if self.step == 25:
             self.rect.x = random.randint(50, 950)
             self.rect.y = random.randint(75, 600)
-            self.changeImage(0 + frame*3)
-            pause(250)
-            self.changeImage(1 + frame*3)
-            pause(250)
-            self.changeImage(2 + frame*3)
-            pause(250)
-            self.changeImage(0 + frame*3)
-            pause(200)
-            self.ShootReady = True
-            self.Shoot(frame)
             self.step = 0
+            
+        if self.step < 4:
+            self.changeImage(3 + self.step % 3)
+            
+        elif self.step == 5:
+            self.ShootReady = True
+        else:
+            self.changeImage(0)
+        
+        
+        
+            
             
         
     def Shoot(self, frame):
         if self.ShootReady == True:
+            print("I'm going to shoot now")
+            """
             Spellball = newSprite("Spellball.png")
             Spellball.rect.x = self.rect.x
             Spellball.rect.y = self.rect.y
             ShootReady = False
             showSprite(Spellball)
             return Spellball
-        
+            """
         
         return None
-    
+    """
     def Spellballmove(frame, playerx, playery):
         global Spellball
         if playerx < Spellball.x:
@@ -117,5 +125,5 @@ class wizzrobe(Enemy):
             Spellball.y -= 1
         if playery > Spellball.y:
             Spellball.y += 1
-            
+    """            
             
