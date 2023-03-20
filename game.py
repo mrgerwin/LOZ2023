@@ -49,6 +49,10 @@ while True:
             
         if keyPressed("h"):
             changeSpriteImage(link, frame+12)
+            
+        if touching(octorok, sword):
+            hideSprite(octorok)
+        
         octorok.move(frame)
         tektite.move(frame)
         sword.facing()
