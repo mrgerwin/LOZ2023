@@ -1,7 +1,6 @@
 from pygame_functions import *
 
-
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe
 
 
 screenSize(1024,768)
@@ -12,10 +11,15 @@ link = Player()
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 
-tektite = Tektite()
-sword = Sword("Sworb.png", 4, 1)
+wizzrobe = wizzrobe()
 showSprite(link)
 showSprite(octorok)
+showSprite(wizzrobe)
+
+
+
+tektite = Tektite()
+sword = Sword("Sworb.png", 4, 1)
 showSprite(tektite)
 
 
@@ -67,10 +71,15 @@ while True:
             
         if keyPressed("h"):
             changeSpriteImage(link, frame+12)
+
+        wizzrobe.move(frame)
+        #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
+
             
         if touching(octorok, sword):
             hideSprite(octorok)
         
+
         octorok.move(frame)
 
         tektite.move(frame)

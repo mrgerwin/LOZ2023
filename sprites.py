@@ -78,6 +78,66 @@ class Octorok(Enemy):
             self.changeImage(1 + frame*4)
         self.step += 1
 
+
+class wizzrobe(Enemy):
+    def __init__(self):
+        Enemy.__init__(self, "blueghost2.png", 3, 2)
+        self.orientation = random.randint(0, 3)
+        self.step = 0
+        self.ShootReady = False
+        
+    
+    def move(self, frame):
+        if frame % 2 == 0:
+            self.step += 1
+            if self.ShootReady:
+                self.Shoot(frame)
+                self.ShootReady = False
+        if self.step == 25:
+            self.rect.x = random.randint(50, 950)
+            self.rect.y = random.randint(75, 600)
+            self.step = 0
+            
+        if self.step < 4:
+            self.changeImage(3 + self.step % 3)
+            
+        elif self.step == 5:
+            self.ShootReady = True
+        else:
+            self.changeImage(0)
+        
+        
+        
+            
+            
+        
+    def Shoot(self, frame):
+        if self.ShootReady == True:
+            print("I'm going to shoot now")
+            """
+            Spellball = newSprite("Spellball.png")
+            Spellball.rect.x = self.rect.x
+            Spellball.rect.y = self.rect.y
+            ShootReady = False
+            showSprite(Spellball)
+            return Spellball
+            """
+        
+        return None
+    """
+    def Spellballmove(frame, playerx, playery):
+        global Spellball
+        if playerx < Spellball.x:
+            Spellball.x += 1
+        if playerx > Spellball.x:
+            Spellball.x -= 1
+        if playery < Spellball.y:
+            Spellball.y -= 1
+        if playery > Spellball.y:
+            Spellball.y += 1
+    """            
+            
+
         
 class Tektite(Enemy):
     def __init__(self):
@@ -233,4 +293,5 @@ class Projectile(newSprite):
         self.changeImage(frame)
         
         
+
 
