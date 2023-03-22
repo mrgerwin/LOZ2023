@@ -10,26 +10,15 @@ setAutoUpdate(False)
 link = Player()
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
-leever=Leever()
+leever = Leever()
+watermonster = WaterMonster()
 leeverspawned=True
-showSprite(leever)
 wizzrobe = wizzrobe()
 showSprite(link)
-showSprite(octorok)
-showSprite(wizzrobe)
-
-
 
 tektite = Tektite()
 sword = Sword("Sworb.png", 4, 1)
-showSprite(tektite)
 
-
-watermonster = WaterMonster()
-showSprite(link)
-showSprite(octorok)
-showSprite(Blueoctorok)
-showSprite(watermonster)
 a_rock = Projectile()
 a_rock.orientation = 0
 showSprite(a_rock)
@@ -37,6 +26,9 @@ a_rock.rect.x = 500
 a_rock.rect.y = 350
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
+
+for enemy in enemies:
+    showSprite(enemy)
 
 nextFrame = clock()
 frame = 0
@@ -48,39 +40,9 @@ def Die():
     global dieOn
     dieOn=True
     stopSound(backgroundMusic)
-    changeSpriteImage(link, 0)
-    pause(125)
-    changeSpriteImage(link, 5)
-    pause(125)
-    changeSpriteImage(link, 2)
-    pause(125)
-    changeSpriteImage(link, 6)
-    pause(125)
-    changeSpriteImage(link, 0)
-    pause(125)
-    changeSpriteImage(link, 5)
-    pause(125)
-    changeSpriteImage(link, 2)
-    pause(125)
-    changeSpriteImage(link, 6)
-    pause(125)
-    changeSpriteImage(link, 0)
-    pause(125)
-    changeSpriteImage(link, 5)
-    pause(125)
-    changeSpriteImage(link, 2)
-    pause(125)
-    changeSpriteImage(link, 6)
-    pause(125)
-    changeSpriteImage(link, 0)
-    pause(125)
-    changeSpriteImage(link, 5)
-    pause(125)
-    changeSpriteImage(link, 2)
-    pause(125)
-    changeSpriteImage(link, 6)
-    pause(125)
-    changeSpriteImage(link, 0)
+    #link.step += 1
+    #link.changeImage(3 + link.step % 3)
+    link.die(frame)
     
 
 while True:
@@ -90,37 +52,38 @@ while True:
         pause(10)
         
         if dieOn == False:
-          if keyPressed("down"):
-              link.orientation =0
-              link.move(frame)
-              hideSprite(sword)
+            if keyPressed("down"):
+                link.orientation =0
+                link.move(frame)
+                hideSprite(sword)
 
-          if keyPressed("up"):
-              link.orientation =1
-              link.move(frame)
-              hideSprite(sword)
+            if keyPressed("up"):
+                link.orientation =1
+                link.move(frame)
+                hideSprite(sword)
 
-          if keyPressed("right"):
-              link.orientation =2
-              link.move(frame)
-              hideSprite(sword)
+            if keyPressed("right"):
+                link.orientation =2
+                link.move(frame)
+                hideSprite(sword)
 
-          if keyPressed("left"):
-              link.orientation =3
-              link.move(frame)
-              hideSprite(sword)
+            if keyPressed("left"):
+                link.orientation =3
+                link.move(frame)
+                hideSprite(sword)
 
-          if keyPressed("space"):
-              changeSpriteImage(link, link.orientation + 8)
-              sword.stab(link.rect.x, link.rect.y, link.orientation)
-              showSprite(sword)
+            if keyPressed("space"):
+                changeSpriteImage(link, link.orientation + 8)
+                sword.stab(link.rect.x, link.rect.y, link.orientation)
+                showSprite(sword)
+        
+            
 
-          if keyPressed("h"):
-              changeSpriteImage(link, frame+12)
-          if keyPressed("s"):
-              link.move(frame)
-          if keyPressed("d"):
-              Die()
+            if keyPressed("h"):
+                changeSpriteImage(link, frame+12)
+            if keyPressed("s"):
+                link.move(frame)
+            
         """
           if keyPressed("l"):
               leever.spawn(leever,frame)
@@ -130,11 +93,17 @@ while True:
         """
         for enemy in enemies:
             enemy.move(frame)
+            if touching(enemy, link):
+                link.hit()
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
-                hideSprite(enemy)
-
-
+                enemy.hit()
+                if enemy.health == 0:
+                    enemies.remove(enemy)
+                    killSprite(enemy)
+                    
+        if link.health == 0:
+            Die()
 
         sword.facing()
 

@@ -16,6 +16,8 @@ class Player(newSprite):
         self.rect.x = 500
         self.rect.y = 350
         self.speed = 4
+        self.health = 3
+        self.step = 0
     
     def move(self, frame):
         if self.orientation == 0:
@@ -30,6 +32,19 @@ class Player(newSprite):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(3*2 + frame)
+        
+    def hit(self):
+        self.rect.x += 32
+        self.health -= 1
+        if self.health == 0:
+            pass
+        
+    def die(self, frame):
+        self.step += 2
+        
+        if self.step == 8:
+            self.step == 0
+        self.changeImage(self.step)
 
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
@@ -50,12 +65,17 @@ class Enemy(newSprite):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
+    def hit(self):
+        self.rect.x += 32
+        self.health -= 1
+        
             
 class Octorok(Enemy):
     def __init__(self):
         Enemy.__init__(self,"Octorok.png", 4, 2)
         self.orientation = random.randint(0,3)
         self.step = 0
+        self.health = 1
     def move(self, frame):
         if self.step == 25:
             self.speed = 0
@@ -82,6 +102,7 @@ class Leever(Enemy):
         Enemy.__init__(self,"Leever.png", 6, 1)
         self.orientation = random.randint(0,3)
         self.step = 0
+        self.health = 2
         self.changeImage(0)
     def move(self, frame):
         if self.step == 25:
@@ -128,6 +149,7 @@ class wizzrobe(Enemy):
         self.orientation = random.randint(0, 3)
         self.step = 0
         self.ShootReady = False
+        self.health = 2
         
     
     def move(self, frame):
@@ -188,6 +210,7 @@ class Tektite(Enemy):
         self.time = 0
         self.speedx = 0
         self.speedy = 0
+        self.health = 1
         self.jump = False
         
     def move(self, frame):
@@ -247,6 +270,7 @@ class BlueOctorok(Enemy):
         Enemy.__init__(self,"BlueOctorok.png",8,1)
         self.orientation = random.randint(0,3)
         self.step = 0
+        self.health = 2
     def move(self, frame):
         if self.step == 15:
             self.speed = 0
@@ -279,6 +303,7 @@ class WaterMonster(Enemy):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
+        self.health = 1
         
     def move(self, frame):
         
