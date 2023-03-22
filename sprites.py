@@ -16,7 +16,54 @@ class Player(newSprite):
         self.rect.x = 500
         self.rect.y = 350
         self.speed = 4
-    
+        self.health=3
+    def hit(dieOn,theReaper,dieAvailable):
+        if link.health <= 0:
+            if theReaper==True:
+                dieAvailable=True
+                if dieAvailable==True:
+                    dieAvailable=False
+                    theReaper=False
+                    Die()
+        else:
+            link.health= link.health - 0.5
+    def Die(dieOn):
+        dieOn=True
+        hideSprite(enemies)
+        stopSound(backgroundMusic)
+        changeSpriteImage(link, 0)
+        pause(125)
+        changeSpriteImage(link, 5)
+        pause(125)
+        changeSpriteImage(self, 2)
+        pause(125)
+        changeSpriteImage(self, 6)
+        pause(125)
+        changeSpriteImage(self, 0)
+        pause(125)
+        changeSpriteImage(self, 5)
+        pause(125)
+        changeSpriteImage(self, 2)
+        pause(125)
+        changeSpriteImage(self, 6)
+        pause(125)
+        changeSpriteImage(self, 0)
+        pause(125)
+        changeSpriteImage(self, 5)
+        pause(125)
+        changeSpriteImage(self, 2)
+        pause(125)
+        changeSpriteImage(self, 6)
+        pause(125)
+        changeSpriteImage(self, 0)
+        pause(125)
+        changeSpriteImage(self, 5)
+        pause(125)
+        changeSpriteImage(self, 2)
+        pause(125)
+        changeSpriteImage(self, 6)
+        pause(125)
+        changeSpriteImage(self, 0)
     def move(self, frame):
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
@@ -56,6 +103,7 @@ class Octorok(Enemy):
         Enemy.__init__(self,"Octorok.png", 4, 2)
         self.orientation = random.randint(0,3)
         self.step = 0
+        self.health=1
     def move(self, frame):
         if self.step == 25:
             self.speed = 0
@@ -83,6 +131,7 @@ class Leever(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.changeImage(0)
+        self.health=2
     def move(self, frame):
         if self.step == 25:
             pass
@@ -128,6 +177,7 @@ class wizzrobe(Enemy):
         self.orientation = random.randint(0, 3)
         self.step = 0
         self.ShootReady = False
+        self.health=5
         
     
     def move(self, frame):
@@ -189,6 +239,7 @@ class Tektite(Enemy):
         self.speedx = 0
         self.speedy = 0
         self.jump = False
+        self.health=1
         
     def move(self, frame):
         if self.speedy <= 6 and self.jump == True:
@@ -247,6 +298,7 @@ class BlueOctorok(Enemy):
         Enemy.__init__(self,"BlueOctorok.png",8,1)
         self.orientation = random.randint(0,3)
         self.step = 0
+        self.health=2
     def move(self, frame):
         if self.step == 15:
             self.speed = 0
@@ -279,6 +331,7 @@ class WaterMonster(Enemy):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
+        self.health=2
         
     def move(self, frame):
         

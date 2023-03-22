@@ -40,47 +40,13 @@ enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 
 nextFrame = clock()
 frame = 0
-#backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
-backgroundMusic=makeSound("betterCallSaulTheme.mp3")
+backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
+#backgroundMusic=makeSound("betterCallSaulTheme.mp3")
 playSound(backgroundMusic,10)
 dieOn=False
-def Die():
-    global dieOn
-    dieOn=True
-    stopSound(backgroundMusic)
-    changeSpriteImage(link, 0)
-    pause(125)
-    changeSpriteImage(link, 5)
-    pause(125)
-    changeSpriteImage(link, 2)
-    pause(125)
-    changeSpriteImage(link, 6)
-    pause(125)
-    changeSpriteImage(link, 0)
-    pause(125)
-    changeSpriteImage(link, 5)
-    pause(125)
-    changeSpriteImage(link, 2)
-    pause(125)
-    changeSpriteImage(link, 6)
-    pause(125)
-    changeSpriteImage(link, 0)
-    pause(125)
-    changeSpriteImage(link, 5)
-    pause(125)
-    changeSpriteImage(link, 2)
-    pause(125)
-    changeSpriteImage(link, 6)
-    pause(125)
-    changeSpriteImage(link, 0)
-    pause(125)
-    changeSpriteImage(link, 5)
-    pause(125)
-    changeSpriteImage(link, 2)
-    pause(125)
-    changeSpriteImage(link, 6)
-    pause(125)
-    changeSpriteImage(link, 0)
+dieAvailable=False
+theReaper=True
+
     
 
 while True:
@@ -130,9 +96,15 @@ while True:
         """
         for enemy in enemies:
             enemy.move(frame)
+            if touching(enemy, link):
+                link.hit(dieOn,theReaper,dieAvailable)
+                print(link.health)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
-                hideSprite(enemy)
+                enemy.health = enemy.health -1
+                print(enemy.health)
+                if enemy.health <=0:
+                    hideSprite(enemy)
 
 
 
