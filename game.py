@@ -92,7 +92,6 @@ while True:
             enemy.move(frame)
             if touching(enemy, link):
                 link.hit()
-          #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
                 enemy.hit()
                 if enemy.health == 0:
