@@ -380,7 +380,6 @@ class TargetRock(Projectile):
         
         if self.quad == 3 or self.quad == 2:
             deltaY = -deltaY
-        if self.quad == 2 or self.quad == 3:
             deltaX = -deltaX
             
         self.rect.x += deltaX
