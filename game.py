@@ -1,5 +1,5 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock, TargetRock
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -10,6 +10,7 @@ setAutoUpdate(False)
 link = Player()
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
+octorok.moveTo(500,500)
 leever=Leever()
 leeverspawned=True
 showSprite(leever)
@@ -19,12 +20,13 @@ tektite = Tektite()
 sword = Sword("Sworb.png", 4, 1)
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
+projectiles = []
 showSprite(link)
 for enemy in enemies:
     showSprite(enemy)
 
 #Experimenting with Rocks
-a_rock = Rock()
+a_rock = TargetRock(link)
 a_rock.orientation = 0
 showSprite(a_rock)
 a_rock.rect.x = 500
@@ -118,13 +120,18 @@ while True:
               leever.move(frame)
         """
         for enemy in enemies:
-            enemy.move(frame)
+            projectile = enemy.move(frame, link)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
+            if projectile != None:
+                projectiles.append(projectile)
+                showSprite(projectile)
             if touching(enemy, sword):
                 hideSprite(enemy)
 
-
-
+        for projectile in projectiles:
+            projectile.move(frame)
+        
+        
         sword.facing()
 
 
