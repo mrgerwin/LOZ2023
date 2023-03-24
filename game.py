@@ -32,7 +32,6 @@ for enemy in enemies:
 
 nextFrame = clock()
 frame = 0
-#backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
 backgroundMusic=makeSound("betterCallSaulTheme.mp3")
 playSound(backgroundMusic,10)
 dieOn=False
@@ -40,10 +39,8 @@ def Die():
     global dieOn
     dieOn=True
     stopSound(backgroundMusic)
-    #link.step += 1
-    #link.changeImage(3 + link.step % 3)
     link.die(frame)
-    
+
 
 while True:
     if clock() >nextFrame:
