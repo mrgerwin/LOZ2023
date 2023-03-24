@@ -1,5 +1,5 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -24,7 +24,7 @@ for enemy in enemies:
     showSprite(enemy)
 
 #Experimenting with Rocks
-a_rock = Projectile()
+a_rock = Rock()
 a_rock.orientation = 0
 showSprite(a_rock)
 a_rock.rect.x = 500

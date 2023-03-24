@@ -1,15 +1,6 @@
 from pygame_functions import *
 import random
 
-def clock():
-    current_time = pygame.time.get_ticks()
-    return current_time
-
-#class Rock(newSprite):
-    #def __init__(self):
-        #newSprite.__init__(self, "ROCKh.png", 10)
-        
-
 class Player(newSprite):
     def __init__(self):
         newSprite.__init__(self, "LinkSimple.png", 14)
@@ -179,9 +170,7 @@ class wizzrobe(Enemy):
         if playery > Spellball.y:
             Spellball.y += 1
     """            
-            
-
-        
+                    
 class Tektite(Enemy):
     def __init__(self):
         Enemy.__init__(self, "Tektite.png", 1, 2)
@@ -199,7 +188,6 @@ class Tektite(Enemy):
         if self.time == jumpFrame:
             self.jump = True
             self.speedy = random.randint(-14, -7)
-            print(self.speedy)
             self.speedx = random.randint(-6, 6)
         
         if self.time == jumpFrame + 25:
@@ -238,10 +226,6 @@ class Sword(newSprite):
         self.rect.x = x + w
         self.rect.y = y + z
         
-
-
-        
-        
 class BlueOctorok(Enemy):
     def __init__(self):
         Enemy.__init__(self,"BlueOctorok.png",8,1)
@@ -269,11 +253,6 @@ class BlueOctorok(Enemy):
             self.changeImage(6 + frame )
         self.step += 1
         
-        
-        
-
-
-
 class WaterMonster(Enemy):
     def __init__(self):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
@@ -281,8 +260,6 @@ class WaterMonster(Enemy):
         self.frame = 0
         
     def move(self, frame):
-        
-        
         if self.frame <= 3:
             self.rect.x = random.randint(0,1024)
             self.rect.y = random.randint(0,768)
@@ -319,8 +296,8 @@ class WaterMonster(Enemy):
 
         
 class Projectile(newSprite):
-    def __init__(self):
-        newSprite.__init__(self,"Rocks.png", 2, 1)
+    def __init__(self, filename, framesX=1, framesY=1):
+        newSprite.__init__(self,filename, framesX, framesY)
         self.speed = 3
         
     def move(self, frame):
@@ -335,6 +312,8 @@ class Projectile(newSprite):
             
         self.changeImage(frame)
         
-        
+class Rock(Projectile):
+    def __init__(self):
+        Projectile.__init__(self,"Rocks.png", 2, 1)
 
 
