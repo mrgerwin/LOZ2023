@@ -40,14 +40,11 @@ enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 
 nextFrame = clock()
 frame = 0
-#backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
-backgroundMusic=makeSound("betterCallSaulTheme.mp3")
-playSound(backgroundMusic,10)
+
 dieOn=False
 def Die():
     global dieOn
     dieOn=True
-    stopSound(backgroundMusic)
     changeSpriteImage(link, 0)
     pause(125)
     changeSpriteImage(link, 5)
