@@ -1,12 +1,12 @@
 from pygame_functions import *
-
 from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever
 
-# You Can Do It Code!!! I Believe In You!!!
 screenSize(1024,768)
 setBackgroundColour('grey')
-#timer = clock
+
 setAutoUpdate(False)
+
+#Making all sprites
 link = Player()
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
@@ -14,29 +14,21 @@ leever=Leever()
 leeverspawned=True
 showSprite(leever)
 wizzrobe = wizzrobe()
-showSprite(link)
-showSprite(octorok)
-showSprite(wizzrobe)
-
-
-
+watermonster = WaterMonster()
 tektite = Tektite()
 sword = Sword("Sworb.png", 4, 1)
-showSprite(tektite)
 
-
-watermonster = WaterMonster()
+enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 showSprite(link)
-showSprite(octorok)
-showSprite(Blueoctorok)
-showSprite(watermonster)
+for enemy in enemies:
+    showSprite(enemy)
+
+#Experimenting with Rocks
 a_rock = Projectile()
 a_rock.orientation = 0
 showSprite(a_rock)
 a_rock.rect.x = 500
 a_rock.rect.y = 350
-
-enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 
 nextFrame = clock()
 frame = 0
