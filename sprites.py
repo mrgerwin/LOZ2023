@@ -43,7 +43,7 @@ class Player(newSprite):
         self.step += 2
         
         if self.step == 8:
-            self.step == 0
+            self.step = 0
         self.changeImage(self.step)
 
 class Enemy(newSprite):
