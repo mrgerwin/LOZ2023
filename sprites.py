@@ -45,7 +45,8 @@ class Player(newSprite):
         if self.step == 8:
             self.step = 0
         self.changeImage(self.step)
-
+            
+        
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
