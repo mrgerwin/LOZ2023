@@ -221,7 +221,7 @@ class Sword(newSprite):
     def facing(self):
         self.changeImage(self.orientation)
         
-    def stab(self, x, y, orientation):
+    def stab(self, x, y, orientation, frame):
         z = 0
         w = 0
         
@@ -237,10 +237,6 @@ class Sword(newSprite):
         self.orientation = orientation
         self.rect.x = x + w
         self.rect.y = y + z
-        
-
-
-        
         
 class BlueOctorok(Enemy):
     def __init__(self):

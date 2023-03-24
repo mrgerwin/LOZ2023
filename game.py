@@ -18,7 +18,9 @@ showSprite(link)
 showSprite(octorok)
 showSprite(wizzrobe)
 
-
+canMove = True
+canStab = True
+timer = 0
 
 tektite = Tektite()
 sword = Sword("Sworb.png", 4, 1)
@@ -90,51 +92,65 @@ while True:
         pause(10)
         
         if dieOn == False:
-          if keyPressed("down"):
-              link.orientation =0
-              link.move(frame)
-              hideSprite(sword)
+            
+            if keyPressed("down"):
+                link.orientation =0
+                if canMove == True:
+                    link.move(frame)
+                    hideSprite(sword)
 
-          if keyPressed("up"):
-              link.orientation =1
-              link.move(frame)
-              hideSprite(sword)
+            if keyPressed("up"):
+                link.orientation =1
+                if canMove == True:
+                    link.move(frame)
+                    hideSprite(sword)
 
-          if keyPressed("right"):
-              link.orientation =2
-              link.move(frame)
-              hideSprite(sword)
+            if keyPressed("right"):
+                link.orientation =2
+                if canMove == True:
+                    link.move(frame)
+                    hideSprite(sword)
 
-          if keyPressed("left"):
-              link.orientation =3
-              link.move(frame)
-              hideSprite(sword)
+            if keyPressed("left"):
+                link.orientation =3
+                if canMove == True:
+                    link.move(frame)
+                    hideSprite(sword)
 
-          if keyPressed("space"):
-              changeSpriteImage(link, link.orientation + 8)
-              sword.stab(link.rect.x, link.rect.y, link.orientation)
-              showSprite(sword)
+            if keyPressed("space") and canStab:
+                canMove = False
+                canStab = False 
+                timer = nextFrame
+                changeSpriteImage(link, link.orientation + 8)
+                sword.stab(link.rect.x, link.rect.y, link.orientation, frame)
+                showSprite(sword)
+                
+            if timer+400 <= nextFrame and canStab == False:
+                canMove = True
+                hideSprite(sword)
+                changeSpriteImage(link, link.orientation * 2)
+                canStab = True
 
-          if keyPressed("h"):
-              changeSpriteImage(link, frame+12)
-          if keyPressed("s"):
-              link.move(frame)
-          if keyPressed("d"):
-              Die()
-        """
-          if keyPressed("l"):
-              leever.spawn(leever,frame)
-              leeverspawned=True
-          if leeverspawned==True:
-              leever.move(frame)
-        """
+            if keyPressed("h"):
+                changeSpriteImage(link, frame+12)
+            if keyPressed("s"):
+                link.move(frame)
+            if keyPressed("d"):
+                Die()
+
+
+            """
+            if keyPressed("l"): 
+            leever.spawn(leever,frame)
+            leeverspawned=True
+            if leeverspawned==True:
+            leever.move(frame)
+            """
         for enemy in enemies:
             enemy.move(frame)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
                 hideSprite(enemy)
-
-
 
         sword.facing()
 
