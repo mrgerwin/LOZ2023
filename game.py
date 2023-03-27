@@ -79,38 +79,50 @@ while True:
         nextFrame += 80
         pause(10)
         
-        if dieOn == False:
-          if keyPressed("down"):
-              link.orientation =0
-              link.move(frame)
-              hideSprite(sword)
+        for event in pygame.event.get():
+            print(event.type)
+            if event.type == pygame.QUIT:
+                pygame.quit = True
+                pygame.quit()
+                sys.exit(0)
+        
 
-          if keyPressed("up"):
-              link.orientation =1
-              link.move(frame)
-              hideSprite(sword)
-
-          if keyPressed("right"):
-              link.orientation =2
-              link.move(frame)
-              hideSprite(sword)
-
-          if keyPressed("left"):
-              link.orientation =3
-              link.move(frame)
-              hideSprite(sword)
-
-          if keyPressed("space"):
-              changeSpriteImage(link, link.orientation + 8)
-              sword.stab(link.rect.x, link.rect.y, link.orientation)
-              showSprite(sword)
-
-          if keyPressed("h"):
-              changeSpriteImage(link, frame+12)
-          if keyPressed("s"):
-              link.move(frame)
-          if keyPressed("d"):
-              Die()
+            if event.type == pygame.KEYDOWN:
+                print(event.key)
+                if event.key == pygame.K_SPACE:
+                    changeSpriteImage(link, link.orientation + 8)
+                    sword.stab(link.rect.x, link.rect.y, link.orientation)
+                    showSprite(sword)
+                if event.key == pygame.K_LEFT:
+                    link.orientation =3
+                    hideSprite(sword)
+                    link.speed = 4
+                if event.key == pygame.K_RIGHT:
+                    link.orientation =2
+                    link.speed = 4
+                    hideSprite(sword)
+                if event.key == pygame.K_UP:
+                    link.orientation =1
+                    link.speed = 4
+                    hideSprite(sword)
+                if event.key == pygame.K_DOWN:
+                    link.orientation =0
+                    link.speed = 4
+                    hideSprite(sword)
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    print("Aiden do the sword thing")
+                if event.key == pygame.K_LEFT:
+                    link.speed = 0
+                if event.key == pygame.K_RIGHT:
+                    link.speed = 0
+                if event.key == pygame.K_UP:
+                    link.speed = 0
+                if event.key == pygame.K_DOWN:
+                    link.speed = 0
+        
+              
         """
           if keyPressed("l"):
               leever.spawn(leever,frame)
@@ -125,7 +137,7 @@ while True:
                 hideSprite(enemy)
 
 
-
+        link.move(frame)
         sword.facing()
 
 
