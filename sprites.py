@@ -9,18 +9,19 @@ class Player(newSprite):
         self.speed = 4
     
     def move(self, frame):
-        if self.orientation == 0:
-            self.rect.y = self.rect.y + self.speed
-            self.changeImage(0*2 + frame)
-        elif self.orientation ==1:
-            self.rect.y = self.rect.y - self.speed
-            self.changeImage(1*2 + frame)
-        elif self.orientation ==2:
-            self.rect.x = self.rect.x + self.speed
-            self.changeImage(2*2 + frame)
-        else:
-            self.rect.x = self.rect.x - self.speed
-            self.changeImage(3*2 + frame)
+        if self.speed > 0:
+            if self.orientation == 0:
+                self.rect.y = self.rect.y + self.speed
+                self.changeImage(0*2 + frame)
+            elif self.orientation ==1:
+                self.rect.y = self.rect.y - self.speed
+                self.changeImage(1*2 + frame)
+            elif self.orientation ==2:
+                self.rect.x = self.rect.x + self.speed
+                self.changeImage(2*2 + frame)
+            else:
+                self.rect.x = self.rect.x - self.speed
+                self.changeImage(3*2 + frame)
 
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):

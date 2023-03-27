@@ -77,10 +77,8 @@ while True:
     if clock() >nextFrame:
         frame= (frame + 1)%2
         nextFrame += 80
-        pause(10)
         
         for event in pygame.event.get():
-            print(event.type)
             if event.type == pygame.QUIT:
                 pygame.quit = True
                 pygame.quit()
@@ -88,7 +86,6 @@ while True:
         
 
             if event.type == pygame.KEYDOWN:
-                print(event.key)
                 if event.key == pygame.K_SPACE:
                     changeSpriteImage(link, link.orientation + 8)
                     sword.stab(link.rect.x, link.rect.y, link.orientation)
