@@ -349,31 +349,6 @@ class TargetRock(Projectile):
         self.angle = 0
         self.link = link
         
-        if (self.rect.x - link.rect.x) > 0:
-            #link is to the left
-            if (self.rect.y - link.rect.y)>0:
-                #link is above
-                print("Link is left and above")
-                self.quad = 2
-            else:
-                #link is below
-                print("Link is left and below")
-                self.quad = 3
-        else:
-            #link is to the right
-            if (self.rect.y - link.rect.y)>0:
-                #link is above
-                print("Link is right and above")
-                self.quad = 1
-            else:
-                #link is below
-                print("Link is right and below")
-                self.quad = 4 
-        
-        self.angle = math.atan((self.rect.y-link.rect.y)/(self.rect.x-link.rect.x))
-        
-        
-        #print(self.angle)
     def move(self, frame):
         deltaX = self.speed * math.cos(self.angle)
         deltaY = self.speed * math.sin(self.angle)
