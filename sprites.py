@@ -50,6 +50,8 @@ class Octorok(Enemy):
     def move(self, frame):
         if self.step == 25:
             self.speed = 0
+            a_rock = Rock()
+            showSprite(a_rock)
             
         if self.step == 40:
             self.orientation = random.randint(0,3)

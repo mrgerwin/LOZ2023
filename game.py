@@ -24,12 +24,13 @@ for enemy in enemies:
     showSprite(enemy)
 
 #Experimenting with Rocks
+"""
 a_rock = Rock()
 a_rock.orientation = 0
 showSprite(a_rock)
 a_rock.rect.x = 500
 a_rock.rect.y = 350
-
+"""
 nextFrame = clock()
 frame = 0
 
@@ -128,7 +129,7 @@ while True:
         sword.facing()
 
 
-        a_rock.move(frame)
+        #a_rock.move(frame)
 
 
 
