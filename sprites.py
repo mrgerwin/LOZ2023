@@ -385,5 +385,5 @@ class TargetRock(Projectile):
                 #link is below
                 print("Link is right and below")
                 self.quad = 4 
-        
-        self.angle = math.atan((self.rect.y-self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        if self.rect.x-self.link.rect.x != 0:
+            self.angle = math.atan((self.rect.y-self.link.rect.y)/(self.rect.x-self.link.rect.x))
