@@ -30,18 +30,19 @@ showSprite(link)
 showSprite(octorok)
 showSprite(Blueoctorok)
 showSprite(watermonster)
-a_rock = Projectile()
-a_rock.orientation = 0
-showSprite(a_rock)
-a_rock.rect.x = 500
-a_rock.rect.y = 350
+#a_rock = Projectile()
+#a_rock.orientation = 0
+#showSprite(a_rock)
+#a_rock.rect.x = 500
+#a_rock.rect.y = 350
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 
 nextFrame = clock()
 frame = 0
-backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
+#backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
 #backgroundMusic=makeSound("betterCallSaulTheme.mp3")
+backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 dieOn=False
 def Die():
@@ -127,19 +128,24 @@ while True:
               leeverspawned=True
           if leeverspawned==True:
               leever.move(frame)
-        """
+             """
         for enemy in enemies:
             enemy.move(frame)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
-                hideSprite(enemy)
+                #killSprite(enemy)
+                enemy.hit()
+                
+            if touching (enemy, link):
+                #killSprite(link)
+                link.hit()
 
 
 
         sword.facing()
 
 
-        a_rock.move(frame)
+        #a_rock.move(frame)
 
 
 
