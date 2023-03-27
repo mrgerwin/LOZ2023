@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock
 
 # You Can Do It Code!!! I Believe In You!!!
 screenSize(1024,768)
@@ -25,19 +25,19 @@ sword = Sword("Sworb.png", 4, 1)
 showSprite(tektite)
 
 
-watermonster = WaterMonster()
+watermonster = WaterMonster(link)
 showSprite(link)
 showSprite(octorok)
 showSprite(Blueoctorok)
 showSprite(watermonster)
-#a_rock = Projectile()
+t_rock = TargetRock(link)
 #a_rock.orientation = 0
-#showSprite(a_rock)
-#a_rock.rect.x = 500
-#a_rock.rect.y = 350
+showSprite(t_rock)
+t_rock.rect.x = 500
+t_rock.rect.y = 0
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
-
+projectiles = [t_rock]
 nextFrame = clock()
 frame = 0
 #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
@@ -130,7 +130,9 @@ while True:
               leever.move(frame)
              """
         for enemy in enemies:
-            enemy.move(frame)
+            projectile = enemy.move(frame)
+            if projectile != None:
+                projectiles.append(projectile)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
                 #killSprite(enemy)
@@ -139,7 +141,8 @@ while True:
             if touching (enemy, link):
                 #killSprite(link)
                 link.hit()
-
+            for projectile in projectiles:
+                projectile.move(frame)
 
 
         sword.facing()
