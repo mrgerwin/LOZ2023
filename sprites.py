@@ -333,7 +333,7 @@ class Rock(Projectile):
         Projectile.__init__(self,"Rocks.png", 2, 1)
         
 class TargetRock(Projectile):
-     def __init__(self):
+    def __init__(self):
         Projectile.__init__(self,"Rocks.png", 2, 1)
         self.speeed = 4
         self.quad = 0
