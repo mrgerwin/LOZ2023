@@ -1,5 +1,6 @@
 from pygame_functions import *
 import random
+import math
 
 class Player(newSprite):
     def __init__(self):
@@ -7,6 +8,13 @@ class Player(newSprite):
         self.rect.x = 500
         self.rect.y = 350
         self.speed = 4
+        self.Health = 3
+        
+    def hit(self):
+        self.Health -=1
+        if self.Health == 0:
+            killSprite(self)
+            stopMusic()
     
     def move(self, frame):
         if self.orientation == 0:
@@ -50,6 +58,11 @@ class Octorok(Enemy):
     def move(self, frame):
         if self.step == 25:
             self.speed = 0
+            a_rock = Rock()
+            a_rock.rect.x = self.rect.x
+            a_rock.rect.y = self.rect.y
+            a_rock
+            showSprite(a_rock)
             
         if self.step == 40:
             self.orientation = random.randint(0,3)
@@ -254,10 +267,12 @@ class BlueOctorok(Enemy):
         self.step += 1
         
 class WaterMonster(Enemy):
-    def __init__(self):
+    def __init__(self, link):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
+        Health = 10000000000000000000
+        self.link = link
         
     def move(self, frame):
         if self.frame <= 3:
@@ -281,6 +296,7 @@ class WaterMonster(Enemy):
         elif self.frame <= 35:
             self.frame = self.frame +1
             self.changeImage(3)
+            TargerRock(link)
         elif self.frame <= 50:
             self.frame = self.frame +1
             self.changeImage(2)
@@ -315,5 +331,17 @@ class Projectile(newSprite):
 class Rock(Projectile):
     def __init__(self):
         Projectile.__init__(self,"Rocks.png", 2, 1)
-
-
+        
+class TargetRock(Projectile):
+     def __init__(self):
+        Projectile.__init__(self,"Rocks.png", 2, 1)
+        self.speeed = 4
+        self.quad = 0
+        self.angle = 0
+        self.link = link
+    def move(self, frame):
+        deltaX = self.speed * math.cos(self.angle)
+        deltaY = self.speed * math.sin(self.angle)
+        
+        self.rect.x += deltaX
+        self.rect.y += deltaY

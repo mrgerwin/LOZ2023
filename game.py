@@ -8,13 +8,20 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+music = makeMusic("linkMusic.mp3")
+link_die = makeSound("LOZ_Link_DIE.wav")
+link_hit = makeSound("LOZ_Link_Hurt.wav")
+enemy_die = makeSound("LOZ_Enemy_DIE.wav")
+enemy_hit = makeSound("LOZ_Enemy_Hit.wav")
+sword_slash = makeSound("LOZ_Sword_Slash.wav")
+
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 leever=Leever()
 leeverspawned=True
 showSprite(leever)
 wizzrobe = wizzrobe()
-watermonster = WaterMonster()
+watermonster = WaterMonster(link)
 tektite = Tektite()
 sword = Sword("Sworb.png", 4, 1)
 
@@ -29,9 +36,9 @@ a_rock.orientation = 0
 showSprite(a_rock)
 a_rock.rect.x = 500
 a_rock.rect.y = 350
-
 nextFrame = clock()
 frame = 0
+playMusic()
 
 dieOn=False
 def Die():
@@ -103,6 +110,7 @@ while True:
               changeSpriteImage(link, link.orientation + 8)
               sword.stab(link.rect.x, link.rect.y, link.orientation)
               showSprite(sword)
+              playSound(sword_slash)
 
           if keyPressed("h"):
               changeSpriteImage(link, frame+12)
@@ -119,9 +127,14 @@ while True:
         """
         for enemy in enemies:
             enemy.move(frame)
+            if touching(enemy, link):
+                link.hit()
+                playSound(link_hit)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
                 hideSprite(enemy)
+                playSound(enemy_hit)
+                playSound(enemy_die)
 
 
 
