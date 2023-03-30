@@ -1,5 +1,6 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock
+
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -14,25 +15,25 @@ leever=Leever()
 leeverspawned=True
 showSprite(leever)
 wizzrobe = wizzrobe()
-watermonster = WaterMonster()
 tektite = Tektite()
 sword = Sword("Sworb.png", 4, 1)
+
+
+
+watermonster = WaterMonster(link)
+projectiles = [t_rock]
+nextFrame = clock()
+frame = 0
+#backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
+#backgroundMusic=makeSound("betterCallSaulTheme.mp3")
+backgroundMusic=makeSound("linkMusic.mp3")
+playSound(backgroundMusic,10)
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 showSprite(link)
 for enemy in enemies:
     showSprite(enemy)
 
-#Experimenting with Rocks
-"""
-a_rock = Rock()
-a_rock.orientation = 0
-showSprite(a_rock)
-a_rock.rect.x = 500
-a_rock.rect.y = 350
-"""
-nextFrame = clock()
-frame = 0
 
 dieOn=False
 def Die():
@@ -126,13 +127,21 @@ while True:
               leeverspawned=True
           if leeverspawned==True:
               leever.move(frame)
-        """
+             """
         for enemy in enemies:
-            enemy.move(frame)
+            projectile = enemy.move(frame)
+            if projectile != None:
+                projectiles.append(projectile)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
-                hideSprite(enemy)
-
+                #killSprite(enemy)
+                enemy.hit()
+                
+            if touching (enemy, link):
+                #killSprite(link)
+                link.hit()
+            for projectile in projectiles:
+                projectile.move(frame)
 
         link.move(frame)
         sword.facing()
