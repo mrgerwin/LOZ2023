@@ -32,11 +32,13 @@ showSprite(link)
 showSprite(octorok)
 showSprite(Blueoctorok)
 showSprite(watermonster)
+'''
 a_rock = Projectile()
 a_rock.orientation = 0
 showSprite(a_rock)
 a_rock.rect.x = 500
 a_rock.rect.y = 350
+'''
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 
@@ -122,7 +124,7 @@ while True:
                 canStab = False 
                 timer = nextFrame
                 changeSpriteImage(link, link.orientation + 8)
-                sword.stab(link.rect.x, link.rect.y, link.orientation, frame)
+                sword.stab(link.orientation, link.rect.x, link.rect.y, frame)
                 showSprite(sword)
                 
             if timer+400 <= nextFrame and canStab == False:
@@ -153,10 +155,11 @@ while True:
                 hideSprite(enemy)
 
         sword.facing()
+        
 
-
+        '''
         a_rock.move(frame)
-
+        '''
 
 
         updateDisplay()

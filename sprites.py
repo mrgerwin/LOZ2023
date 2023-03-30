@@ -217,26 +217,37 @@ class Sword(newSprite):
         self.orientation = 0
         self.rect.x = 0
         self.rect.y = 0
+        self.stabbing = False
     
     def facing(self):
         self.changeImage(self.orientation)
         
-    def stab(self, x, y, orientation, frame):
+    def stab(self, orientation, x, y, frame):
         z = 0
         w = 0
         
         if orientation - 2 < 0:
-            z = 32
+            if orientation%2 == 0:
+                z = -32
+            elif orientation%2 == 1:
+                z = 32
         else:
-            w = 32
+            if orientation%2 == 0:
+                w = 32
+            if orientation%2 == 1:
+                w = -32
         
-        if orientation%2 == 1:
+        if orientation-2<0:
             z *= -1
             w *= -1
+        
+        self.stabbing = True
             
         self.orientation = orientation
+        
         self.rect.x = x + w
         self.rect.y = y + z
+            
         
 class BlueOctorok(Enemy):
     def __init__(self):
@@ -315,8 +326,8 @@ class WaterMonster(Enemy):
 
         
 class Projectile(newSprite):
-    def __init__(self):
-        newSprite.__init__(self,"Rocks.png", 2, 1)
+    def __init__(self, filename, framesX=1, framesY=1):
+        newSprite.__init__(self,filename, framesX, framesY)
         self.speed = 3
         
     def move(self, frame):
@@ -331,6 +342,8 @@ class Projectile(newSprite):
             
         self.changeImage(frame)
         
+class Rock(Projectile):
+    pass
         
 
 
