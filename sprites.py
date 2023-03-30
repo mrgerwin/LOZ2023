@@ -341,6 +341,7 @@ class WaterMonster(Enemy):
             T_Rock = TargetRock(self.link)
             T_Rock.moveTo(self.rect.x, self.rect.y)
             showSprite(T_Rock)
+            self.frame += 1
         elif self.frame <= 50:
             self.frame = self.frame +1
             self.changeImage(2)
@@ -388,8 +389,12 @@ class TargetRock(Projectile):
         deltaX = self.speed * math.cos(self.angle)
         deltaY = self.speed * math.sin(self.angle)
         
-        self.rect.x += deltaX
-        self.rect.y += deltaY
+        if self.quad == 1 or self.quad == 4:
+            self.rect.x += deltaX
+            self.rect.y += deltaY
+        else:
+            self.rect.x -= deltaX
+            self.rect.y -= deltaY
         
     def moveTo(self, x,y):
         self.rect.x = x
@@ -410,7 +415,8 @@ class TargetRock(Projectile):
                 print("right and below")
                 self.quad = 4
             
-                
+        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        
         
         
         
