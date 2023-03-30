@@ -6,7 +6,7 @@ class Player(newSprite):
         newSprite.__init__(self, "LinkSimple.png", 14)
         self.rect.x = 500
         self.rect.y = 350
-        self.speed = 4
+        self.speed = 0
     
     def move(self, frame):
         if self.speed > 0:
