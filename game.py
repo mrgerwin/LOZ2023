@@ -21,7 +21,7 @@ sword = Sword("Sworb.png", 4, 1)
 
 
 watermonster = WaterMonster(link)
-projectiles = [t_rock]
+projectiles = []
 nextFrame = clock()
 frame = 0
 #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
