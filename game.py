@@ -13,7 +13,7 @@ octorok = Octorok()
 leever=Leever()
 leeverspawned=True
 showSprite(leever)
-wizzrobe = wizzrobe()
+wizzrobe = wizzrobe(link)
 showSprite(link)
 showSprite(octorok)
 showSprite(wizzrobe)

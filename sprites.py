@@ -150,19 +150,21 @@ class Leever(Enemy):
 
 
 class wizzrobe(Enemy):
-    def __init__(self):
+    def __init__(self, link):
         Enemy.__init__(self, "blueghost2.png", 3, 2)
         self.orientation = random.randint(0, 3)
         self.step = 0
         self.ShootReady = False
         self.health = 3
+        self.link = link
         
     
     def move(self, frame):
+        W_rock=None
         if frame % 2 == 0:
             self.step += 1
             if self.ShootReady:
-                self.Shoot(frame)
+                W_rock = self.Shoot(frame)
                 self.ShootReady = False
         if self.step == 25:
             self.rect.x = random.randint(50, 950)
@@ -177,14 +179,14 @@ class wizzrobe(Enemy):
         else:
             self.changeImage(0)
         
-        
-        
-            
-            
-        
+        return W_rock
     def Shoot(self, frame):
         if self.ShootReady == True:
-            print("I'm going to shoot now")
+            W_Rock = TargetRock(self.link)
+            showSprite(W_Rock)
+                
+        
+            return W_Rock
             """
             Spellball = newSprite("Spellball.png")
             Spellball.rect.x = self.rect.x
