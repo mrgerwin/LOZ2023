@@ -98,6 +98,13 @@ class Enemy(newSprite):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
+    
+    def hit(self):
+        self.health -=1
+        self.rect.y +=32
+        if self.health == 0:
+            killSprite(self)
+            
 class DarkMoblin(Enemy):
     def __init__(self):
         Enemy.__init__(self,"DarkMoblin.png", 8, 1)
