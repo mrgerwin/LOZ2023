@@ -54,8 +54,16 @@ class Enemy(newSprite):
         self.rect.y +=32
         if self.health == 0:
             killSprite(self)
-            
-            
+
+class DarkMoblin(Enemy):
+    def __init__(self):
+        Enemy.__init__(self,"DarkMoblin.png", 8, 1)
+
+class Moblin(Enemy):
+    def __init__(self):
+        Enemy.__init__(self,"Moblin.png", 8, 1)
+    
+
 class Octorok(Enemy):
     def __init__(self):
         Enemy.__init__(self,"Octorok.png", 4, 2)

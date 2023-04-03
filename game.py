@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -16,6 +16,8 @@ leeverspawned=True
 showSprite(leever)
 wizzrobe = wizzrobe()
 tektite = Tektite()
+moblin = Moblin()
+dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
 
 
@@ -29,7 +31,7 @@ frame = 0
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
-enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
+enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
 showSprite(link)
 for enemy in enemies:
     showSprite(enemy)
