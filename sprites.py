@@ -157,7 +157,6 @@ class wizzrobe(Enemy):
         self.ShootReady = False
         self.health = 3
         self.link = link
-        
     
     def move(self, frame):
         W_rock=None
@@ -183,35 +182,17 @@ class wizzrobe(Enemy):
     def Shoot(self, frame):
         if self.ShootReady == True:
             W_Rock = TargetRock(self.link)
+            W_Rock.rect.x = self.rect.x
+            W_Rock.rect.y = self.rect.y
+            W_Rock.moveTo(self.rect.x, self.rect.y)
             showSprite(W_Rock)
-                
+            print(W_Rock.rect.x, W_Rock.rect.y)
         
             return W_Rock
-            """
-            Spellball = newSprite("Spellball.png")
-            Spellball.rect.x = self.rect.x
-            Spellball.rect.y = self.rect.y
-            ShootReady = False
-            showSprite(Spellball)
-            return Spellball
-            """
         
         return None
-    """
-    def Spellballmove(frame, playerx, playery):
-        global Spellball
-        if playerx < Spellball.x:
-            Spellball.x += 1
-        if playerx > Spellball.x:
-            Spellball.x -= 1
-        if playery < Spellball.y:
-            Spellball.y -= 1
-        if playery > Spellball.y:
-            Spellball.y += 1
-    """            
-            
-
-        
+    
+   
 class Tektite(Enemy):
     def __init__(self):
         Enemy.__init__(self, "Tektite.png", 1, 2)

@@ -133,7 +133,6 @@ while True:
             projectile = enemy.move(frame)
             if projectile != None:
                 projectiles.append(projectile)
-          #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
                 #killSprite(enemy)
                 enemy.hit()
