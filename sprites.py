@@ -17,7 +17,7 @@ class Player(newSprite):
         self.rect.y = 350
         self.speed = 4
         self.health=3
-    def hit(self,enemies, enemy, ded):
+    def hit(self,enemies, ded):
         if self.health <= 0:
             if ded == False:
                 dieAvailable=False
@@ -25,50 +25,45 @@ class Player(newSprite):
                 if theReaper==True:
                     dieAvailable=True
                     if dieAvailable==True:
-                        if touching(enemy, self):
-                            self.rect.y +=32
-                            hideSprite(enemies)
-                            dieAvailable=False
-                            theReaper=False
-                            dieOn=True
-                            ded=True
-                            changeSpriteImage(self, 0)
-                            pause(125)
-                            changeSpriteImage(self, 5)
-                            pause(125)
-                            changeSpriteImage(self, 2)
-                            pause(125)
-                            changeSpriteImage(self, 6)
-                            pause(125)
-                            changeSpriteImage(self, 0)
-                            pause(125)
-                            changeSpriteImage(self, 5)
-                            pause(125)
-                            changeSpriteImage(self, 2)
-                            pause(125)
-                            changeSpriteImage(self, 6)
-                            pause(125)
-                            changeSpriteImage(self, 0)
-                            pause(125)
-                            changeSpriteImage(self, 5)
-                            pause(125)
-                            changeSpriteImage(self, 2)
-                            pause(125)
-                            changeSpriteImage(self, 6)
-                            pause(125)
-                            changeSpriteImage(self, 0)
-                            pause(125)
-                            changeSpriteImage(self, 5)
-                            pause(125)
-                            changeSpriteImage(self, 2)
-                            pause(125)
-                            changeSpriteImage(self, 6)
-                            pause(125)
-                            changeSpriteImage(self, 0)
-                            
+                        dieAvailable=False
+                        theReaper=False
+                        dieOn=True
+                        ded=True
+                        hideSprite(enemies)
+                        changeSpriteImage(self, 0)
+                        pause(125)
+                        changeSpriteImage(self, 5)
+                        pause(125)
+                        changeSpriteImage(self, 2)
+                        pause(125)
+                        changeSpriteImage(self, 6)
+                        pause(125)
+                        changeSpriteImage(self, 0)
+                        pause(125)
+                        changeSpriteImage(self, 5)
+                        pause(125)
+                        changeSpriteImage(self, 2)
+                        pause(125)
+                        changeSpriteImage(self, 6)
+                        pause(125)
+                        changeSpriteImage(self, 0)
+                        pause(125)
+                        changeSpriteImage(self, 5)
+                        pause(125)
+                        changeSpriteImage(self, 2)
+                        pause(125)
+                        changeSpriteImage(self, 6)
+                        pause(125)
+                        changeSpriteImage(self, 0)
+                        pause(125)
+                        changeSpriteImage(self, 5)
+                        pause(125)
+                        changeSpriteImage(self, 2)
+                        pause(125)
+                        changeSpriteImage(self, 6)
+                        pause(125)
         else:
-             self.health= self.health - 0.5
-             self.rect.y +=32
+            self.health= self.health - 0.5
     def move(self, frame):
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
