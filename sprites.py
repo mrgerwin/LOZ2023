@@ -97,18 +97,32 @@ class Enemy(newSprite):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
-            
+class DarkMoblin(Enemy):
+    def __init__(self):
+        Enemy.__init__(self,"DarkMoblin.png", 8, 1)
+
+class Moblin(Enemy):
+    def __init__(self):
+        Enemy.__init__(self,"Moblin.png", 8, 1)
+    
+
 class Octorok(Enemy):
     def __init__(self):
         Enemy.__init__(self,"Octorok.png", 4, 2)
         self.orientation = random.randint(0,3)
         self.step = 0
-        self.health=1
+        self.health = 2
     def move(self, frame):
+        a_rock = None
         if self.step == 25:
             self.speed = 0
             a_rock = Rock()
+            a_rock.rect.x = self.rect.x
+            a_rock.rect.y = self.rect.y
+            a_rock.orientation = self.orientation
             showSprite(a_rock)
+            #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
+
             
         if self.step == 40:
             self.orientation = random.randint(0,3)
@@ -127,14 +141,16 @@ class Octorok(Enemy):
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
         self.step += 1
+        
+        
+        return a_rock
 class Leever(Enemy):
     def __init__(self):
         Enemy.__init__(self,"Leever.png", 6, 1)
         self.orientation = random.randint(0,3)
         self.step = 0
         self.changeImage(0)
-        self.health=2
-
+        self.health = 3
     def move(self, frame):
         if self.step == 25:
             pass
@@ -180,7 +196,7 @@ class wizzrobe(Enemy):
         self.orientation = random.randint(0, 3)
         self.step = 0
         self.ShootReady = False
-        self.health=5
+        self.health = 3
         
     
     def move(self, frame):
@@ -232,9 +248,7 @@ class wizzrobe(Enemy):
         if playery > Spellball.y:
             Spellball.y += 1
     """            
-            
-
-        
+                    
 class Tektite(Enemy):
     def __init__(self):
         Enemy.__init__(self, "Tektite.png", 1, 2)
@@ -242,7 +256,7 @@ class Tektite(Enemy):
         self.speedx = 0
         self.speedy = 0
         self.jump = False
-        self.health=1
+        self.health = 4
         
     def move(self, frame):
         if self.speedy <= 6 and self.jump == True:
@@ -253,7 +267,6 @@ class Tektite(Enemy):
         if self.time == jumpFrame:
             self.jump = True
             self.speedy = random.randint(-14, -7)
-            print(self.speedy)
             self.speedx = random.randint(-6, 6)
         
         if self.time == jumpFrame + 25:
@@ -292,19 +305,16 @@ class Sword(newSprite):
         self.rect.x = x + w
         self.rect.y = y + z
         
-
-
-        
-        
 class BlueOctorok(Enemy):
     def __init__(self):
         Enemy.__init__(self,"BlueOctorok.png",8,1)
         self.orientation = random.randint(0,3)
         self.step = 0
-        self.health=2
+        self.health = 3
     def move(self, frame):
         if self.step == 15:
             self.speed = 0
+            
             
         if self.step == 40:
             self.orientation = random.randint(0,4)
@@ -324,21 +334,18 @@ class BlueOctorok(Enemy):
             self.changeImage(6 + frame )
         self.step += 1
         
-        
-        
-
-
-
 class WaterMonster(Enemy):
-    def __init__(self):
+    def __init__(self, link):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
-        self.health=2
+        self.health = 4
+        self.link = link
         
     def move(self, frame):
+        T_Rock = None
         
-        
+
         if self.frame <= 3:
             self.rect.x = random.randint(0,1024)
             self.rect.y = random.randint(0,768)
@@ -360,6 +367,11 @@ class WaterMonster(Enemy):
         elif self.frame <= 35:
             self.frame = self.frame +1
             self.changeImage(3)
+        elif self.frame == 40:
+            T_Rock = TargetRock(self.link)
+            T_Rock.moveTo(self.rect.x, self.rect.y)
+            showSprite(T_Rock)
+            self.frame += 1
         elif self.frame <= 50:
             self.frame = self.frame +1
             self.changeImage(2)
@@ -373,11 +385,12 @@ class WaterMonster(Enemy):
         #if self.frame == 3:
             #self.Originalimg = pygame.image.load("ROCKh.png")
 
-        
+        return T_Rock
 class Projectile(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
-        newSprite.__init__(self,filename, framesX, framesY)
+        newSprite.__init__(self, filename, framesX, framesY)
         self.speed = 3
+
         
     def move(self, frame):
         if self.orientation == 0:
@@ -390,9 +403,55 @@ class Projectile(newSprite):
             self.rect.x = self.rect.x - self.speed
             
         self.changeImage(frame)
+    
+class Rock( Projectile):
+    def __init__(self):
+         Projectile.__init__(self,"Rocks.png", 2, 1)
+         
+class TargetRock(Projectile):
+    def __init__(self, link):
+         Projectile.__init__(self,"Rocks.png", 2, 1)
+         self.speed = 4
+         self.quad = 0
+         self.angle = 45
+         self.link = link
+    
+    def move(self, frame):
+        deltaX = self.speed * math.cos(self.angle)
+        deltaY = self.speed * math.sin(self.angle)
+        
+
+        if self.quad == 1 or self.quad == 4:
+            self.rect.x += deltaX
+            self.rect.y += deltaY
+        else:
+            self.rect.x -= deltaX
+            self.rect.y -= deltaY
+        
+    def moveTo(self, x,y):
+        self.rect.x = x
+        self.rect.y = y
+        
+        if (self.rect.x-self.link.rect.x) > 0:
+            if (self.rect.y - self.link.rect.y)>0:
+                print("left and Above")
+                self.quad = 2
+            if (self.rect.y -self.link.rect.y)<0:
+                print("left and below")
+                self.quad = 3
+        else:
+            if (self.rect.y - self.link.rect.y)>0:
+                print("right and Above")
+                self.quad = 1
+            if (self.rect.y -self.link.rect.y)<0:
+                print("right and below")
+                self.quad = 4
+            
+        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        
+        
         
         
 
-class Rock (Projectile):
-    def __init__(self):
-        Projectile.__init__(self,"Rocks.png",2,1)
+
+

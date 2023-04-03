@@ -26,7 +26,7 @@ sword = Sword("Sworb.png", 4, 1)
 showSprite(tektite)
 
 
-watermonster = WaterMonster()
+watermonster = WaterMonster(link)
 showSprite(link)
 showSprite(octorok)
 showSprite(Blueoctorok)
