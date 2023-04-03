@@ -270,10 +270,18 @@ class BlueOctorok(Enemy):
         self.step = 0
         self.health = 3
     def move(self, frame):
-        if self.step == 15:
+        a_rock = None
+        if self.step == 25:
             self.speed = 0
-            
-            
+            if random.randint(0,1) == 1:
+                a_rock = Rock()
+                a_rock.rect.x = self.rect.x
+                a_rock.rect.y = self.rect.y
+                a_rock.orientation = self.orientation
+                showSprite(a_rock)
+       
+        if self.step == 15:
+            self.speed = 0            
         if self.step == 40:
             self.orientation = random.randint(0,4)
             self.speed = 6
@@ -291,6 +299,7 @@ class BlueOctorok(Enemy):
             self.rect.x = self.rect.x - self.speed
             self.changeImage(6 + frame )
         self.step += 1
+        return a_rock
         
 class WaterMonster(Enemy):
     def __init__(self, link):
