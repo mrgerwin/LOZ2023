@@ -1,5 +1,6 @@
 from pygame_functions import *
 import random
+import math
 
 def clock():
     current_time = pygame.time.get_ticks()
