@@ -17,53 +17,53 @@ class Player(newSprite):
         self.rect.y = 350
         self.speed = 4
         self.health=3
-    def hit(dieOn,theReaper,dieAvailable):
-        if link.health <= 0:
-            if theReaper==True:
-                dieAvailable=True
-                if dieAvailable==True:
-                    dieAvailable=False
-                    theReaper=False
-                    Die()
+    def hit(self,enemies, ded):
+        if self.health <= 0:
+            if ded == False:
+                dieAvailable=False
+                theReaper=True
+                if theReaper==True:
+                    dieAvailable=True
+                    if dieAvailable==True:
+                        dieAvailable=False
+                        theReaper=False
+                        dieOn=True
+                        ded=True
+                        hideSprite(enemies)
+                        changeSpriteImage(self, 0)
+                        pause(125)
+                        changeSpriteImage(self, 5)
+                        pause(125)
+                        changeSpriteImage(self, 2)
+                        pause(125)
+                        changeSpriteImage(self, 6)
+                        pause(125)
+                        changeSpriteImage(self, 0)
+                        pause(125)
+                        changeSpriteImage(self, 5)
+                        pause(125)
+                        changeSpriteImage(self, 2)
+                        pause(125)
+                        changeSpriteImage(self, 6)
+                        pause(125)
+                        changeSpriteImage(self, 0)
+                        pause(125)
+                        changeSpriteImage(self, 5)
+                        pause(125)
+                        changeSpriteImage(self, 2)
+                        pause(125)
+                        changeSpriteImage(self, 6)
+                        pause(125)
+                        changeSpriteImage(self, 0)
+                        pause(125)
+                        changeSpriteImage(self, 5)
+                        pause(125)
+                        changeSpriteImage(self, 2)
+                        pause(125)
+                        changeSpriteImage(self, 6)
+                        pause(125)
         else:
-            link.health= link.health - 0.5
-    def Die(dieOn):
-        dieOn=True
-        hideSprite(enemies)
-        stopSound(backgroundMusic)
-        changeSpriteImage(link, 0)
-        pause(125)
-        changeSpriteImage(link, 5)
-        pause(125)
-        changeSpriteImage(self, 2)
-        pause(125)
-        changeSpriteImage(self, 6)
-        pause(125)
-        changeSpriteImage(self, 0)
-        pause(125)
-        changeSpriteImage(self, 5)
-        pause(125)
-        changeSpriteImage(self, 2)
-        pause(125)
-        changeSpriteImage(self, 6)
-        pause(125)
-        changeSpriteImage(self, 0)
-        pause(125)
-        changeSpriteImage(self, 5)
-        pause(125)
-        changeSpriteImage(self, 2)
-        pause(125)
-        changeSpriteImage(self, 6)
-        pause(125)
-        changeSpriteImage(self, 0)
-        pause(125)
-        changeSpriteImage(self, 5)
-        pause(125)
-        changeSpriteImage(self, 2)
-        pause(125)
-        changeSpriteImage(self, 6)
-        pause(125)
-        changeSpriteImage(self, 0)
+            self.health= self.health - 0.5
     def move(self, frame):
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
@@ -107,6 +107,8 @@ class Octorok(Enemy):
     def move(self, frame):
         if self.step == 25:
             self.speed = 0
+            a_rock = Rock()
+            showSprite(a_rock)
             
         if self.step == 40:
             self.orientation = random.randint(0,3)
@@ -132,6 +134,7 @@ class Leever(Enemy):
         self.step = 0
         self.changeImage(0)
         self.health=2
+
     def move(self, frame):
         if self.step == 25:
             pass
@@ -372,8 +375,8 @@ class WaterMonster(Enemy):
 
         
 class Projectile(newSprite):
-    def __init__(self):
-        newSprite.__init__(self,"Rocks.png", 2, 1)
+    def __init__(self, filename, framesX=1, framesY=1):
+        newSprite.__init__(self,filename, framesX, framesY)
         self.speed = 3
         
     def move(self, frame):
@@ -390,4 +393,6 @@ class Projectile(newSprite):
         
         
 
-
+class Rock (Projectile):
+    def __init__(self):
+        Projectile.__init__(self,"Rocks.png",2,1)

@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock
 
 # You Can Do It Code!!! I Believe In You!!!
 screenSize(1024,768)
@@ -11,6 +11,7 @@ link = Player()
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 leever=Leever()
+rock=Rock()
 leeverspawned=True
 showSprite(leever)
 wizzrobe = wizzrobe()
@@ -30,23 +31,21 @@ showSprite(link)
 showSprite(octorok)
 showSprite(Blueoctorok)
 showSprite(watermonster)
-a_rock = Projectile()
-a_rock.orientation = 0
-showSprite(a_rock)
-a_rock.rect.x = 500
-a_rock.rect.y = 350
+rock.orientation = 0
+showSprite(rock)
+rock.rect.x = 500
+rock.rect.y = 350
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 
 nextFrame = clock()
 frame = 0
-backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
+#backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
 #backgroundMusic=makeSound("betterCallSaulTheme.mp3")
+backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 dieOn=False
-dieAvailable=False
-theReaper=True
-
+ded=False
     
 
 while True:
@@ -85,8 +84,6 @@ while True:
               changeSpriteImage(link, frame+12)
           if keyPressed("s"):
               link.move(frame)
-          if keyPressed("d"):
-              Die()
         """
           if keyPressed("l"):
               leever.spawn(leever,frame)
@@ -97,7 +94,7 @@ while True:
         for enemy in enemies:
             enemy.move(frame)
             if touching(enemy, link):
-                link.hit(dieOn,theReaper,dieAvailable)
+                link.hit(enemies,ded)
                 print(link.health)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
@@ -111,7 +108,7 @@ while True:
         sword.facing()
 
 
-        a_rock.move(frame)
+        rock.move(frame)
 
 
 
