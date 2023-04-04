@@ -33,6 +33,8 @@ playSound(backgroundMusic,10)
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
 showSprite(link)
+for enemy in enemies:
+    showSprite(enemy)
 dieOn=False
 ded=False
     
