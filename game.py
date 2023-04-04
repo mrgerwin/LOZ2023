@@ -81,23 +81,24 @@ while True:
               leever.move(frame)
         """
         for enemy in enemies:
-            enemy.move(frame)
-            if touching(enemy, link):
-                link.hit(enemies,ded)
-                print(link.health)
+            projectile = enemy.move(frame)
+            if projectile != None:
+                projectiles.append(projectile)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
-                enemy.health = enemy.health -1
-                print(enemy.health)
-                if enemy.health <=0:
-                    hideSprite(enemy)
-
-
+                #killSprite(enemy)
+                enemy.hit()
+                
+            if touching (enemy, link):
+                #killSprite(link)
+                link.hit()
+            for projectile in projectiles:
+                projectile.move(frame)
 
         sword.facing()
 
 
-        rock.move(frame)
+        #a_rock.move(frame)
 
 
 
