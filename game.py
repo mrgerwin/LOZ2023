@@ -1,3 +1,5 @@
+from pygame_functions import *
+
 from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin
 
 screenSize(1024,768)
