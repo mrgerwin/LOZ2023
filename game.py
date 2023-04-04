@@ -93,7 +93,7 @@ while True:
                 
             if touching (enemy, link):
                 #killSprite(link)
-                link.hit()
+                link.hit(enemies,ded)
             for projectile in projectiles:
                 projectile.move(frame)
 

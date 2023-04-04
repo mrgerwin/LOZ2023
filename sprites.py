@@ -108,12 +108,46 @@ class Enemy(newSprite):
 class DarkMoblin(Enemy):
     def __init__(self):
         Enemy.__init__(self,"DarkMoblin.png", 8, 1)
+        self.health=3
 
 class Moblin(Enemy):
     def __init__(self):
         Enemy.__init__(self,"Moblin.png", 8, 1)
-    
+        self.orientation = random.randint(0,3)
+        self.step = 0
+        self.health = 2
+    def move(self, frame):
+        a_arrow = None
+        if self.step == 25:
+            self.speed = 0
+            a_arrow = Arrow()
+            a_arrow.rect.x = self.rect.x
+            a_arrow.rect.y = self.rect.y
+            a_arrow.orientation = self.orientation
+            showSprite(a_arrow)
+            #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
 
+            
+        if self.step == 40:
+            self.orientation = random.randint(0,3)
+            self.speed = 3
+            self.step = 0
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+            self.changeImage(0 + frame *2)
+        elif self.orientation ==1:
+            self.rect.y = self.rect.y - self.speed
+            self.changeImage(2 + frame*2)
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(3 + frame*2)
+        else:
+            self.rect.x = self.rect.x - self.speed
+            self.changeImage(1 + frame*2)
+        self.step += 1
+    
+        return a_arrow
+    
 class Octorok(Enemy):
     def __init__(self):
         Enemy.__init__(self,"Octorok.png", 4, 2)
@@ -413,6 +447,10 @@ class Projectile(newSprite):
         self.changeImage(frame)
     
 class Rock( Projectile):
+    def __init__(self):
+         Projectile.__init__(self,"Rocks.png", 2, 1)
+         
+class Arrow( Projectile):
     def __init__(self):
          Projectile.__init__(self,"Rocks.png", 2, 1)
          
