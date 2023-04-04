@@ -26,6 +26,7 @@ tektite = Tektite()
 sword = Sword("Sworb.png", 4, 1)
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
+projectiles = []
 showSprite(link)
 for enemy in enemies:
     showSprite(enemy)
@@ -126,7 +127,7 @@ while True:
               leever.move(frame)
         """
         for enemy in enemies:
-            projectile = enemy.move(frame)
+            projectile = enemy.move(frame, link)
             if projectile != None:
                 projectiles.append(projectile)
             if touching(enemy, link):
@@ -137,7 +138,9 @@ while True:
                 hideSprite(enemy)
                 playSound(enemy_hit)
                 playSound(enemy_die)
-
+                
+        for projectile in projectiles:
+            projectile.move(frame)
 
 
         sword.facing()
