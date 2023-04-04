@@ -1,49 +1,36 @@
-from pygame_functions import *
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock
-
-# You Can Do It Code!!! I Believe In You!!!
 screenSize(1024,768)
 setBackgroundColour('grey')
-#timer = clock
+
 setAutoUpdate(False)
+
+#Making all sprites
 link = Player()
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 leever=Leever()
-rock=Rock()
 leeverspawned=True
 showSprite(leever)
 wizzrobe = wizzrobe()
-showSprite(link)
-showSprite(octorok)
-showSprite(wizzrobe)
-
-
-
 tektite = Tektite()
+moblin = Moblin()
+dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
-showSprite(tektite)
+
 
 
 watermonster = WaterMonster(link)
-showSprite(link)
-showSprite(octorok)
-showSprite(Blueoctorok)
-showSprite(watermonster)
-rock.orientation = 0
-showSprite(rock)
-rock.rect.x = 500
-rock.rect.y = 350
-
-enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
-
+projectiles = []
 nextFrame = clock()
 frame = 0
 #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
 #backgroundMusic=makeSound("betterCallSaulTheme.mp3")
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
+
+enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
+showSprite(link)
 dieOn=False
 ded=False
     
