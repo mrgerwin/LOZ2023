@@ -181,7 +181,7 @@ class wizzrobe(Enemy):
         return W_rock
     def Shoot(self, frame):
         if self.ShootReady == True:
-            W_Rock = TargetRock(self.link)
+            W_Rock = TargetFireball(self.link)
             W_Rock.rect.x = self.rect.x
             W_Rock.rect.y = self.rect.y
             W_Rock.moveTo(self.rect.x, self.rect.y)
@@ -378,6 +378,7 @@ class TargetRock(Projectile):
         else:
             self.rect.x -= deltaX
             self.rect.y -= deltaY
+            
         
     def moveTo(self, x,y):
         self.rect.x = x
@@ -401,7 +402,49 @@ class TargetRock(Projectile):
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
         
         
+class TargetFireball(Projectile):
+    def __init__(self, link):
+         Projectile.__init__(self,"fireball1.png", 3, 1)
+         self.speed = 4
+         self.quad = 0
+         self.angle = 45
+         self.link = link
+    
+    def move(self, frame):
+        deltaX = self.speed * math.cos(self.angle)
+        deltaY = self.speed * math.sin(self.angle)
         
+        if self.quad == 1 or self.quad == 4:
+            self.rect.x += deltaX
+            self.rect.y += deltaY
+        else:
+            self.rect.x -= deltaX
+            self.rect.y -= deltaY
+            
+        
+    def moveTo(self, x,y):
+        self.rect.x = x
+        self.rect.y = y
+        
+        if (self.rect.x-self.link.rect.x) > 0:
+            if (self.rect.y - self.link.rect.y)>0:
+                print("left and Above")
+                self.quad = 2
+            if (self.rect.y -self.link.rect.y)<0:
+                print("left and below")
+                self.quad = 3
+        else:
+            if (self.rect.y - self.link.rect.y)>0:
+                print("right and Above")
+                self.quad = 1
+            if (self.rect.y -self.link.rect.y)<0:
+                print("right and below")
+                self.quad = 4
+            
+        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        
+        
+
         
   
 def killSprite(sprite):
