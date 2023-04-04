@@ -115,7 +115,7 @@ class DarkMoblin(Enemy):
         a_arrow = None
         if self.step == 25:
             self.speed = 0
-            a_arrow = Arrow()
+            a_arrow = AArrow()
             a_arrow.rect.x = self.rect.x
             a_arrow.rect.y = self.rect.y
             a_arrow.orientation = self.orientation
@@ -161,7 +161,7 @@ class Moblin(Enemy):
         a_arrow = None
         if self.step == 25:
             self.speed = 0
-            a_arrow = Arrow()
+            a_arrow = AArrow()
             a_arrow.rect.x = self.rect.x
             a_arrow.rect.y = self.rect.y
             a_arrow.orientation = self.orientation
@@ -498,10 +498,27 @@ class Projectile(newSprite):
 class Rock( Projectile):
     def __init__(self):
          Projectile.__init__(self,"Rocks.png", 2, 1)
+
          
-class Arrow( Projectile):
+class Arrow(newSprite):
+    def __init__(self, filename, framesX=1, framesY=1):
+        newSprite.__init__(self, filename, framesX, framesY)
+        self.speed = 3
+
+        
+    def move(self, frame):
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+        elif self.orientation ==1:
+            self.rect.y = self.rect.y - self.speed
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+        else:
+            self.rect.x = self.rect.x - self.speed
+            
+class AArrow(Arrow):
     def __init__(self):
-         Projectile.__init__(self,"Rocks.png", 2, 1)
+         Arrow.__init__(self,"arrow.png", 4, 1)
          
 class TargetRock(Projectile):
     def __init__(self, link):
