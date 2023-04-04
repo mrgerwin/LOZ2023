@@ -152,7 +152,21 @@ while True:
             enemy.move(frame)
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
+<<<<<<< Updated upstream
                 hideSprite(enemy)
+=======
+                pass
+                #killSprite(enemy)
+                #enemy.hit()
+                
+            if touching (enemy, link):
+                pass
+                #killSprite(link)
+                #link.hit()
+            for projectile in projectiles:
+                projectile.move(frame)
+
+>>>>>>> Stashed changes
 
         sword.facing()
         

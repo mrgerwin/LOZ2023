@@ -12,7 +12,7 @@ def clock():
 
 class Player(newSprite):
     def __init__(self):
-        newSprite.__init__(self, "LinkSimple.png", 14)
+        newSprite.__init__(self, "LinkSimple.png", 14, True)
         self.rect.x = 500
         self.rect.y = 350
         self.speed = 4
@@ -156,7 +156,6 @@ class wizzrobe(Enemy):
         
     def Shoot(self, frame):
         if self.ShootReady == True:
-            print("I'm going to shoot now")
             """
             Spellball = newSprite("Spellball.png")
             Spellball.rect.x = self.rect.x
@@ -199,7 +198,6 @@ class Tektite(Enemy):
         if self.time == jumpFrame:
             self.jump = True
             self.speedy = random.randint(-14, -7)
-            print(self.speedy)
             self.speedx = random.randint(-6, 6)
         
         if self.time == jumpFrame + 25:
@@ -342,8 +340,52 @@ class Projectile(newSprite):
             
         self.changeImage(frame)
         
+<<<<<<< Updated upstream
 class Rock(Projectile):
     pass
         
 
+=======
+        if self.quad == 1 or self.quad == 4:
+            self.rect.x -= deltaX
+        else:
+            self.rect.x += deltaX
+            
+        if self.quad == 1 or self.quad == 2:
+            self.rect.y -= deltaY
+        else:
+            self.rect.y += deltaY
+        
+    def moveTo(self, x,y):
+        self.rect.x = x
+        self.rect.y = y
+        
+        if (self.rect.x-self.link.rect.x) > 0:
+            if (self.rect.y - self.link.rect.y)>0:
+                print("left and Above")
+                self.quad = 1
+            if (self.rect.y -self.link.rect.y)<0:
+                print("left and below")
+                self.quad = 2
+        else:
+            if (self.rect.y - self.link.rect.y)>0:
+                print("right and Above")
+                self.quad = 0
+            if (self.rect.y -self.link.rect.y)<0:
+                print("right and below")
+                self.quad = 3
+            
+        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        self.angle = abs(self.angle)
+        print(self.angle * (180/math.pi))
+        
+        
+        
+        
+  
+def killSprite(sprite):
+    sprite.kill()
+    if screenRefresh:
+        updateDisplay()
+>>>>>>> Stashed changes
 
