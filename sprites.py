@@ -108,7 +108,48 @@ class Enemy(newSprite):
 class DarkMoblin(Enemy):
     def __init__(self):
         Enemy.__init__(self,"DarkMoblin.png", 8, 1)
-        self.health=3
+        self.orientation = random.randint(0,3)
+        self.step = 0
+        self.health = 3
+    def move(self, frame):
+        a_arrow = None
+        if self.step == 25:
+            self.speed = 0
+            a_arrow = Arrow()
+            a_arrow.rect.x = self.rect.x
+            a_arrow.rect.y = self.rect.y
+            a_arrow.orientation = self.orientation
+            showSprite(a_arrow)
+            #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
+            
+            
+        if self.step == 40:
+            self.orientation = random.randint(0,4)
+            self.speed = 6
+            self.step = 0
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+            self.changeImage(0 + frame )
+        elif self.rect.x>=998:
+            self.rect.x =995
+            self.rect.x = self.rect.x - self.speed
+            self.changeImage(4+frame)
+        elif self.rect.x<=24:
+            self.rect.x = 27
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(4+frame)
+        elif self.orientation ==1:
+            self.rect.y = self.rect.y - self.speed
+            self.changeImage(2 + frame )
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(4 + frame )
+        else:
+            self.rect.x = self.rect.x - self.speed
+            self.changeImage(6 + frame )
+        self.step += 1
+    
+        return a_arrow
 
 class Moblin(Enemy):
     def __init__(self):
@@ -126,24 +167,32 @@ class Moblin(Enemy):
             a_arrow.orientation = self.orientation
             showSprite(a_arrow)
             #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
-
+            
             
         if self.step == 40:
-            self.orientation = random.randint(0,3)
+            self.orientation = random.randint(0,4)
             self.speed = 3
             self.step = 0
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
-            self.changeImage(0 + frame *2)
+            self.changeImage(0 + frame )
+        elif self.rect.x>=998:
+            self.rect.x =995
+            self.rect.x = self.rect.x - self.speed
+            self.changeImage(4+frame)
+        elif self.rect.x<=24:
+            self.rect.x = 27
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(4+frame)
         elif self.orientation ==1:
             self.rect.y = self.rect.y - self.speed
-            self.changeImage(2 + frame*2)
+            self.changeImage(2 + frame )
         elif self.orientation ==2:
             self.rect.x = self.rect.x + self.speed
-            self.changeImage(3 + frame*2)
+            self.changeImage(4 + frame )
         else:
             self.rect.x = self.rect.x - self.speed
-            self.changeImage(1 + frame*2)
+            self.changeImage(6 + frame )
         self.step += 1
     
         return a_arrow
