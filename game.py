@@ -89,7 +89,8 @@ while True:
           #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
             if touching(enemy, sword):
                 #killSprite(enemy)
-                enemy.hit()
+                lorientation = link.orientation
+                enemy.hit(lorientation)
                 
             if touching (enemy, link):
                 #killSprite(link)

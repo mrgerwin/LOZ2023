@@ -99,12 +99,19 @@ class Enemy(newSprite):
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
     
-    def hit(self):
+    def hit(self, lorientation):
         self.health -=1
-        self.rect.y +=32
         if self.health == 0:
             killSprite(self)
-            
+        elif lorientation ==0:
+            self.rect.y +=32
+        elif lorientation ==1:
+            self.rect.x +=32
+        elif lorientation ==2:
+            self.rect.y -=32
+        elif lorientation ==3:
+            self.rect.x -=32
+
 class DarkMoblin(Enemy):
     def __init__(self):
         Enemy.__init__(self,"DarkMoblin.png", 8, 1)
@@ -509,12 +516,16 @@ class Arrow(newSprite):
     def move(self, frame):
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
+            self.changeImage(0)
         elif self.orientation ==1:
             self.rect.y = self.rect.y - self.speed
+            self.changeImage(1)
         elif self.orientation ==2:
             self.rect.x = self.rect.x + self.speed
+            self.changeImage(2)
         else:
             self.rect.x = self.rect.x - self.speed
+            self.changeImage(3)
             
 class AArrow(Arrow):
     def __init__(self):
