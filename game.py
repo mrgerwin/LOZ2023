@@ -1,5 +1,5 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock, TargetRock
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock, TargetRock, HotWater
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -138,10 +138,14 @@ while True:
                 hideSprite(enemy)
                 playSound(enemy_hit)
                 playSound(enemy_die)
+            
                 
         for projectile in projectiles:
             projectile.move(frame)
-
+            if touching(projectile, link):
+                killSprite(link)
+                link.hit()
+                playSound(link_hit)
 
         sword.facing()
 

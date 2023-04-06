@@ -271,8 +271,7 @@ class WaterMonster(Enemy):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
-        Health = 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-        #my baby will never die
+        Health = 4
         self.link = link
         
     def move(self, frame, link):
@@ -300,6 +299,7 @@ class WaterMonster(Enemy):
             self.changeImage(3)
         elif self.frame ==40:
             a_target= TargetRock(link)
+            a_target= HotWater(link)
             a_target.moveTo(self.rect.x, self.rect.y)
             showSprite(a_target)
             self.frame += 1
@@ -336,6 +336,52 @@ class Projectile(newSprite):
 class Rock(Projectile):
     def __init__(self):
         Projectile.__init__(self,"Rocks.png", 2, 1)
+    
+class HotWater(Projectile):
+    def __init__(self, link):
+        Projectile.__init__(self,"HotWater.png", 3, 1)
+        self.speed = 50
+        self.quad = 0
+        self.angle = 0
+        self.link = link
+    def move(self, frame):
+        deltaX = self.speed * math.cos(self.angle)
+        deltaY = self.speed * math.sin(self.angle)
+        
+        if self.quad == 3 or self.quad == 2:
+            deltaY = -deltaY
+            deltaX = -deltaX
+        self.changeImage(frame)
+        
+        self.rect.x += deltaX
+        self.rect.y += deltaY
+        print(self.angle)
+        
+    def moveTo(self, x, y):
+        
+        self.rect.x = x
+        self.rect.y = y
+        if (self.rect.x - self.link.rect.x) > 0:
+            #guess ill include this part also *sigh* link is to the left
+            if (self.rect.y - self.link.rect.y) > 0:
+                #link is above
+                print ("Link is left and above")
+                self.quad = 2
+            else:
+                #link is below
+                print ("Link is left and below")
+                self.quad = 3
+        else:
+            if (self.rect.y - self.link.rect.y) > 0:
+                #link is to the right
+                print ("Link is left and above")
+                self.quad = 1
+            else:
+                #link is below
+                print("Link is right and below")
+                self.quad = 4
+        if self.rect.x-self.link.rect.x != 0:
+            self.angle =math.atan((self.rect.y-self.link.rect.y)/(self.rect.x-self.link.rect.x))
         
 class TargetRock(Projectile):
     def __init__(self, link):
