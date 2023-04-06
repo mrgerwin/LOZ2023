@@ -90,11 +90,17 @@ while True:
             if touching(enemy, sword):
                 #killSprite(enemy)
                 lorientation = link.orientation
+                if enemy.health ==1:
+                    enemies.remove(enemy)
                 enemy.hit(lorientation)
                 
             if touching (enemy, link):
                 #killSprite(link)
-                link.hit(enemies,ded)
+                llorientation = link.orientation
+                if link.health == 0.5:
+                    for enemy in enemies:
+                        enemies.remove(enemy)
+                link.hit(enemies,ded,llorientation)
             for projectile in projectiles:
                 projectile.move(frame)
 

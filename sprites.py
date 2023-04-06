@@ -18,7 +18,7 @@ class Player(newSprite):
         self.rect.y = 350
         self.speed = 4
         self.health=3
-    def hit(self,enemies, ded):
+    def hit(self,enemies, ded,llorientation):
         if self.health <= 0:
             if ded == False:
                 dieAvailable=False
@@ -63,8 +63,20 @@ class Player(newSprite):
                         pause(125)
                         changeSpriteImage(self, 6)
                         pause(125)
-        else:
+        elif llorientation ==0:
+            self.rect.y +=32
             self.health= self.health - 0.5
+        elif llorientation ==1:
+            self.rect.x +=32
+            self.health= self.health - 0.5
+        elif llorientation ==2:
+            self.rect.y -=32
+            self.health= self.health - 0.5
+        elif llorientation ==3:
+            self.rect.x -=32
+            self.health= self.health - 0.5
+            
+            
     def move(self, frame):
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
