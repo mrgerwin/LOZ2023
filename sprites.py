@@ -742,7 +742,7 @@ class Item(newSprite):
           
 class BombItem():
     def __init__(self):
-        Item.__init__(self, "Bomb.png", 4, 2)           
+        Item.__init__(self, "Bomb.png", 1)           
     
 class Rupee(Item):
     def __init__(self):

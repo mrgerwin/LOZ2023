@@ -1,6 +1,5 @@
 from pygame_functions import *
 
-
 from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem
 
 screenSize(1024,768)
@@ -24,7 +23,7 @@ sword = Sword("Sworb.png", 4, 1)
 
 
 
-#Bomb = BombItem
+Bomb = BombItem()
 
 #a_rock.orientation = 0
 
