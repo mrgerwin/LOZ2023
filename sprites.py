@@ -8,7 +8,7 @@ class Player(newSprite):
         self.rect.x = 500
         self.rect.y = 350
 
-        self.speed = 4
+        self.speed = 0
         self.health=3
         print("Link created")
     def hit(self,enemies, ded,llorientation):
@@ -83,18 +83,22 @@ class Player(newSprite):
             self.health= self.health - 0.5
 
     def move(self, frame):
-        if self.orientation == 0:
-            self.rect.y = self.rect.y + self.speed
-            self.changeImage(0*2 + frame)
-        elif self.orientation ==1:
-            self.rect.y = self.rect.y - self.speed
-            self.changeImage(1*2 + frame)
-        elif self.orientation ==2:
-            self.rect.x = self.rect.x + self.speed
-            self.changeImage(2*2 + frame)
+        if self.speed == 0:
+            pass
         else:
-            self.rect.x = self.rect.x - self.speed
-            self.changeImage(3*2 + frame)
+        
+            if self.orientation == 0:
+                self.rect.y = self.rect.y + self.speed
+                self.changeImage(0*2 + frame)
+            elif self.orientation ==1:
+                self.rect.y = self.rect.y - self.speed
+                self.changeImage(1*2 + frame)
+            elif self.orientation ==2:
+                self.rect.x = self.rect.x + self.speed
+                self.changeImage(2*2 + frame)
+            else:
+                self.rect.x = self.rect.x - self.speed
+                self.changeImage(3*2 + frame)
     """
     def hit(self):
         self.health -=1

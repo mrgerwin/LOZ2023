@@ -110,27 +110,27 @@ while True:
                       changeSpriteImage(link, link.orientation + 8)
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
                       showSprite(sword)
-                      link.move(frame)
+                      
                   if event.key == pygame.K_LEFT:
                       link.orientation =3
                       hideSprite(sword)
                       link.speed = 4
-                      link.move(frame)
+                      
                   if event.key == pygame.K_RIGHT:
                       link.orientation =2
                       link.speed = 4
                       hideSprite(sword)
-                      link.move(frame)
+                      
                   if event.key == pygame.K_UP:
                       link.orientation =1
                       link.speed = 4
                       hideSprite(sword)
-                      link.move(frame)
+                      
                   if event.key == pygame.K_DOWN:
                       link.orientation =0
                       link.speed = 4
                       hideSprite(sword)
-                      link.move(frame)
+                      
 
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
@@ -166,7 +166,7 @@ while True:
         
 
         sword.facing()
-
+        link.move(frame)
 
         #a_rock.move(frame)
 
