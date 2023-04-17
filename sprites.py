@@ -10,8 +10,9 @@ class Player(newSprite):
 
         self.speed = 4
         self.health=3
+        print("Link created")
     def hit(self,enemies, ded,llorientation):
-        print (llorientation)
+        #print (llorientation)
         if self.health <= 0:
             if ded == False:
                 dieAvailable=False
@@ -94,12 +95,13 @@ class Player(newSprite):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(3*2 + frame)
+    """
     def hit(self):
         self.health -=1
         self.rect.y +=32
         if self.health == 0:
             killSprite(self)
-           
+    """       
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
@@ -352,7 +354,7 @@ class wizzrobe(Enemy):
         
     def Shoot(self, frame):
         if self.ShootReady == True:
-            print("I'm going to shoot now")
+            #print("I'm going to shoot now")
             """
             Spellball = newSprite("Spellball.png")
             Spellball.rect.x = self.rect.x
@@ -598,17 +600,17 @@ class TargetRock(Projectile):
         
         if (self.rect.x-self.link.rect.x) > 0:
             if (self.rect.y - self.link.rect.y)>0:
-                print("left and Above")
+                #print("left and Above")
                 self.quad = 2
             if (self.rect.y -self.link.rect.y)<0:
-                print("left and below")
+                #print("left and below")
                 self.quad = 3
         else:
             if (self.rect.y - self.link.rect.y)>0:
-                print("right and Above")
+                #print("right and Above")
                 self.quad = 1
             if (self.rect.y -self.link.rect.y)<0:
-                print("right and below")
+                #print("right and below")
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
@@ -681,17 +683,17 @@ class TargetRock(Projectile):
         
         if (self.rect.x-self.link.rect.x) > 0:
             if (self.rect.y - self.link.rect.y)>0:
-                print("left and Above")
+                #print("left and Above")
                 self.quad = 2
             if (self.rect.y -self.link.rect.y)<0:
-                print("left and below")
+                #print("left and below")
                 self.quad = 3
         else:
             if (self.rect.y - self.link.rect.y)>0:
-                print("right and Above")
+                #print("right and Above")
                 self.quad = 1
             if (self.rect.y -self.link.rect.y)<0:
-                print("right and below")
+                #print("right and below")
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
