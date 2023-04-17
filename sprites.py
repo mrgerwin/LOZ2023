@@ -446,8 +446,8 @@ class TargetFireball(Projectile):
         
 
 class Item():
-    def __init__(self, filename):
-        newSprite.__init__(self, filename)
+    def __init__(self, filename, FramesX=1, FramesY=1):
+        newSprite.__init__(self, filename, FramesX, FramesY)
         self.rect.x = 200
         self.rect.y = 200
         
@@ -456,7 +456,9 @@ class Item():
 class BombItem():
     def __init__(self):
         Item.__init__(self, "Bomb.png", 4, 2)
-        showSprite(self)
+        
+    
+       
     
 
 

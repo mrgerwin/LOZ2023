@@ -17,14 +17,9 @@ wizzrobe = wizzrobe(link)
 showSprite(link)
 showSprite(octorok)
 showSprite(wizzrobe)
-
-
-
 tektite = Tektite()
 sword = Sword("Sworb.png", 4, 1)
 showSprite(tektite)
-
-
 watermonster = WaterMonster(link)
 showSprite(link)
 showSprite(octorok)
@@ -43,8 +38,6 @@ projectiles = [t_rock]
 items = [Bomb]
 nextFrame = clock()
 frame = 0
-#backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
-#backgroundMusic=makeSound("betterCallSaulTheme.mp3")
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 dieOn=False
