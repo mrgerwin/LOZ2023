@@ -19,7 +19,14 @@ tektite = Tektite()
 moblin = Moblin()
 dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
+heart1 = Heart()
+rupee = Rupee()
+brupee = BlueRupee()
 
+
+heart1.move(64, 64)
+rupee.move(128, 64)
+brupee.move(96, 64)
 
 
 watermonster = WaterMonster(link)
@@ -33,6 +40,9 @@ playSound(backgroundMusic,10)
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
 showSprite(link)
+showSprite(heart1)
+showSprite(rupee)
+showSprite(brupee)
 for enemy in enemies:
     showSprite(enemy)
 dieOn=False
