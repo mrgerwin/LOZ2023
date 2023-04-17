@@ -445,8 +445,22 @@ class TargetFireball(Projectile):
         
         
 
+class Item():
+    def __init__(self, filename):
+        newSprite.__init__(self, filename)
+        self.rect.x = 200
+        self.rect.y = 200
         
-  
+
+
+class BombItem():
+    def __init__(self):
+        Item.__init__(self, "Bomb.png", 4, 2)
+        showSprite(self)
+    
+
+
+
 def killSprite(sprite):
     sprite.kill()
     if screenRefresh:

@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, BombItem
 
 # You Can Do It Code!!! I Believe In You!!!
 screenSize(1024,768)
@@ -31,6 +31,8 @@ showSprite(octorok)
 showSprite(Blueoctorok)
 showSprite(watermonster)
 t_rock = TargetRock(link)
+Bomb = BombItem
+
 #a_rock.orientation = 0
 showSprite(t_rock)
 t_rock.rect.x = 500
@@ -38,6 +40,7 @@ t_rock.rect.y = 0
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 projectiles = [t_rock]
+items = [Bomb]
 nextFrame = clock()
 frame = 0
 #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
