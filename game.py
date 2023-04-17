@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -19,6 +19,15 @@ tektite = Tektite()
 moblin = Moblin()
 dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
+heart1 = Heart()
+rupee1 = Rupee()
+bluerupee1 = BlueRupee()
+heart1.move(64,64)
+rupee1.move(128, 64)
+bluerupee1.move(96,64)
+showSprite(heart1)
+showSprite(rupee1)
+showSprite(bluerupee1)
 
 
 
@@ -144,7 +153,14 @@ while True:
                 link.hit()
             for projectile in projectiles:
                 projectile.move(frame)
+            
 
+
+           # for wall in scene1.Wall_Tiles:
+                #while touching(enemy,wall) or enemy.rect.x > screen width
+               # or enemy.rect.y> screen_height or enemy.rect.x<0 or enemy.rect.y<0:
+                  #  enemy.turn()
+                    #enemy.mobe(frame)
         link.move(frame)
         sword.facing()
 
@@ -152,7 +168,7 @@ while True:
         #a_rock.move(frame)
 
 
-
+        heart1.animate(frame)
         updateDisplay()
 
 endWait()

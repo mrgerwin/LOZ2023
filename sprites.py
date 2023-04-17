@@ -74,11 +74,12 @@ class Octorok(Enemy):
         a_rock = None
         if self.step == 25:
             self.speed = 0
-            a_rock = Rock()
-            a_rock.rect.x = self.rect.x
-            a_rock.rect.y = self.rect.y
-            a_rock.orientation = self.orientation
-            showSprite(a_rock)
+            if random.randint(0,3) == 3:
+                a_rock = Rock()
+                a_rock.rect.x = self.rect.x
+                a_rock.rect.y = self.rect.y
+                a_rock.orientation = self.orientation
+                showSprite(a_rock)
             #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
 
             
@@ -270,10 +271,18 @@ class BlueOctorok(Enemy):
         self.step = 0
         self.health = 3
     def move(self, frame):
-        if self.step == 15:
+        a_rock = None
+        if self.step == 25:
             self.speed = 0
-            
-            
+            if random.randint(0,1) == 1:
+                a_rock = Rock()
+                a_rock.rect.x = self.rect.x
+                a_rock.rect.y = self.rect.y
+                a_rock.orientation = self.orientation
+                showSprite(a_rock)
+       
+        if self.step == 15:
+            self.speed = 0            
         if self.step == 40:
             self.orientation = random.randint(0,4)
             self.speed = 6
@@ -291,6 +300,7 @@ class BlueOctorok(Enemy):
             self.rect.x = self.rect.x - self.speed
             self.changeImage(6 + frame )
         self.step += 1
+        return a_rock
         
 class WaterMonster(Enemy):
     def __init__(self, link):
@@ -408,7 +418,53 @@ class TargetRock(Projectile):
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
         
         
+class Item(newSprite):
+    def __init__(self, img, x):
+        newSprite.__init__(self, img, x)
+        self.value = 0
+        self.health = 0
+        self.bomb = 0
+        self.time = 0
+        self.maxHealth = 0
+          
+    def animate(self):
+        nextSpriteImage(self)
+          
+           
+    
+class Rupee(Item):
+    def __init__(self):
+        Item.__init__(self, "coins.png", 2)
+        self.value = 1
+    def animate (self, frame=0):
+        pass
+  
+  
+class BlueRupee(Item):
+    def __init__(self):
+        Item.__init__(self, "coins.png", 2)
+        self.value = 5
+        self.changeImage(1)
+    def animate(self, frame=0):
+        pass
         
-        
+class Heart(Item):
+    def __init__(self):
+        Item.__init__(self, "Hearts.png", 3)
+        self.health = 1
+            
+    def animate(self, frame=0):
+        self.changeImage(frame)
+            
+class HeartContainer(Item):
+    def __init__(self):
+        item.__init__(self, "Hearts.png", 3)
+        self.maxHealth = 1
+        self.changeImage(2)
+            
+    def animate(self):
+        pass
+    
+ 
 
 
