@@ -155,12 +155,6 @@ while True:
                 projectile.move(frame)
             
 
-
-           # for wall in scene1.Wall_Tiles:
-                #while touching(enemy,wall) or enemy.rect.x > screen width
-               # or enemy.rect.y> screen_height or enemy.rect.x<0 or enemy.rect.y<0:
-                  #  enemy.turn()
-                    #enemy.mobe(frame)
         link.move(frame)
         sword.facing()
 
