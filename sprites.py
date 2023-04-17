@@ -19,6 +19,7 @@ class Player(newSprite):
         self.speed = 4
         self.health=3
     def hit(self,enemies, ded,llorientation):
+        print (llorientation)
         if self.health <= 0:
             if ded == False:
                 dieAvailable=False
@@ -30,6 +31,18 @@ class Player(newSprite):
                         theReaper=False
                         dieOn=True
                         ded=True
+                        if llorientation ==0:
+                            self.rect.y -=32
+                            self.health= self.health - 0.5
+                        elif llorientation ==1:
+                            self.rect.y +=32
+                            self.health= self.health - 0.5
+                        elif llorientation ==2:
+                            self.rect.x -=32
+                            self.health= self.health - 0.5
+                        elif llorientation ==3:
+                            self.rect.x +=32
+                            self.health= self.health - 0.5
                         hideSprite(enemies)
                         changeSpriteImage(self, 0)
                         pause(125)
@@ -64,16 +77,16 @@ class Player(newSprite):
                         changeSpriteImage(self, 6)
                         pause(125)
         elif llorientation ==0:
-            self.rect.y +=32
-            self.health= self.health - 0.5
-        elif llorientation ==1:
-            self.rect.x +=32
-            self.health= self.health - 0.5
-        elif llorientation ==2:
             self.rect.y -=32
             self.health= self.health - 0.5
-        elif llorientation ==3:
+        elif llorientation ==1:
+            self.rect.y +=32
+            self.health= self.health - 0.5
+        elif llorientation ==2:
             self.rect.x -=32
+            self.health= self.health - 0.5
+        elif llorientation ==3:
+            self.rect.x +=32
             self.health= self.health - 0.5
             
             
