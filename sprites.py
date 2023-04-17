@@ -320,19 +320,20 @@ class Leever(Enemy):
 
 
 class wizzrobe(Enemy):
-    def __init__(self):
+    def __init__(self, link):
         Enemy.__init__(self, "blueghost2.png", 3, 2)
         self.orientation = random.randint(0, 3)
         self.step = 0
         self.ShootReady = False
         self.health = 3
-        
+        self.link = link
     
     def move(self, frame):
+        W_rock=None
         if frame % 2 == 0:
             self.step += 1
             if self.ShootReady:
-                self.Shoot(frame)
+                W_rock = self.Shoot(frame)
                 self.ShootReady = False
         if self.step == 25:
             self.rect.x = random.randint(50, 950)
@@ -347,37 +348,23 @@ class wizzrobe(Enemy):
         else:
             self.changeImage(0)
         
-        
-        
-            
-            
-        
+        return W_rock
     def Shoot(self, frame):
         if self.ShootReady == True:
-            #print("I'm going to shoot now")
-            """
-            Spellball = newSprite("Spellball.png")
-            Spellball.rect.x = self.rect.x
-            Spellball.rect.y = self.rect.y
-            ShootReady = False
-            showSprite(Spellball)
-            return Spellball
-            """
+
+            W_Rock = TargetFireball(self.link)
+            W_Rock.rect.x = self.rect.x
+            W_Rock.rect.y = self.rect.y
+            W_Rock.moveTo(self.rect.x, self.rect.y)
+            showSprite(W_Rock)
+            print(W_Rock.rect.x, W_Rock.rect.y)
+        
+            return W_Rock
         
         return None
-    """
-    def Spellballmove(frame, playerx, playery):
-        global Spellball
-        if playerx < Spellball.x:
-            Spellball.x += 1
-        if playerx > Spellball.x:
-            Spellball.x -= 1
-        if playery < Spellball.y:
-            Spellball.y -= 1
-        if playery > Spellball.y:
-            Spellball.y += 1
-    """            
-                    
+    
+   
+
 class Tektite(Enemy):
     def __init__(self):
         Enemy.__init__(self, "Tektite.png", 1, 2)
@@ -593,6 +580,49 @@ class TargetRock(Projectile):
         else:
             self.rect.x -= deltaX
             self.rect.y -= deltaY
+            
+        
+    def moveTo(self, x,y):
+        self.rect.x = x
+        self.rect.y = y
+        
+        if (self.rect.x-self.link.rect.x) > 0:
+            if (self.rect.y - self.link.rect.y)>0:
+                print("left and Above")
+                self.quad = 2
+            if (self.rect.y -self.link.rect.y)<0:
+                print("left and below")
+                self.quad = 3
+        else:
+            if (self.rect.y - self.link.rect.y)>0:
+                print("right and Above")
+                self.quad = 1
+            if (self.rect.y -self.link.rect.y)<0:
+                print("right and below")
+                self.quad = 4
+            
+        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        
+        
+class TargetFireball(Projectile):
+    def __init__(self, link):
+         Projectile.__init__(self,"fireball1.png", 3, 1)
+         self.speed = 4
+         self.quad = 0
+         self.angle = 45
+         self.link = link
+    
+    def move(self, frame):
+        deltaX = self.speed * math.cos(self.angle)
+        deltaY = self.speed * math.sin(self.angle)
+        
+        if self.quad == 1 or self.quad == 4:
+            self.rect.x += deltaX
+            self.rect.y += deltaY
+        else:
+            self.rect.x -= deltaX
+            self.rect.y -= deltaY
+            
         
     def moveTo(self, x,y):
         self.rect.x = x
@@ -631,9 +661,8 @@ class Rupee(Item):
     def __init__(self):
         Item.__init__(self, "Coins.png", 2)
         self.value = 1
-        
     def animate(self, frame=0):
-        pass
+        pass    
 
 class BlueRupee(Item):
     def __init__(self):
@@ -711,7 +740,9 @@ class Item(newSprite):
     def animate(self):
         nextSpriteImage(self)
           
-           
+class BombItem():
+    def __init__(self):
+        Item.__init__(self, "Bomb.png", 4, 2)           
     
 class Rupee(Item):
     def __init__(self):
@@ -739,6 +770,4 @@ class HeartContainer(Item):
     def animate(self):
         pass
     
-
-
 
