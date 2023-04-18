@@ -1,7 +1,7 @@
 from pygame_functions import *
 import random
 import math
-
+                      
 class Player(newSprite):
     def __init__(self):
         newSprite.__init__(self, "LinkSimple.png", 14)
@@ -125,7 +125,6 @@ class Enemy(newSprite):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(1 + frame*4)
-    
 
     def hit(self, lorientation):
         self.health -=1
@@ -767,9 +766,16 @@ class BlueRupee(Item):
             
 class HeartContainer(Item):
     def __init__(self):
-        item.__init__(self, "Hearts.png", 3)
+        Item.__init__(self, "Hearts.png", 3)
         self.maxHealth = 1
         self.changeImage(2)
+            
+    def animate(self):
+        pass
+    
+class Clock(Item):
+    def __init__(self):
+        Item.__init__(self, "Clock.png", 1)
             
     def animate(self):
         pass

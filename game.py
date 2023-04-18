@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem,Clock
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -9,6 +9,7 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+ClockAquired=False
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 leever=Leever()
@@ -30,14 +31,16 @@ Bomb = BombItem()
 items = [Bomb]
 
 heart1 = Heart()
-
+clock1= Clock()
 rupee1 = Rupee()
 bluerupee1 = BlueRupee()
 heart1.move(64,64)
 rupee1.move(128, 64)
 bluerupee1.move(96,64)
+clock1.move(160,64)
 showSprite(heart1)
 showSprite(rupee1)
+showSprite(clock1)
 showSprite(bluerupee1)
 
 watermonster = WaterMonster(link)
@@ -130,7 +133,10 @@ while True:
                       link.orientation =0
                       link.speed = 4
                       hideSprite(sword)
-                      
+                  if event.key == pygame.K_a:
+                      ClockAquired=True
+                      print("A key pressed")
+
 
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
@@ -145,9 +151,12 @@ while True:
                       link.speed = 0
        
         for enemy in enemies:
-            projectile = enemy.move(frame)
-            if projectile != None:
-                projectiles.append(projectile)
+            if ClockAquired==False:
+                projectile = enemy.move(frame)
+                if projectile != None:
+                    projectiles.append(projectile)
+            else:
+                pass
 
             if touching(enemy, sword):
                 #killSprite(enemy)
