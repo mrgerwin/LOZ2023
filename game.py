@@ -33,12 +33,18 @@ heart1 = Heart()
 
 rupee1 = Rupee()
 bluerupee1 = BlueRupee()
+bluerupee2 = BlueRupee()
+bluerupee3 = BlueRupee()
 heart1.move(64,64)
 rupee1.move(128, 64)
 bluerupee1.move(96,64)
+bluerupee2.move(64, 96)
+bluerupee3.move(46, 69)
 showSprite(heart1)
 showSprite(rupee1)
 showSprite(bluerupee1)
+showSprite(bluerupee2)
+showSprite(bluerupee3)
 
 watermonster = WaterMonster(link)
 projectiles = []
@@ -49,6 +55,7 @@ backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
+Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3] 
 showSprite(link)
 
 for enemy in enemies:
@@ -162,6 +169,17 @@ while True:
                 link.hit(enemy,ded,link.orientation)
             for projectile in projectiles:
                 projectile.move(frame)
+                
+            for Item in Items:
+                if touching (link, Item):
+                    if type(Item) == BlueRupee:
+                        link.money +=5
+                    Items.remove(Item)
+                    killSprite(Item)
+                    #Item.hit(bluerupee1)
+                    print(link.money)
+            
+
 
         
 

@@ -7,10 +7,10 @@ class Player(newSprite):
         newSprite.__init__(self, "LinkSimple.png", 14)
         self.rect.x = 500
         self.rect.y = 350
-
         self.speed = 0
+        self.money = 0
         self.health=3
-        print("Link created")
+        
     def hit(self,enemies, ded,llorientation):
         #print (llorientation)
         if self.health <= 0:
@@ -103,9 +103,10 @@ class Player(newSprite):
     def hit(self):
         self.health -=1
         self.rect.y +=32
+
         if self.health == 0:
             killSprite(self)
-    """       
+    """
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
@@ -761,6 +762,9 @@ class BlueRupee(Item):
         Item.__init__(self, "coins.png", 2)
         self.value = 5
         self.changeImage(1)
+        
+    def hit(self):
+        killSprite(self)
     def animate(self, frame=0):
         pass
         
