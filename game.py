@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -14,12 +14,23 @@ octorok = Octorok()
 leever=Leever()
 leeverspawned=True
 showSprite(leever)
-wizzrobe = wizzrobe()
+wizzrobe = wizzrobe(link)
 tektite = Tektite()
 moblin = Moblin()
 dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
+
+
+
+
+Bomb = BombItem()
+
+#a_rock.orientation = 0
+
+items = [Bomb]
+
 heart1 = Heart()
+
 rupee1 = Rupee()
 bluerupee1 = BlueRupee()
 bluerupee2 = BlueRupee()
@@ -35,25 +46,23 @@ showSprite(bluerupee1)
 showSprite(bluerupee2)
 showSprite(bluerupee3)
 
-
-
 watermonster = WaterMonster(link)
 projectiles = []
+
 nextFrame = clock()
 frame = 0
-#backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
-#backgroundMusic=makeSound("betterCallSaulTheme.mp3")
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
 Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3] 
 showSprite(link)
+
 for enemy in enemies:
     showSprite(enemy)
-
-
 dieOn=False
+ded=False
+
 def Die():
     global dieOn
     dieOn=True
@@ -91,73 +100,73 @@ def Die():
     pause(125)
     changeSpriteImage(link, 0)
     
-
 while True:
     if clock() >nextFrame:
         frame= (frame + 1)%2
         nextFrame += 80
-        
+     
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit = True
                 pygame.quit()
                 sys.exit(0)
         
+            if dieOn == False:
+              if event.type == pygame.KEYDOWN:
+                  if event.key == pygame.K_SPACE:
+                      changeSpriteImage(link, link.orientation + 8)
+                      sword.stab(link.rect.x, link.rect.y, link.orientation)
+                      showSprite(sword)
+                      
+                  if event.key == pygame.K_LEFT:
+                      link.orientation =3
+                      hideSprite(sword)
+                      link.speed = 4
+                      
+                  if event.key == pygame.K_RIGHT:
+                      link.orientation =2
+                      link.speed = 4
+                      hideSprite(sword)
+                      
+                  if event.key == pygame.K_UP:
+                      link.orientation =1
+                      link.speed = 4
+                      hideSprite(sword)
+                      
+                  if event.key == pygame.K_DOWN:
+                      link.orientation =0
+                      link.speed = 4
+                      hideSprite(sword)
+                      
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    changeSpriteImage(link, link.orientation + 8)
-                    sword.stab(link.rect.x, link.rect.y, link.orientation)
-                    showSprite(sword)
-                if event.key == pygame.K_LEFT:
-                    link.orientation =3
-                    hideSprite(sword)
-                    link.speed = 4
-                if event.key == pygame.K_RIGHT:
-                    link.orientation =2
-                    link.speed = 4
-                    hideSprite(sword)
-                if event.key == pygame.K_UP:
-                    link.orientation =1
-                    link.speed = 4
-                    hideSprite(sword)
-                if event.key == pygame.K_DOWN:
-                    link.orientation =0
-                    link.speed = 4
-                    hideSprite(sword)
-            
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_SPACE:
-                    print("Aiden do the sword thing")
-                if event.key == pygame.K_LEFT:
-                    link.speed = 0
-                if event.key == pygame.K_RIGHT:
-                    link.speed = 0
-                if event.key == pygame.K_UP:
-                    link.speed = 0
-                if event.key == pygame.K_DOWN:
-                    link.speed = 0
-        
-              
-        """
-          if keyPressed("l"):
-              leever.spawn(leever,frame)
-              leeverspawned=True
-          if leeverspawned==True:
-              leever.move(frame)
-             """
+              if event.type == pygame.KEYUP:
+                  if event.key == pygame.K_SPACE:
+                      print("Aiden do the sword thing")
+                  if event.key == pygame.K_LEFT:
+                      link.speed = 0
+                  if event.key == pygame.K_RIGHT:
+                      link.speed = 0
+                  if event.key == pygame.K_UP:
+                      link.speed = 0
+                  if event.key == pygame.K_DOWN:
+                      link.speed = 0
+       
         for enemy in enemies:
             projectile = enemy.move(frame)
             if projectile != None:
                 projectiles.append(projectile)
-          #wizzrobe.Spellballmove(link.rect.x, link.rect.y)
+
             if touching(enemy, sword):
                 #killSprite(enemy)
-                enemy.hit()
+                if enemy.health ==1:
+                    enemies.remove(enemy)
+                enemy.hit(link.orientation)
                 
             if touching (enemy, link):
                 #killSprite(link)
-                link.hit()
+                if link.health == 0.5:
+                    print("you died")
+                link.hit(enemy,ded,link.orientation)
             for projectile in projectiles:
                 projectile.move(frame)
                 
@@ -170,20 +179,14 @@ while True:
                     #Item.hit(bluerupee1)
                     print(link.money)
             
-            
 
 
-           # for wall in scene1.Wall_Tiles:
-                #while touching(enemy,wall) or enemy.rect.x > screen width
-               # or enemy.rect.y> screen_height or enemy.rect.x<0 or enemy.rect.y<0:
-                  #  enemy.turn()
-                    #enemy.mobe(frame)
-        link.move(frame)
+        
+
         sword.facing()
-
+        link.move(frame)
 
         #a_rock.move(frame)
-
 
         heart1.animate(frame)
         updateDisplay()
