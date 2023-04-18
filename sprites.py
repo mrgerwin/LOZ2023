@@ -365,7 +365,7 @@ class wizzrobe(Enemy):
             W_Rock.rect.y = self.rect.y
             W_Rock.moveTo(self.rect.x, self.rect.y)
             showSprite(W_Rock)
-            print(W_Rock.rect.x, W_Rock.rect.y)
+            #print(W_Rock.rect.x, W_Rock.rect.y)
         
             return W_Rock
         
@@ -603,17 +603,17 @@ class TargetRock(Projectile):
         
         if (self.rect.x-self.link.rect.x) > 0:
             if (self.rect.y - self.link.rect.y)>0:
-                print("left and Above")
+                #print("left and Above")
                 self.quad = 2
             if (self.rect.y -self.link.rect.y)<0:
-                print("left and below")
+                #print("left and below")
                 self.quad = 3
         else:
             if (self.rect.y - self.link.rect.y)>0:
-                print("right and Above")
+                #print("right and Above")
                 self.quad = 1
             if (self.rect.y -self.link.rect.y)<0:
-                print("right and below")
+                #print("right and below")
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
@@ -655,7 +655,7 @@ class TargetFireball(Projectile):
                 #print("right and Above")
                 self.quad = 1
             if (self.rect.y -self.link.rect.y)<0:
-                #print("right and below")
+                #("right and below")
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))

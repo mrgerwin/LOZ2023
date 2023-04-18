@@ -184,7 +184,6 @@ while True:
                     link.money +=5
                 Items.remove(Item)
                 killSprite(Item)
-                #Item.hit(bluerupee1)
                 print(link.money)
             
         sword.facing()
