@@ -22,24 +22,21 @@ dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
 
 
-
-
-#Bomb = BombItem
-
 #a_rock.orientation = 0
 
-items = [Bomb]
-
 heart1 = Heart()
-
+Bomb1 = BombItem()
 rupee1 = Rupee()
 bluerupee1 = BlueRupee()
 heart1.move(64,64)
 rupee1.move(128, 64)
+Bomb1.rect.x = 156
+Bomb1.rect.y = 64
 bluerupee1.move(96,64)
 showSprite(heart1)
 showSprite(rupee1)
 showSprite(bluerupee1)
+showSprite(Bomb1)
 
 watermonster = WaterMonster(link)
 projectiles = []
