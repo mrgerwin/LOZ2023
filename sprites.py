@@ -151,7 +151,7 @@ class DarkMoblin(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.health = 3
-    def move(self, frame):
+    def move(self, frame, link=None):
         a_arrow = None
         if self.step == 25:
             self.speed = 0
@@ -198,7 +198,7 @@ class Moblin(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.health = 2
-    def move(self, frame):
+    def move(self, frame, link=None):
         a_arrow = None
         if self.step == 25:
             self.speed = 0
@@ -245,7 +245,7 @@ class Octorok(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.health = 2
-    def move(self, frame):
+    def move(self, frame, link=None):
         a_rock = None
         if self.step == 25:
             self.speed = 0
@@ -286,7 +286,7 @@ class Leever(Enemy):
         self.step = 0
         self.changeImage(0)
         self.health = 3
-    def move(self, frame):
+    def move(self, frame, link=None):
 
         if self.step == 25:
             pass
@@ -336,7 +336,7 @@ class wizzrobe(Enemy):
         self.link = link
     
 
-    def move(self, frame):
+    def move(self, frame, link=None):
         W_rock=None
         if frame % 2 == 0:
             self.step += 1
@@ -436,7 +436,7 @@ class BlueOctorok(Enemy):
         self.step = 0
 
         self.health = 3
-    def move(self, frame):
+    def move(self, frame, link=None):
         a_rock = None
         if self.step == 25:
 
@@ -506,11 +506,9 @@ class WaterMonster(Enemy):
             self.changeImage(3)
 
         elif self.frame ==40:
-            a_target= TargetRock(link)
             a_target= HotWater(link)
             a_target.moveTo(self.rect.x, self.rect.y)
             showSprite(a_target)
-
             self.frame += 1
         elif self.frame <= 50:
             self.frame = self.frame +1
@@ -545,7 +543,10 @@ class Projectile(newSprite):
             self.rect.x = self.rect.x - self.speed
             
         self.changeImage(frame)
-    
+    def moveTo(self, x,y):
+        self.rect.x = x
+        self.rect.y = y
+        
 class Rock( Projectile):
     def __init__(self):
          Projectile.__init__(self,"Rocks.png", 2, 1)
@@ -704,12 +705,42 @@ class Rock( Projectile):
 class HotWater(Projectile):
     def __init__(self, link):
         Projectile.__init__(self,"HotWater.png", 3, 1)
-        self.speed = 50
+        self.speed = 2
         self.quad = 0
         self.angle = 0
         self.link = link
-
-         Projectile.__init__(self,"Rocks.png", 2, 1)
+    def move(self, frame):
+        deltaX = self.speed * math.cos(self.angle)
+        deltaY = self.speed * math.sin(self.angle)
+        
+        if self.quad == 1 or self.quad == 4:
+            self.rect.x += deltaX
+            self.rect.y += deltaY
+        else:
+            self.rect.x -= deltaX
+            self.rect.y -= deltaY
+        
+    def moveTo(self, x,y):
+        self.rect.x = x
+        self.rect.y = y
+        
+        if (self.rect.x-self.link.rect.x) > 0:
+            if (self.rect.y - self.link.rect.y)>0:
+                #print("left and Above")
+                self.quad = 2
+            if (self.rect.y -self.link.rect.y)<0:
+                #print("left and below")
+                self.quad = 3
+        else:
+            if (self.rect.y - self.link.rect.y)>0:
+                #print("right and Above")
+                self.quad = 1
+            if (self.rect.y -self.link.rect.y)<0:
+                #print("right and below")
+                self.quad = 4
+            
+        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        
          
 class TargetRock(Projectile):
     def __init__(self, link):
@@ -761,10 +792,10 @@ class Item(newSprite):
         self.time = 0
         self.maxHealth = 0
           
-    def animate(self):
+    def animate(self, frame = 0):
         nextSpriteImage(self)
           
-class BombItem():
+class BombItem(Item):
     def __init__(self):
         Item.__init__(self, "Bomb.png", 1)           
     

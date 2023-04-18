@@ -21,7 +21,7 @@ leever=Leever()
 leeverspawned=True
 showSprite(leever)
 
-wizzrobe = wizzrobe()
+wizzrobe = wizzrobe(link)
 watermonster = WaterMonster(link)
 
 tektite = Tektite()
@@ -159,7 +159,7 @@ while True:
                       link.speed = 0
        
         for enemy in enemies:
-            projectile = enemy.move(frame)
+            projectile = enemy.move(frame, link)
             if projectile != None:
                 projectiles.append(projectile)
 
@@ -177,19 +177,18 @@ while True:
             for projectile in projectiles:
                 projectile.move(frame)
                 
-            for Item in Items:
-                if touching (link, Item):
-                    if type(Item) == BlueRupee:
-                        link.money +=5
-                    Items.remove(Item)
-                    killSprite(Item)
-                    #Item.hit(bluerupee1)
-                    print(link.money)
+        for Item in Items:
+            Item.animate(frame)
+            if touching (link, Item):
+                if type(Item) == BlueRupee:
+                    link.money +=5
+                Items.remove(Item)
+                killSprite(Item)
+                #Item.hit(bluerupee1)
+                print(link.money)
             
-
         sword.facing()
         link.move(frame)
-        heart1.animate(frame)
         updateDisplay()
 
 endWait()
