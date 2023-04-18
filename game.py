@@ -30,30 +30,36 @@ dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
 
 
+
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 projectiles = []
 showSprite(link)
 Bomb = BombItem()
-
-#a_rock.orientation = 0
-
-
 heart1 = Heart()
-
+Bomb1 = BombItem()
 rupee1 = Rupee()
 bluerupee1 = BlueRupee()
 bluerupee2 = BlueRupee()
 bluerupee3 = BlueRupee()
 heart1.move(64,64)
 rupee1.move(128, 64)
+Bomb1.rect.x = 156
+Bomb1.rect.y = 64
 bluerupee1.move(96,64)
 bluerupee2.move(64, 96)
 bluerupee3.move(46, 69)
 showSprite(heart1)
 showSprite(rupee1)
 showSprite(bluerupee1)
+
+showSprite(Bomb1)
+
+watermonster = WaterMonster(link)
+projectiles = []
+
 showSprite(bluerupee2)
 showSprite(bluerupee3)
+
 
 nextFrame = clock()
 frame = 0

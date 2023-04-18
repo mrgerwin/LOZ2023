@@ -659,44 +659,7 @@ class TargetFireball(Projectile):
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
-        
-class Item(newSprite):
-    def __init__(self, img, x):
-        newSprite.__init__(self, img, x)
-        self.value = 0
-        self.health = 0
-        self.bomb = 0
-        self.time = 0
-        self.maxHealth = 0
-        
-    def animate(self):
-        nextSpriteImage(self)
 
-class Rupee(Item):
-    def __init__(self):
-        Item.__init__(self, "Coins.png", 2)
-        self.value = 1
-    def animate(self, frame=0):
-        pass    
-
-class BlueRupee(Item):
-    def __init__(self):
-        Item.__init__(self, "Coins.png", 2)
-        self.value = 5
-        self.changeImage(1)
-        
-    def animate(self, frame=0):
-        pass
-
-class Heart(Item):
-    def __init__(self):
-        Item.__init__(self,"Hearts.png", 3)
-        self.health = 1
-        
-    def animate(self, frame=0):
-        self.changeImage(frame)
-
-    
 class Rock( Projectile):
     def __init__(self):
 
@@ -781,7 +744,7 @@ class TargetRock(Projectile):
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
-        
+
         
 class Item(newSprite):
     def __init__(self, img, x):
@@ -791,13 +754,18 @@ class Item(newSprite):
         self.bomb = 0
         self.time = 0
         self.maxHealth = 0
-          
+ 
     def animate(self, frame = 0):
         nextSpriteImage(self)
+
           
 class BombItem(Item):
     def __init__(self):
-        Item.__init__(self, "Bomb.png", 1)           
+        Item.__init__(self, "Bomb.png",1)
+        self.value = 1
+    def animate (self, frame=0):
+        pass
+
     
 class Rupee(Item):
     def __init__(self):
@@ -805,7 +773,6 @@ class Rupee(Item):
         self.value = 1
     def animate (self, frame=0):
         pass
-  
   
 class BlueRupee(Item):
     def __init__(self):
@@ -816,16 +783,15 @@ class BlueRupee(Item):
     def hit(self):
         killSprite(self)
     def animate(self, frame=0):
-        pass
-        
+        pass        
             
-class HeartContainer(Item):
+class Heart(Item):
     def __init__(self):
-        item.__init__(self, "Hearts.png", 3)
+        Item.__init__(self, "Hearts.png", 3)
         self.maxHealth = 1
         self.changeImage(2)
             
-    def animate(self):
-        pass
+    def animate(self, frame):
+        self.changeImage(frame)
     
 
