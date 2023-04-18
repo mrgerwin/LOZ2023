@@ -10,6 +10,7 @@ class Player(newSprite):
 
         self.speed = 0
         self.health = 5
+        self.money = 0
     def move(self, frame):
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
@@ -26,8 +27,10 @@ class Player(newSprite):
     def hit(self):
         self.health -=1
         self.rect.y +=32
+
         if self.health == 0:
             killSprite(self)
+            
            
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
@@ -445,6 +448,9 @@ class BlueRupee(Item):
         Item.__init__(self, "coins.png", 2)
         self.value = 5
         self.changeImage(1)
+        
+    def hit(self):
+        killSprite(self)
     def animate(self, frame=0):
         pass
         
