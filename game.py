@@ -1,6 +1,5 @@
 from pygame_functions import *
-
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, HotWater
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -9,25 +8,35 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+music = makeMusic("linkMusic.mp3")
+link_die = makeSound("LOZ_Link_DIE.wav")
+link_hit = makeSound("LOZ_Link_Hurt.wav")
+enemy_die = makeSound("LOZ_Enemy_DIE.wav")
+enemy_hit = makeSound("LOZ_Enemy_Hit.wav")
+sword_slash = makeSound("LOZ_Sword_Slash.wav")
+
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 leever=Leever()
 leeverspawned=True
 showSprite(leever)
-wizzrobe = wizzrobe(link)
+
+wizzrobe = wizzrobe()
+watermonster = WaterMonster(link)
+
 tektite = Tektite()
 moblin = Moblin()
 dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
 
 
-
-
+enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
+projectiles = []
+showSprite(link)
 Bomb = BombItem()
 
 #a_rock.orientation = 0
 
-items = [Bomb]
 
 heart1 = Heart()
 
@@ -46,16 +55,14 @@ showSprite(bluerupee1)
 showSprite(bluerupee2)
 showSprite(bluerupee3)
 
-watermonster = WaterMonster(link)
-projectiles = []
-
 nextFrame = clock()
 frame = 0
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
+
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
-Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3] 
+Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb] 
 showSprite(link)
 
 for enemy in enemies:
@@ -180,14 +187,8 @@ while True:
                     print(link.money)
             
 
-
-        
-
         sword.facing()
         link.move(frame)
-
-        #a_rock.move(frame)
-
         heart1.animate(frame)
         updateDisplay()
 
