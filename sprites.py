@@ -172,12 +172,10 @@ class DarkMoblin(Enemy):
             self.changeImage(0 + frame )
         elif self.rect.x>=998:
             self.rect.x =995
-            self.rect.x = self.rect.x - self.speed
-            self.changeImage(4+frame)
+            self.orientation=3
         elif self.rect.x<=24:
             self.rect.x = 27
-            self.rect.x = self.rect.x - self.speed
-            self.changeImage(4+frame)
+            self.orientation=2
         elif self.orientation ==1:
             self.rect.y = self.rect.y - self.speed
             self.changeImage(2 + frame )
@@ -219,12 +217,13 @@ class Moblin(Enemy):
             self.changeImage(0 + frame )
         elif self.rect.x>=998:
             self.rect.x =995
-            self.rect.x = self.rect.x - self.speed
-            self.changeImage(4+frame)
+            self.orientation=3
         elif self.rect.x<=24:
             self.rect.x = 27
-            self.rect.x = self.rect.x + self.speed
-            self.changeImage(4+frame)
+            self.orientation=2
+        elif self.rect.y<=24:
+            self.rect.y=27
+            self.orientation=0
         elif self.orientation ==1:
             self.rect.y = self.rect.y - self.speed
             self.changeImage(2 + frame )
