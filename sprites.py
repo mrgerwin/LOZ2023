@@ -751,7 +751,7 @@ class Item(newSprite):
         newSprite.__init__(self, img, x)
         self.value = 0
         self.health = 0
-        self.bomb = 0
+        self.bomb = 3
         self.time = 0
         self.maxHealth = 0
  
@@ -760,8 +760,8 @@ class Item(newSprite):
 
           
 class BombItem(Item):
-    def __init__(self):
-        Item.__init__(self, "Bomb.png",1)
+    def __init__(self, link):
+        Item.__init__(self, "Bomb.png", 1)
         self.value = 1
     def animate (self, frame=0):
         pass
