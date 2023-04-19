@@ -793,5 +793,11 @@ class Heart(Item):
             
     def animate(self, frame):
         self.changeImage(frame)
-    
+        
+class Clock(Item):
+    def __init__(self):
+        Item.__init__(self, "Clock.png", 1)
+            
+    def animate(self):
+        pass
 
