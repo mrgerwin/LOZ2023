@@ -8,6 +8,8 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+ClockAquired=False
+ClockNumber=0
 music = makeMusic("linkMusic.mp3")
 link_die = makeSound("LOZ_Link_DIE.wav")
 link_hit = makeSound("LOZ_Link_Hurt.wav")
