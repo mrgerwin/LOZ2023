@@ -44,7 +44,7 @@ bluerupee3 = BlueRupee()
 clock1=Clock()
 heart1.move(64,64)
 rupee1.move(128, 64)
-clock1.move(180,64)
+clock1.move(160,64)
 Bomb1.rect.x = 156
 Bomb1.rect.y = 64
 bluerupee1.move(96,64)

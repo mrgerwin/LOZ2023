@@ -135,9 +135,9 @@ class Enemy(newSprite):
         elif lorientation ==0:
             self.rect.y +=32
         elif lorientation ==1:
-            self.rect.x +=32
-        elif lorientation ==2:
             self.rect.y -=32
+        elif lorientation ==2:
+            self.rect.x +=32
         elif lorientation ==3:
             self.rect.x -=32
 
