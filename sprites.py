@@ -798,6 +798,6 @@ class Clock(Item):
     def __init__(self):
         Item.__init__(self, "Clock.png", 1)
             
-    def animate(self):
+    def animate(self,frame=0):
         pass
 

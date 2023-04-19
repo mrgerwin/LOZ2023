@@ -1,5 +1,5 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, HotWater
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, HotWater,Clock
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -41,8 +41,10 @@ rupee1 = Rupee()
 bluerupee1 = BlueRupee()
 bluerupee2 = BlueRupee()
 bluerupee3 = BlueRupee()
+clock1=Clock()
 heart1.move(64,64)
 rupee1.move(128, 64)
+clock1.move(180,64)
 Bomb1.rect.x = 156
 Bomb1.rect.y = 64
 bluerupee1.move(96,64)
@@ -59,7 +61,7 @@ playSound(backgroundMusic,10)
 
 
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
-Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb] 
+Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb, clock1] 
 showSprite(link)
 
 for enemy in enemies:
@@ -192,6 +194,8 @@ while True:
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
+                elif type(Item)==Clock:
+                    ClockAquired=True
                 Items.remove(Item)
                 killSprite(Item)
                 print(link.money)
