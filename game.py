@@ -160,9 +160,18 @@ while True:
                       link.speed = 0
        
         for enemy in enemies:
-            projectile = enemy.move(frame, link)
-            if projectile != None:
-                projectiles.append(projectile)
+            if ClockAquired==False:
+                projectile = enemy.move(frame,link)
+                if projectile != None:
+                    projectiles.append(projectile)
+            else:
+                if ClockNumber==500:
+                    ClockAquired=False
+                    ClockNumber=0
+                else:
+                    ClockNumber+=1
+                    print(ClockNumber)
+
 
             if touching(enemy, sword):
                 #killSprite(enemy)
