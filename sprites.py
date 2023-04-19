@@ -751,7 +751,7 @@ class Item(newSprite):
         newSprite.__init__(self, img, x)
         self.value = 0
         self.health = 0
-        self.bomb = 3
+        self.bomb = 0
         self.time = 0
         self.maxHealth = 0
  
