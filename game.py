@@ -10,6 +10,7 @@ setAutoUpdate(False)
 #Making all sprites
 link = Player()
 ClockAquired=False
+ClockNumber=0
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 leever=Leever()
@@ -156,7 +157,12 @@ while True:
                 if projectile != None:
                     projectiles.append(projectile)
             else:
-                pass
+                if ClockNumber==500:
+                    ClockAquired=False
+                    ClockNumber=0
+                else:
+                    ClockNumber+=1
+                    print(ClockNumber)
 
             if touching(enemy, sword):
                 #killSprite(enemy)
