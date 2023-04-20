@@ -759,8 +759,8 @@ class Item(newSprite):
 
           
 class BombItem(Item):
-    def __init__(self):
-        Item.__init__(self, "Bomb.png",1)
+    def __init__(self, link):
+        Item.__init__(self, "Bomb.png", 1)
         self.value = 1
     def animate (self, frame=0):
         pass

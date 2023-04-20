@@ -34,9 +34,9 @@ sword = Sword("Sworb.png", 4, 1)
 
 projectiles = []
 showSprite(link)
-Bomb = BombItem()
+Bomb = BombItem(link)
 heart1 = Heart()
-Bomb1 = BombItem()
+Bomb1 = BombItem(link)
 rupee1 = Rupee()
 bluerupee1 = BlueRupee()
 bluerupee2 = BlueRupee()
@@ -60,8 +60,10 @@ backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
 
+Bomb = [Bomb1]
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
 Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb, clock1] 
+
 showSprite(link)
 
 for enemy in enemies:
@@ -194,8 +196,13 @@ while True:
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
+
                 elif type(Item)==Clock:
                     ClockAquired=True
+
+                elif type(Item) == Bomb:
+                    link.bomb += 1
+
                 Items.remove(Item)
                 killSprite(Item)
                 print(link.money)
