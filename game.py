@@ -18,19 +18,13 @@ sword_slash = makeSound("LOZ_Sword_Slash.wav")
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
 leever=Leever()
-leeverspawned=True
-showSprite(leever)
-
 wizzrobe = wizzrobe(link)
 watermonster = WaterMonster(link)
-
 tektite = Tektite()
 moblin = Moblin()
 dmoblin = DarkMoblin()
+leeverspawned=True
 sword = Sword("Sworb.png", 4, 1)
-
-
-projectiles = []
 showSprite(link)
 Bomb = BombItem(link)
 heart1 = Heart()
@@ -47,7 +41,7 @@ bluerupee1.move(96,64)
 bluerupee2.move(64, 96)
 bluerupee3.move(46, 69)
 
-watermonster = WaterMonster(link)
+
 projectiles = []
 
 nextFrame = clock()
