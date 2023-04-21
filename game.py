@@ -1,5 +1,5 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, HotWater
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, HotWater,Clock
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -8,6 +8,8 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+ClockAquired=False
+ClockNumber=0
 music = makeMusic("linkMusic.mp3")
 link_die = makeSound("LOZ_Link_DIE.wav")
 link_hit = makeSound("LOZ_Link_Hurt.wav")
@@ -33,8 +35,10 @@ rupee1 = Rupee()
 bluerupee1 = BlueRupee()
 bluerupee2 = BlueRupee()
 bluerupee3 = BlueRupee()
+clock1=Clock()
 heart1.move(64,64)
 rupee1.move(128, 64)
+clock1.move(160,64)
 Bomb1.rect.x = 156
 Bomb1.rect.y = 64
 bluerupee1.move(96,64)
@@ -50,9 +54,10 @@ backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
 
-Bomb = [Bomb1]
+Bomb = Bomb1
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
-Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1] 
+Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb, clock1] 
+
 showSprite(link)
 
 for enemy in enemies:
@@ -153,9 +158,18 @@ while True:
                       link.speed = 0
        
         for enemy in enemies:
-            projectile = enemy.move(frame, link)
-            if projectile != None:
-                projectiles.append(projectile)
+            if ClockAquired==False:
+                projectile = enemy.move(frame,link)
+                if projectile != None:
+                    projectiles.append(projectile)
+            else:
+                if ClockNumber==500:
+                    ClockAquired=False
+                    ClockNumber=0
+                else:
+                    ClockNumber+=1
+                    print(ClockNumber)
+
 
             if touching(enemy, sword):
                 #killSprite(enemy)
@@ -176,8 +190,13 @@ while True:
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
-                if type(Item) == Bomb:
+
+                elif type(Item)==Clock:
+                    ClockAquired=True
+
+                elif type(Item) == Bomb:
                     link.bomb += 1
+
                 Items.remove(Item)
                 killSprite(Item)
                 print(link.money)
