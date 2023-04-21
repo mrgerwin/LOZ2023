@@ -9,6 +9,7 @@ class Player(newSprite):
         self.rect.y = 350
         self.speed = 0
         self.money = 0
+        self.Bomb = 3
         self.health=3
         
     def hit(self,enemies, ded,llorientation):
