@@ -16,60 +16,39 @@ class Player(newSprite):
     def hit(self,enemy, ded):
         #print (llorientation)
         if self.health <= 0:
-            if ded == False:
-                dieAvailable=False
-                theReaper=True
-                if theReaper==True:
-                    dieAvailable=True
-                    if dieAvailable==True:
-                        dieAvailable=False
-                        theReaper=False
-                        dieOn=True
-                        ded=True
-                        if self.orientation ==0:
-                            self.rect.y -=32
-                            self.health= self.health - 0.5
-                        elif self.orientation ==1:
-                            self.rect.y +=32
-                            self.health= self.health - 0.5
-                        elif self.orientation ==2:
-                            self.rect.x -=32
-                            self.health= self.health - 0.5
-                        elif self.orientation ==3:
-                            self.rect.x +=32
-                            self.health= self.health - 0.5
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
+            #Die Animation
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
         elif self.orientation ==0:
             self.rect.y -=32
             self.health= self.health - 0.5
