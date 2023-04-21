@@ -107,6 +107,7 @@ def Die():
     changeSpriteImage(link, 6)
     pause(125)
     changeSpriteImage(link, 0)
+    killSprite(link)
     
 while True:
     if clock() >nextFrame:
@@ -181,11 +182,11 @@ while True:
                 
             if touching (enemy, link):
                 #killSprite(link)
-                if link.health == 0.5:
-                    print("you died")
                 link.hit(enemy,ded,link.orientation)
         for projectile in projectiles:
             projectile.move(frame)
+            if touching(link, projectile):
+                link.hit(projectile, ded, link.orientation)
                 
         for Item in Items:
             Item.animate(frame)
@@ -203,7 +204,10 @@ while True:
                 Items.remove(Item)
                 killSprite(Item)
                 print(link.money)
-            
+        if link.health == 0:
+            print("you died")
+            ded = True
+            Die()
         sword.facing()
         link.move(frame)
         updateDisplay()
