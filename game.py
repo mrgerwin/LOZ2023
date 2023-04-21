@@ -60,9 +60,8 @@ backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
 
-Bomb = [Bomb1]
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
-Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb, clock1] 
+Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1, clock1] 
 
 showSprite(link)
 
@@ -129,6 +128,7 @@ while True:
                       changeSpriteImage(link, link.orientation + 8)
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
                       showSprite(sword)
+                      pygame.mixer.Sound.play(sword_slash)
                       
                   if event.key == pygame.K_LEFT:
                       link.orientation =3
@@ -181,6 +181,9 @@ while True:
                 #killSprite(enemy)
                 if enemy.health ==1:
                     enemies.remove(enemy)
+                    pygame.mixer.Sound.play(enemy_die)
+                else:
+                    pygame.mixer.Sound.play(enemy_hit)
                 enemy.hit(link.orientation)
                 
             if touching (enemy, link):
