@@ -11,8 +11,9 @@ class Player(newSprite):
         self.money = 0
         self.Bomb = 3
         self.health=3
+        self.orientation = 0
         
-    def hit(self,enemies, ded,llorientation):
+    def hit(self,enemy, ded):
         #print (llorientation)
         if self.health <= 0:
             if ded == False:
@@ -25,19 +26,18 @@ class Player(newSprite):
                         theReaper=False
                         dieOn=True
                         ded=True
-                        if llorientation ==0:
+                        if self.orientation ==0:
                             self.rect.y -=32
                             self.health= self.health - 0.5
-                        elif llorientation ==1:
+                        elif self.orientation ==1:
                             self.rect.y +=32
                             self.health= self.health - 0.5
-                        elif llorientation ==2:
+                        elif self.orientation ==2:
                             self.rect.x -=32
                             self.health= self.health - 0.5
-                        elif llorientation ==3:
+                        elif self.orientation ==3:
                             self.rect.x +=32
                             self.health= self.health - 0.5
-                        hideSprite(enemies)
                         changeSpriteImage(self, 0)
                         pause(125)
                         changeSpriteImage(self, 5)
@@ -70,16 +70,16 @@ class Player(newSprite):
                         pause(125)
                         changeSpriteImage(self, 6)
                         pause(125)
-        elif llorientation ==0:
+        elif self.orientation ==0:
             self.rect.y -=32
             self.health= self.health - 0.5
-        elif llorientation ==1:
+        elif self.orientation ==1:
             self.rect.y +=32
             self.health= self.health - 0.5
-        elif llorientation ==2:
+        elif self.orientation ==2:
             self.rect.x -=32
             self.health= self.health - 0.5
-        elif llorientation ==3:
+        elif self.orientation ==3:
             self.rect.x +=32
             self.health= self.health - 0.5
 
