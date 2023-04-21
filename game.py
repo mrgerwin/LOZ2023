@@ -184,8 +184,8 @@ while True:
                 if link.health == 0.5:
                     print("you died")
                 link.hit(enemy,ded,link.orientation)
-            for projectile in projectiles:
-                projectile.move(frame)
+        for projectile in projectiles:
+            projectile.move(frame)
                 
         for Item in Items:
             Item.animate(frame)
