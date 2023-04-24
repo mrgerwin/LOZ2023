@@ -64,6 +64,9 @@ enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin
 Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1, Bomb2, Bomb3, clock1] 
 showSprite(link)
 
+HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
+MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
+
 for enemy in enemies:
     showSprite(enemy)
     
@@ -150,8 +153,8 @@ while True:
                       hideSprite(sword)
                       
                   if event.key == pygame.K_b:
-                      Placebomb 
-                      
+                      #Placebomb 
+                      pass
 
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
@@ -176,7 +179,7 @@ while True:
                     ClockNumber=0
                 else:
                     ClockNumber+=1
-                    print(ClockNumber)
+                    #print(ClockNumber)
 
 
             if touching(enemy, sword):
@@ -188,6 +191,7 @@ while True:
             if touching (enemy, link):
                 #killSprite(link)
                 link.hit(enemy,ded)
+                changeLabel(HealthText,str(link.health), green)
         for projectile in projectiles:
             projectile.move(frame)
             if touching(link, projectile):
@@ -198,7 +202,7 @@ while True:
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
-                
+                    changeLabel(MoneyText,str(link.money), green)
                     
                 
                 
