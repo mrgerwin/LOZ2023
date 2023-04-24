@@ -51,14 +51,16 @@ projectiles = []
 
 nextFrame = clock()
 frame = 0
+green = (0,51,0)
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
-thisText = newLabel("link.health", 20, 'Arial', 'green', 200, 60,"clear")
+thisText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
+killmenow = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
 textboxGroup.add(thisText)
+textboxGroup.add(killmenow)
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
 Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3] 
 showSprite(link)
-
 for enemy in enemies:
     showSprite(enemy)
 dieOn=False
@@ -164,6 +166,9 @@ while True:
                 enemy.hit(link.orientation)
                 
             if touching (enemy, link):
+                link.hit(enemy, ded, link.orientation)
+                changeLabel(thisText,str(link.health), green)
+                
                 #killSprite(link)
                 if link.health == 0.5:
                     print("you died")
@@ -178,7 +183,9 @@ while True:
                     Items.remove(Item)
                     killSprite(Item)
                     #Item.hit(bluerupee1)
-                    print(link.money)
+                    #print(link.money)
+                    changeLabel(killmenow,str(link.money), green)
+                    
             
 
 
