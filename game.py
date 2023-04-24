@@ -11,11 +11,13 @@ link = Player()
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
-link_die = makeSound("LOZ_Link_DIE.wav")
+#link_die = makeSound("LOZ_Link_DIE.wav")
+link_die = makeSound("link'sPain.mp3")
 link_hit = makeSound("LOZ_Link_Hurt.wav")
 enemy_die = makeSound("LOZ_Enemy_DIE.wav")
 enemy_hit = makeSound("LOZ_Enemy_Hit.wav")
-sword_slash = makeSound("LOZ_Sword_Slash.wav")
+#sword_slash = makeSound("LOZ_Sword_Slash.wav")
+sword_slash = makeSound("MrBeast.mp3")
 
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
@@ -188,8 +190,12 @@ while True:
                 
             if touching (enemy, link):
                 #killSprite(link)
-                if link.health == 0.5:
+                if link.health>=0.5:
+                    pygame.mixer.Sound.play(link_hit)
+                elif link.health == 0:
                     print("you died")
+                    pygame.mixer.Sound.stop(backgroundMusic)
+                    pygame.mixer.Sound.play(link_die)
                 link.hit(enemy,ded,link.orientation)
             for projectile in projectiles:
                 projectile.move(frame)
