@@ -1,7 +1,11 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock
 
-screenSize(1024,768)
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock, Fairy
+
+screenX = 1024
+screenY = 768
+
+screenSize(screenX,screenY)
 setBackgroundColour('grey')
 
 setAutoUpdate(False)
@@ -25,6 +29,7 @@ watermonster = WaterMonster(link)
 tektite = Tektite()
 moblin = Moblin()
 dmoblin = DarkMoblin()
+fairy = Fairy(screenX//2, screenY//2, link)
 leeverspawned=True
 sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
@@ -48,6 +53,8 @@ Bomb2.rect.y = 64
 Bomb3.rect.x = 700
 Bomb3.rect.y = 64
 bluerupee1.move(96,64)
+
+fairy.move(200, 200)
 bluerupee2.move(64, 96)
 bluerupee3.move(46, 69)
 Bomb = Bomb1, Bomb2, Bomb3
@@ -59,6 +66,7 @@ frame = 0
 green = (0,102,0)
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
+
 bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 200, 60,"clear")
 textboxGroup.add(bombs)
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
@@ -226,6 +234,7 @@ while True:
             print("you died")
             ded = True
             Die()
+        fairy.Move()
         sword.facing()
         link.move(frame)
         updateDisplay()

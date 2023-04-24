@@ -638,7 +638,7 @@ class TargetFireball(Projectile):
                 self.quad = 4
         if (self.rect.x-self.link.rect.x) != 0:    
             self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
-
+        
 class Rock( Projectile):
     def __init__(self):
 
@@ -682,7 +682,6 @@ class HotWater(Projectile):
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
-        
          
 class TargetRock(Projectile):
     def __init__(self, link):
@@ -726,21 +725,31 @@ class TargetRock(Projectile):
 
         
 class Item(newSprite):
-    def __init__(self, img, x):
+    def __init__(self, img, x, link):
         newSprite.__init__(self, img, x)
         self.value = 0
         self.health = 0
         self.bomb = 0
         self.time = 0
         self.maxHealth = 0
- 
+        self.link = link
+          
+    def animate(self):
+        nextSpriteImage(self)
+        
+    def collision(self):
+        if touching(self, self.link):
+            killSprite(self)
+            return True
+        else:
+            return False
     def animate(self, frame = 0):
         nextSpriteImage(self)
-
           
 class BombItem(Item):
-    def __init__(self, link):
-        Item.__init__(self, "Bomb.png", 1)
+    def __init__(self,link):
+        self.link = link
+        Item.__init__(self, "Bomb.png", 1, self.link)           
         self.value = 1
     def animate (self, frame=0):
         pass
@@ -758,36 +767,66 @@ class PlacableBomb():
             pass
     
 class Rupee(Item):
-    def __init__(self):
-        Item.__init__(self, "coins.png", 2)
+    def __init__(self,link):
+        self.link = link
+        Item.__init__(self, "Coins.png", 2, self.link)
         self.value = 1
     def animate (self, frame=0):
         pass
   
 class BlueRupee(Item):
-    def __init__(self):
-        Item.__init__(self, "coins.png", 2)
+    def __init__(self,link):
+        self.link = link
+        Item.__init__(self, "Coins.png", 2, self.link)
         self.value = 5
         self.changeImage(1)
-        
     def hit(self):
         killSprite(self)
     def animate(self, frame=0):
-        pass        
-            
+        pass 
+
 class Heart(Item):
-    def __init__(self):
-        Item.__init__(self, "Hearts.png", 3)
-        self.maxHealth = 1
-        self.changeImage(2)
-            
-    def animate(self, frame):
+    def __init__(self, link):
+        self.link = link
+        Item.__init__(self,"Hearts.png", 3, self.link)
+        self.health = 1
+        
+    def animate(self, frame=0):
         self.changeImage(frame)
+    
+    
+class Fairy(Item):
+    def __init__(self, x, y, link):
+        self.link = link
+        Item.__init__(self, "Fairy.png", 2, self.link)
+        self.radian = 0
+        self.radius = 250
+        self.x = x
+        self.y = y
+        self.xPos = x
+        self.yPos = y
+        self.speed = .1
+        self.rotations = 3
+        
+        
+    def Move(self):
+         
+        if self.rotations*(math.pi*2) <= self.radian:
+            self.xPos -= 20
+            self.yPos -= 10
+             
+        else:
+            self.yPos = (math.sin(self.radian)*self.radius) + self.y
+            self.xPos = (math.cos(self.radian)*self.radius) + self.x
+            self.radian += self.speed
+            self.speed += .001
+            self.radius -= 1
+        
+        self.move(self.xPos, self.yPos)
         
 class Clock(Item):
     def __init__(self):
         Item.__init__(self, "Clock.png", 1)
             
     def animate(self,frame=0):
-        pass
-
+        pass         
