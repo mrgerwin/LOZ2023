@@ -1,5 +1,5 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, HotWater,Clock
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -29,6 +29,7 @@ leeverspawned=True
 sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
 heart1 = Heart()
+Bomb = PlacableBomb(link, BombItem)
 Bomb1 = BombItem(link)
 Bomb2 = BombItem(link)
 Bomb3 = BombItem(link)
@@ -147,6 +148,9 @@ while True:
                       link.orientation =0
                       link.speed = 4
                       hideSprite(sword)
+                      
+                  if event.key == pygame.K_b:
+                      Placebomb 
                       
 
               if event.type == pygame.KEYUP:

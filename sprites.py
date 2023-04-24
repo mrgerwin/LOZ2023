@@ -745,6 +745,17 @@ class BombItem(Item):
     def animate (self, frame=0):
         pass
 
+class PlacableBomb():
+    def __init__(self, link, BombItem):
+        Item.__init__(self, "Bomb.png", 1)
+        BombItem.value = 1
+    def Placebomb():
+        if BombItem.value <= 1:
+            showSprite(BombItem)
+            self.rect.x = link.rect.x
+            self.rect.y = link.rect.y
+        else:
+            pass
     
 class Rupee(Item):
     def __init__(self):
