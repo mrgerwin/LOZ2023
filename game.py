@@ -1,8 +1,11 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, Fairy
 
-screenSize(1024,768)
+screenX = 1024
+screenY = 768
+
+screenSize(screenX,screenY)
 setBackgroundColour('grey')
 
 setAutoUpdate(False)
@@ -16,8 +19,10 @@ leeverspawned=True
 showSprite(leever)
 wizzrobe = wizzrobe(link)
 tektite = Tektite()
-moblin = Moblin()
-dmoblin = DarkMoblin()
+morblin = Moblin()
+dmorblin = DarkMoblin()
+fairy = Fairy(screenX//2, screenY//2, link)
+
 sword = Sword("Sworb.png", 4, 1)
 
 
@@ -27,7 +32,7 @@ Bomb = BombItem()
 
 #a_rock.orientation = 0
 
-items = [Bomb]
+items = [Bomb, fairy]
 
 heart1 = Heart()
 
@@ -38,6 +43,8 @@ rupee1.move(128, 64)
 bluerupee1.move(96,64)
 showSprite(heart1)
 showSprite(rupee1)
+fairy.move(200, 200)
+showSprite(fairy)
 showSprite(bluerupee1)
 
 watermonster = WaterMonster(link)
@@ -48,7 +55,7 @@ frame = 0
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
-enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
+enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, morblin, dmorblin]
 showSprite(link)
 
 for enemy in enemies:
@@ -163,7 +170,7 @@ while True:
             for projectile in projectiles:
                 projectile.move(frame)
 
-        
+        fairy.Move()
 
         sword.facing()
         link.move(frame)
