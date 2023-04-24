@@ -710,7 +710,7 @@ class Item(newSprite):
         
     def collision(self):
         if touching(self, self.link):
-            print("oh no I am now gone")
+            killSprite(self)
             return True
         else:
             return False

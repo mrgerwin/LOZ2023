@@ -40,11 +40,7 @@ items = [Bomb, fairy, heart1, rupee1, bluerupee1]
 heart1.move(64,64)
 rupee1.move(128, 64)
 bluerupee1.move(96,64)
-showSprite(heart1)
-showSprite(rupee1)
 fairy.move(200, 200)
-showSprite(fairy)
-showSprite(bluerupee1)
 
 watermonster = WaterMonster(link)
 projectiles = []
@@ -170,6 +166,7 @@ while True:
                 projectile.move(frame)
 
         for Item in items:
+            showSprite(Item)
             Item.animate()
             Item.collision()
             if Item.collision() == True:
