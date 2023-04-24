@@ -57,7 +57,8 @@ nextFrame = clock()
 frame = 0
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
-
+bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 200, 60,"clear")
+textboxGroup.add(bombs)
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
 Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1, Bomb2, Bomb3, clock1] 
 showSprite(link)
