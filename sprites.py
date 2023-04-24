@@ -636,8 +636,8 @@ class TargetFireball(Projectile):
             if (self.rect.y -self.link.rect.y)<0:
                 #("right and below")
                 self.quad = 4
-            
-        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        if (self.rect.x-self.link.rect.x) != 0:    
+            self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
 
 class Rock( Projectile):
     def __init__(self):

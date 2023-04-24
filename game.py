@@ -68,6 +68,9 @@ showSprite(link)
 HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
 MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
 
+showLabel(HealthText)
+showLabel(MoneyText)
+
 for enemy in enemies:
     showSprite(enemy)
     
