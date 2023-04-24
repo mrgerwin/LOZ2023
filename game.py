@@ -195,8 +195,13 @@ while True:
                 if type(Item) == BlueRupee:
                     link.money +=5
                 
+                    
+                
+                
                 elif type(Item) == BombItem:
                     link.Bomb +=1
+                    link.hit(enemy, ded)
+                    changeLabel(bombs,str(link.Bomb), 'green')
                     print(link.Bomb)
 
                 elif type(Item)==Clock:
