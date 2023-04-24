@@ -7,78 +7,58 @@ class Player(newSprite):
         newSprite.__init__(self, "LinkSimple.png", 14)
         self.rect.x = 500
         self.rect.y = 350
-
         self.speed = 0
+        self.money = 0
+        self.Bomb = 3
         self.health=3
-        print("Link created")
-    def hit(self,enemies, ded,llorientation):
+        self.orientation = 0
+        
+    def hit(self,enemy, ded):
         #print (llorientation)
         if self.health <= 0:
-            if ded == False:
-                dieAvailable=False
-                theReaper=True
-                if theReaper==True:
-                    dieAvailable=True
-                    if dieAvailable==True:
-                        dieAvailable=False
-                        theReaper=False
-                        dieOn=True
-                        ded=True
-                        if llorientation ==0:
-                            self.rect.y -=32
-                            self.health= self.health - 0.5
-                        elif llorientation ==1:
-                            self.rect.y +=32
-                            self.health= self.health - 0.5
-                        elif llorientation ==2:
-                            self.rect.x -=32
-                            self.health= self.health - 0.5
-                        elif llorientation ==3:
-                            self.rect.x +=32
-                            self.health= self.health - 0.5
-                        hideSprite(enemies)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-        elif llorientation ==0:
+            #Die Animation
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+        elif self.orientation ==0:
             self.rect.y -=32
             self.health= self.health - 0.5
-        elif llorientation ==1:
+        elif self.orientation ==1:
             self.rect.y +=32
             self.health= self.health - 0.5
-        elif llorientation ==2:
+        elif self.orientation ==2:
             self.rect.x -=32
             self.health= self.health - 0.5
-        elif llorientation ==3:
+        elif self.orientation ==3:
             self.rect.x +=32
             self.health= self.health - 0.5
 
@@ -103,16 +83,17 @@ class Player(newSprite):
     def hit(self):
         self.health -=1
         self.rect.y +=32
+
         if self.health == 0:
             killSprite(self)
-    """       
+    """
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
         self.speed = 3
         self.rect.x = 200
         self.rect.y = 200
-    def move(self, frame):
+    def move(self, frame, link):
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
             self.changeImage(0 + frame *4)
@@ -134,9 +115,9 @@ class Enemy(newSprite):
         elif lorientation ==0:
             self.rect.y +=32
         elif lorientation ==1:
-            self.rect.x +=32
-        elif lorientation ==2:
             self.rect.y -=32
+        elif lorientation ==2:
+            self.rect.x +=32
         elif lorientation ==3:
             self.rect.x -=32
 
@@ -150,7 +131,7 @@ class DarkMoblin(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.health = 3
-    def move(self, frame):
+    def move(self, frame, link=None):
         a_arrow = None
         if self.step == 25:
             self.speed = 0
@@ -171,12 +152,10 @@ class DarkMoblin(Enemy):
             self.changeImage(0 + frame )
         elif self.rect.x>=998:
             self.rect.x =995
-            self.rect.x = self.rect.x - self.speed
-            self.changeImage(4+frame)
+            self.orientation=3
         elif self.rect.x<=24:
             self.rect.x = 27
-            self.rect.x = self.rect.x - self.speed
-            self.changeImage(4+frame)
+            self.orientation=2
         elif self.orientation ==1:
             self.rect.y = self.rect.y - self.speed
             self.changeImage(2 + frame )
@@ -197,7 +176,7 @@ class Moblin(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.health = 2
-    def move(self, frame):
+    def move(self, frame, link=None):
         a_arrow = None
         if self.step == 25:
             self.speed = 0
@@ -218,12 +197,13 @@ class Moblin(Enemy):
             self.changeImage(0 + frame )
         elif self.rect.x>=998:
             self.rect.x =995
-            self.rect.x = self.rect.x - self.speed
-            self.changeImage(4+frame)
+            self.orientation=3
         elif self.rect.x<=24:
             self.rect.x = 27
-            self.rect.x = self.rect.x + self.speed
-            self.changeImage(4+frame)
+            self.orientation=2
+        elif self.rect.y<=24:
+            self.rect.y=27
+            self.orientation=0
         elif self.orientation ==1:
             self.rect.y = self.rect.y - self.speed
             self.changeImage(2 + frame )
@@ -244,7 +224,7 @@ class Octorok(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.health = 2
-    def move(self, frame):
+    def move(self, frame, link=None):
         a_rock = None
         if self.step == 25:
             self.speed = 0
@@ -255,6 +235,7 @@ class Octorok(Enemy):
                 a_rock.orientation = self.orientation
                 showSprite(a_rock)
             #backgroundMusic=makeSound("harderBetterFasterWhopper.mp3")
+
 
             
         if self.step == 40:
@@ -284,7 +265,8 @@ class Leever(Enemy):
         self.step = 0
         self.changeImage(0)
         self.health = 3
-    def move(self, frame):
+    def move(self, frame, link=None):
+
         if self.step == 25:
             pass
             
@@ -332,7 +314,8 @@ class wizzrobe(Enemy):
         self.health = 3
         self.link = link
     
-    def move(self, frame):
+
+    def move(self, frame, link=None):
         W_rock=None
         if frame % 2 == 0:
             self.step += 1
@@ -361,7 +344,7 @@ class wizzrobe(Enemy):
             W_Rock.rect.y = self.rect.y
             W_Rock.moveTo(self.rect.x, self.rect.y)
             showSprite(W_Rock)
-            print(W_Rock.rect.x, W_Rock.rect.y)
+            #print(W_Rock.rect.x, W_Rock.rect.y)
         
             return W_Rock
         
@@ -378,7 +361,7 @@ class Tektite(Enemy):
         self.jump = False
         self.health = 4
         
-    def move(self, frame):
+    def move(self, frame, link):
         if self.speedy <= 6 and self.jump == True:
             self.speedy += 1
         self.time += 1
@@ -430,10 +413,12 @@ class BlueOctorok(Enemy):
         Enemy.__init__(self,"BlueOctorok.png",8,1)
         self.orientation = random.randint(0,3)
         self.step = 0
+
         self.health = 3
-    def move(self, frame):
+    def move(self, frame, link=None):
         a_rock = None
         if self.step == 25:
+
             self.speed = 0
 
             if random.randint(0,1) == 1:
@@ -470,12 +455,12 @@ class WaterMonster(Enemy):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
-        self.health = 4
+
+        Health = 4
         self.link = link
         
-    def move(self, frame):
-        T_Rock = None
-        
+    def move(self, frame, link):
+        a_target = None
 
         if self.frame <= 3:
             self.rect.x = random.randint(0,1024)
@@ -498,10 +483,11 @@ class WaterMonster(Enemy):
         elif self.frame <= 35:
             self.frame = self.frame +1
             self.changeImage(3)
-        elif self.frame == 40:
-            T_Rock = TargetRock(self.link)
-            T_Rock.moveTo(self.rect.x, self.rect.y)
-            showSprite(T_Rock)
+
+        elif self.frame ==40:
+            a_target= HotWater(link)
+            a_target.moveTo(self.rect.x, self.rect.y)
+            showSprite(a_target)
             self.frame += 1
         elif self.frame <= 50:
             self.frame = self.frame +1
@@ -513,10 +499,11 @@ class WaterMonster(Enemy):
             self.frame = self.frame +1
             self.changeImage(0)#gone:)
             self.frame =0
-        #if self.frame == 3:
-            #self.Originalimg = pygame.image.load("ROCKh.png")
 
-        return T_Rock
+        return(a_target)
+            
+        
+
 class Projectile(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
@@ -535,7 +522,10 @@ class Projectile(newSprite):
             self.rect.x = self.rect.x - self.speed
             
         self.changeImage(frame)
-    
+    def moveTo(self, x,y):
+        self.rect.x = x
+        self.rect.y = y
+        
 class Rock( Projectile):
     def __init__(self):
          Projectile.__init__(self,"Rocks.png", 2, 1)
@@ -592,17 +582,17 @@ class TargetRock(Projectile):
         
         if (self.rect.x-self.link.rect.x) > 0:
             if (self.rect.y - self.link.rect.y)>0:
-                print("left and Above")
+                #print("left and Above")
                 self.quad = 2
             if (self.rect.y -self.link.rect.y)<0:
-                print("left and below")
+                #print("left and below")
                 self.quad = 3
         else:
             if (self.rect.y - self.link.rect.y)>0:
-                print("right and Above")
+                #print("right and Above")
                 self.quad = 1
             if (self.rect.y -self.link.rect.y)<0:
-                print("right and below")
+                #print("right and below")
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
@@ -644,28 +634,27 @@ class TargetFireball(Projectile):
                 #print("right and Above")
                 self.quad = 1
             if (self.rect.y -self.link.rect.y)<0:
-                #print("right and below")
+                #("right and below")
                 self.quad = 4
-            
-        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        if (self.rect.x-self.link.rect.x) != 0:    
+            self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
         
 class Rock( Projectile):
     def __init__(self):
-         Projectile.__init__(self,"Rocks.png", 2, 1)
-         
-class TargetRock(Projectile):
-    def __init__(self, link):
-         Projectile.__init__(self,"Rocks.png", 2, 1)
-         self.speed = 4
-         self.quad = 0
-         self.angle = 45
-         self.link = link
+
+        Projectile.__init__(self,"Rocks.png", 2, 1)
     
+class HotWater(Projectile):
+    def __init__(self, link):
+        Projectile.__init__(self,"HotWater.png", 3, 1)
+        self.speed = 2
+        self.quad = 0
+        self.angle = 0
+        self.link = link
     def move(self, frame):
         deltaX = self.speed * math.cos(self.angle)
         deltaY = self.speed * math.sin(self.angle)
         
-
         if self.quad == 1 or self.quad == 4:
             self.rect.x += deltaX
             self.rect.y += deltaY
@@ -693,7 +682,47 @@ class TargetRock(Projectile):
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+         
+class TargetRock(Projectile):
+    def __init__(self, link):
+         Projectile.__init__(self,"Rocks.png", 2, 1)
+         self.speed = 4
+         self.quad = 0
+         self.angle = 45
+         self.link = link
+    
+    def move(self, frame):
+        deltaX = self.speed * math.cos(self.angle)
+        deltaY = self.speed * math.sin(self.angle)
         
+        if self.quad == 1 or self.quad == 4:
+            self.rect.x += deltaX
+            self.rect.y += deltaY
+        else:
+            self.rect.x -= deltaX
+            self.rect.y -= deltaY
+        
+    def moveTo(self, x,y):
+        self.rect.x = x
+        self.rect.y = y
+        
+        if (self.rect.x-self.link.rect.x) > 0:
+            if (self.rect.y - self.link.rect.y)>0:
+                #print("left and Above")
+                self.quad = 2
+            if (self.rect.y -self.link.rect.y)<0:
+                #print("left and below")
+                self.quad = 3
+        else:
+            if (self.rect.y - self.link.rect.y)>0:
+                #print("right and Above")
+                self.quad = 1
+            if (self.rect.y -self.link.rect.y)<0:
+                #print("right and below")
+                self.quad = 4
+            
+        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+
         
 class Item(newSprite):
     def __init__(self, img, x, link):
@@ -714,29 +743,47 @@ class Item(newSprite):
             return True
         else:
             return False
+    def animate(self, frame = 0):
+        nextSpriteImage(self)
           
 class BombItem(Item):
     def __init__(self,link):
         self.link = link
         Item.__init__(self, "Bomb.png", 1, self.link)           
+        self.value = 1
+    def animate (self, frame=0):
+        pass
+
+class PlacableBomb():
+    def __init__(self, link, BombItem):
+        Item.__init__(self, "Bomb.png", 1)
+        BombItem.value = 1
+    def Placebomb():
+        if BombItem.value <= 1:
+            showSprite(BombItem)
+            self.rect.x = link.rect.x
+            self.rect.y = link.rect.y
+        else:
+            pass
     
 class Rupee(Item):
     def __init__(self,link):
         self.link = link
         Item.__init__(self, "Coins.png", 2, self.link)
         self.value = 1
-    def animate(self, frame=0):
-        pass    
-
+    def animate (self, frame=0):
+        pass
+  
 class BlueRupee(Item):
     def __init__(self,link):
         self.link = link
         Item.__init__(self, "Coins.png", 2, self.link)
         self.value = 5
         self.changeImage(1)
-        
+    def hit(self):
+        killSprite(self)
     def animate(self, frame=0):
-        pass
+        pass 
 
 class Heart(Item):
     def __init__(self, link):
@@ -777,7 +824,9 @@ class Fairy(Item):
         
         self.move(self.xPos, self.yPos)
         
-         
-         
-    
-
+class Clock(Item):
+    def __init__(self):
+        Item.__init__(self, "Clock.png", 1)
+            
+    def animate(self,frame=0):
+        pass         
