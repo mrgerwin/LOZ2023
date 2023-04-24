@@ -22,22 +22,21 @@ tektite = Tektite()
 morblin = Moblin()
 dmorblin = DarkMoblin()
 fairy = Fairy(screenX//2, screenY//2, link)
+heart1 = Heart(link)
+rupee1 = Rupee(link)
+bluerupee1 = BlueRupee(link)
 
 sword = Sword("Sworb.png", 4, 1)
 
 
 
 
-Bomb = BombItem()
+Bomb = BombItem(link)
 
 #a_rock.orientation = 0
 
-items = [Bomb, fairy]
+items = [Bomb, fairy, heart1, rupee1, bluerupee1]
 
-heart1 = Heart()
-
-rupee1 = Rupee()
-bluerupee1 = BlueRupee()
 heart1.move(64,64)
 rupee1.move(128, 64)
 bluerupee1.move(96,64)
@@ -170,6 +169,12 @@ while True:
             for projectile in projectiles:
                 projectile.move(frame)
 
+        for Item in items:
+            Item.animate()
+            Item.collision()
+            if Item.collision() == True:
+                items.remove(Item)
+            
         fairy.Move()
 
         sword.facing()
