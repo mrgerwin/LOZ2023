@@ -55,7 +55,7 @@ projectiles = []
 
 nextFrame = clock()
 frame = 0
-green = (0,51,0)
+green = (0,102,0)
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 thisText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
