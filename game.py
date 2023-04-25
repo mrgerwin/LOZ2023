@@ -165,7 +165,7 @@ while True:
                       hideSprite(sword)
                       
                   if event.key == pygame.K_b:
-                      #Placebomb 
+                      PlacableBomb.Placebomb
                       pass
 
               if event.type == pygame.KEYUP:

@@ -758,7 +758,7 @@ class PlacableBomb():
     def __init__(self, link, BombItem):
         Item.__init__(self, "Bomb.png", 1, link)
         BombItem.value = 1
-    def Placebomb():
+    def Placebomb(link):
         if BombItem.value <= 1:
             showSprite(BombItem)
             self.rect.x = link.rect.x
