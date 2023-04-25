@@ -476,7 +476,7 @@ class WaterMonster(Enemy):
         self.orientation = 1
         self.frame = 0
 
-        Health = 4
+        self.health = 4
         self.link = link
         
     def move(self, frame, link):
