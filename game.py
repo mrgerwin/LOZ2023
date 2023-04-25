@@ -12,12 +12,14 @@ ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
 #link_die = makeSound("LOZ_Link_DIE.wav")
-link_die = makeSound("link'sPain.mp3")
+#link_die = makeSound("link'sPain.mp3")
+link_die = makeSound("LinkInMaximumPain.mp3")
 link_hit = makeSound("LOZ_Link_Hurt.wav")
 enemy_die = makeSound("LOZ_Enemy_DIE.wav")
 enemy_hit = makeSound("LOZ_Enemy_Hit.wav")
-#sword_slash = makeSound("LOZ_Sword_Slash.wav")
-sword_slash = makeSound("MrBeast.mp3")
+sword_slash = makeSound("LOZ_Sword_Slash.wav")
+#sword_slash = makeSound("MrBeast.mp3")
+get_rupee = makeSound("LOZ_Get_Rupee.wav")
 
 Blueoctorok = BlueOctorok()
 octorok = Octorok()
@@ -205,6 +207,7 @@ while True:
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
+                    pygame.mixer.Sound.play(get_rupee)
 
                 elif type(Item)==Clock:
                     ClockAquired=True
