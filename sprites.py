@@ -756,7 +756,8 @@ class BombItem(Item):
 
 class PlacableBomb():
     def __init__(self, link, BombItem):
-        Item.__init__(self, "Bomb.png", 1)
+        self.link = link
+        Item.__init__(self, "Bomb.png", 1, self.link)
         BombItem.value = 1
     def Placebomb():
         if BombItem.value <= 1:
@@ -825,8 +826,9 @@ class Fairy(Item):
         self.move(self.xPos, self.yPos)
         
 class Clock(Item):
-    def __init__(self):
-        Item.__init__(self, "Clock.png", 1)
+    def __init__(self, link):
+        self.link = link
+        Item.__init__(self, "Clock.png", 1, self.link)
             
     def animate(self,frame=0):
         pass         
