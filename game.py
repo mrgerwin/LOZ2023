@@ -29,35 +29,9 @@ watermonster = WaterMonster(link)
 tektite = Tektite()
 moblin = Moblin()
 dmoblin = DarkMoblin()
-fairy = Fairy(screenX//2, screenY//2, link)
 leeverspawned=True
 sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
-heart1 = Heart(link)
-Bomb = PlacableBomb(link, BombItem)
-Bomb1 = BombItem(link)
-Bomb2 = BombItem(link)
-Bomb3 = BombItem(link)
-rupee1 = Rupee(link)
-bluerupee1 = BlueRupee(link)
-bluerupee2 = BlueRupee(link)
-bluerupee3 = BlueRupee(link)
-clock1=Clock(link)
-heart1.move(64,64)
-rupee1.move(128, 64)
-clock1.move(160,64)
-Bomb1.rect.x = 600
-Bomb1.rect.y = 64
-Bomb2.rect.x = 650
-Bomb2.rect.y = 64
-Bomb3.rect.x = 700
-Bomb3.rect.y = 64
-bluerupee1.move(96,64)
-
-fairy.move(200, 200)
-bluerupee2.move(64, 96)
-bluerupee3.move(46, 69)
-Bomb = Bomb1, Bomb2, Bomb3
 
 projectiles = []
 
@@ -68,9 +42,9 @@ backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
 bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 200, 60,"clear")
-textboxGroup.add(bombs)
-enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
-Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1, Bomb2, Bomb3, clock1, fairy] 
+#textboxGroup.add(bombs)
+enemies = [octorok, Blueoctorok, leever, watermonster]
+Items = [] 
 showSprite(link)
 
 HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
@@ -198,7 +172,12 @@ while True:
                 #killSprite(enemy)
                 if enemy.health ==1:
                     enemies.remove(enemy)
-                enemy.hit(link.orientation)
+                    link.kills +=1
+                item=enemy.hit(link.orientation)
+                if item != None:
+                    print(item)
+                    showSprite(item)
+                    Items.append(item)
                 
             if touching (enemy, link):
                 #killSprite(link)
@@ -234,7 +213,7 @@ while True:
             print("you died")
             ded = True
             Die()
-        fairy.Move()
+        #fairy.Move()
         sword.facing()
         link.move(frame)
         updateDisplay()

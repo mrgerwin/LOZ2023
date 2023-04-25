@@ -2,6 +2,42 @@ from pygame_functions import *
 import random
 import math
 
+def ItemDrop(enemy):
+    #0 yellow Rupee
+    #1 heart
+    #2 Blue Rupee
+    #3 Fairy
+    #4 Bomb
+    #5 Clock
+    
+    A= [0, 1, 0, 3, 0, 1, 1, 0, 0, 1]
+    B= [4, 0, 5, 0, 1, 4, 0, 4, 1, 1]
+    C = [0, 1, 0, 2, 1, 5, 0, 0, 0, 2]
+    D = [1, 3, 0, 1, 3, 1, 1, 1, 0, 1]
+    
+    if enemy.type == "A":
+        itemNum = A[enemy.link.kills]
+    elif enemy.type == "B":
+        itemNum = B[enemy.link.kills]
+    elif enemy.type == "C":
+        itemNum = C[enemy.link.kills]
+    elif enemy.type == "D":
+        itemNum = D[enemy.link.kills]
+    
+    if itemNum == 0:
+        return Rupee(enemy.link)
+    elif itemNum == 1:
+        return Heart(enemy.link)
+    elif itemNum == 2:
+        return BlueRupee(enemy.link)
+    elif itemNum == 3:
+        return Fairy(enemy.link)
+    elif itemNum == 4:
+        return Bomb(enemy.link)
+    elif itemNum == 5:
+        return Clock(enemy.link)
+
+
 class Player(newSprite):
     def __init__(self):
         newSprite.__init__(self, "LinkSimple.png", 14)
@@ -12,6 +48,7 @@ class Player(newSprite):
         self.Bomb = 3
         self.health=3
         self.orientation = 0
+        self.kills = 0
         
     def hit(self,enemy, ded):
         #print (llorientation)
@@ -93,7 +130,10 @@ class Enemy(newSprite):
         self.speed = 3
         self.rect.x = 200
         self.rect.y = 200
+        self.link = None
+        self.type = "A"
     def move(self, frame, link):
+        self.link = link
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
             self.changeImage(0 + frame *4)
@@ -110,7 +150,7 @@ class Enemy(newSprite):
 
     def hit(self, lorientation):
         self.health -=1
-        if self.health == 0:
+        if self.health <= 0:
             killSprite(self)
         elif lorientation ==0:
             self.rect.y +=32
@@ -120,10 +160,10 @@ class Enemy(newSprite):
             self.rect.x +=32
         elif lorientation ==3:
             self.rect.x -=32
-
-        self.health -=1
-
-
+        if self.health <= 0:
+            item = ItemDrop(self)
+            moveSprite(item, self.rect.x, self.rect.y)
+            return item
 
 class DarkMoblin(Enemy):
     def __init__(self):
@@ -131,6 +171,7 @@ class DarkMoblin(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.health = 3
+        self.type = "B"
     def move(self, frame, link=None):
         a_arrow = None
         if self.step == 25:
@@ -265,6 +306,7 @@ class Leever(Enemy):
         self.step = 0
         self.changeImage(0)
         self.health = 3
+        self.type = "C"
     def move(self, frame, link=None):
 
         if self.step == 25:
@@ -413,6 +455,7 @@ class BlueOctorok(Enemy):
         Enemy.__init__(self,"BlueOctorok.png",8,1)
         self.orientation = random.randint(0,3)
         self.step = 0
+        self.type = "B"
 
         self.health = 3
     def move(self, frame, link=None):
@@ -455,7 +498,7 @@ class WaterMonster(Enemy):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
-
+        self.type = "D"
         Health = 4
         self.link = link
         
