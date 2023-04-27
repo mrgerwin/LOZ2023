@@ -67,14 +67,15 @@ green = (0,102,0)
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
-bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 400, 60,"clear")
-textboxGroup.add(bombs)
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
 Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1, Bomb2, Bomb3, clock1, fairy] 
 showSprite(link)
 
-HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
-MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
+HealthTextWords = newLabel(str("Health"), 20, 'Arial', 'green', 150, 10, "clear")
+HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 150, 20,"clear")
+MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 200, 20, "clear")
+bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 100, 20,"clear")
+textboxGroup.add(bombs)
 
 showLabel(HealthText)
 showLabel(MoneyText)
@@ -165,8 +166,8 @@ while True:
                       hideSprite(sword)
                       
                   if event.key == pygame.K_b:
-                      PlacableBomb.Placebomb
-                      pass
+                      Placebomb()
+
 
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
