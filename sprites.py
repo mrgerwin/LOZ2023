@@ -11,10 +11,6 @@ def ItemDrop(enemy):
     #5 Clock
     if enemy == None:
         return None
-    else:
-        print(enemy)
-        print(enemy.link)
-        print(enemy.link.kills)
     
     A= [0, 1, 0, 3, 0, 1, 1, 0, 0, 1]
     B= [4, 0, 5, 0, 1, 4, 0, 4, 1, 1]
