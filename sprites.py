@@ -9,7 +9,8 @@ class Player(newSprite):
         self.rect.y = 350
         self.speed = 0
         self.money = 0
-        self.Bomb = 3
+        self.Money = 0
+        self.Bomb = 0
         self.health=3
         self.orientation = 0
         

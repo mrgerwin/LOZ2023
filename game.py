@@ -75,10 +75,10 @@ showSprite(link)
 
 HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
 MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
-
+Rupee = newLabel(str(link.money), 20, 'Arial', 'green', 500, 60, "clear")
 showLabel(HealthText)
 showLabel(MoneyText)
-
+showLabel(Rupee)
 for enemy in enemies:
     showSprite(enemy)
     
@@ -214,14 +214,20 @@ while True:
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
+                    print(link.money)
                     changeLabel(MoneyText,str(link.money), green)
+                    
+                if type(Item) == Rupee:
+                    link.money +=1
+                    print(link.money)
+                    changeLabel(Rupee, str(link.money), green)
                     
                 
                 
                 elif type(Item) == BombItem:
                     link.Bomb +=1
                     link.hit(enemy, ded)
-                    changeLabel(bombs,str(link.Bomb), 'green')
+                    changeLabel(bombs,str(link.Bomb), green)
                     print(link.Bomb)
 
                 elif type(Item)==Clock:
