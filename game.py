@@ -71,12 +71,18 @@ enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin
 Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1, Bomb2, Bomb3, clock1, fairy] 
 showSprite(link)
 
-HealthTextWords = newLabel(str("Health"), 20, 'Arial', 'green', 150, 10, "clear")
-HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 150, 20,"clear")
-MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 200, 20, "clear")
-bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 100, 20,"clear")
-textboxGroup.add(bombs)
+HealthText = newLabel(str(link.health), 20, 'Arial', 'black', 50, 20,"clear")
+HealthWords = newLabel("Health", 20, 'Arial', 'black', 50, 5, "clear")
+MoneyText = newLabel(str(link.money), 20, 'Arial', 'black', 150, 20, "clear")
+MoneyWords = newLabel("Money", 20, 'Arial', 'black', 150, 5, "clear")
+BombText = newLabel(str(link.Bomb), 20, 'Arial', 'black', 250, 20,"clear")
+BombWords = newLabel("Bombs", 20, 'Arial', 'black', 250, 5, "clear")
 
+textboxGroup.add(BombText)
+
+showLabel(HealthWords)
+showLabel(MoneyWords)
+showLabel(BombWords)
 showLabel(HealthText)
 showLabel(MoneyText)
 
@@ -204,7 +210,7 @@ while True:
             if touching (enemy, link):
                 #killSprite(link)
                 link.hit(enemy,ded)
-                changeLabel(HealthText,str(link.health), green)
+                changeLabel(HealthText,str(link.health), black)
         for projectile in projectiles:
             projectile.move(frame)
             if touching(link, projectile):
@@ -215,14 +221,14 @@ while True:
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
-                    changeLabel(MoneyText,str(link.money), green)
+                    changeLabel(MoneyText,str(link.money), black)
                     
                 
                 
                 elif type(Item) == BombItem:
                     link.Bomb +=1
                     link.hit(enemy, ded)
-                    changeLabel(bombs,str(link.Bomb), 'green')
+                    changeLabel(BombText,str(link.Bomb), 'black')
                     print(link.Bomb)
 
                 elif type(Item)==Clock:
