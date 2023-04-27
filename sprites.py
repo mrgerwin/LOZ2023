@@ -545,8 +545,28 @@ class Projectile(newSprite):
             self.rect.x = self.rect.x - self.speed
             
         self.changeImage(frame)
+<<<<<<< Updated upstream
     
 class Rock( Projectile):
+=======
+        
+class Item(newSprite):
+    def __init__(self, img, x):
+        newSprite.__init__(self, img, x)
+        self.value = 0
+        
+        def animate(self):
+            nextSpriteImage(self)
+            
+class Rubee(Item):
+    def __init__(self):
+        Item.__init__(self, "yellowcoin.png", 2)
+        self.value = 1
+    def animate(self, frame=0):
+        pass
+
+class Rock(Projectile):
+>>>>>>> Stashed changes
     def __init__(self):
          Projectile.__init__(self,"Rocks.png", 2, 1)
 
@@ -748,6 +768,7 @@ class TargetRock(Projectile):
             if (self.rect.y -self.link.rect.y)<0:
                 #print("right and below")
                 self.quad = 4
+<<<<<<< Updated upstream
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
         
@@ -798,3 +819,12 @@ class HeartContainer(Item):
         pass
     
 
+=======
+        if self.rect.x-self.link.rect.x != 0:
+            self.angle =math.atan((self.rect.y-self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        
+class drawScore:
+    def __init__(self, link):
+        ScoreText = GameFont.render("BankAccount:"+ str(score), True, white)
+        print("BankAccount:")
+>>>>>>> Stashed changes

@@ -1,5 +1,9 @@
 from pygame_functions import *
+<<<<<<< Updated upstream
 from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, HotWater
+=======
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, Rock, TargetRock, HotWater, Item, Rubee, drawScore
+>>>>>>> Stashed changes
 
 screenSize(1024,768)
 setBackgroundColour('grey')
@@ -33,6 +37,7 @@ sword = Sword("Sworb.png", 4, 1)
 enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever]
 projectiles = []
 showSprite(link)
+<<<<<<< Updated upstream
 Bomb = BombItem()
 
 #a_rock.orientation = 0
@@ -55,6 +60,26 @@ showSprite(bluerupee1)
 showSprite(bluerupee2)
 showSprite(bluerupee3)
 
+=======
+for enemy in enemies:
+    showSprite(enemy)
+    
+    
+rubee = Rubee()
+
+Items = [rubee]
+for Item in Items:
+    showSprite(Item)
+    
+    
+    
+#Experimenting with Rocks
+a_rock = Rock()
+a_rock.orientation = 0
+showSprite(a_rock)
+a_rock.rect.x = 500
+a_rock.rect.y = 350
+>>>>>>> Stashed changes
 nextFrame = clock()
 frame = 0
 backgroundMusic=makeSound("linkMusic.mp3")
@@ -169,6 +194,7 @@ while True:
                     enemies.remove(enemy)
                 enemy.hit(link.orientation)
                 
+<<<<<<< Updated upstream
             if touching (enemy, link):
                 #killSprite(link)
                 if link.health == 0.5:
@@ -186,6 +212,18 @@ while True:
                     #Item.hit(bluerupee1)
                     print(link.money)
             
+=======
+        for projectile in projectiles:
+            projectile.move(frame)
+            if touching(projectile, link):
+                killSprite(link)
+                link.hit()
+                playSound(link_hit)
+        for item in Items:
+            if touching(link, item):
+                Items.remove(item)
+                killSprite(item)
+>>>>>>> Stashed changes
 
         sword.facing()
         link.move(frame)
