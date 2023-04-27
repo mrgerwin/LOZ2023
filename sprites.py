@@ -872,4 +872,24 @@ class Clock(Item):
         Item.__init__(self, "Clock.png", 1, link)
             
     def animate(self,frame=0):
-        pass         
+        pass
+    
+class Sworb(projectile):
+    def __init__(self):
+        self.speed = 2
+        projectile.__init__(self, "SwordProjectile.png", 7,1)
+    def move(self,frame):
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+            self.changeImage(0)
+        elif self.orientation ==2:
+            self.rect.y = self.rect.y - self.speed
+            self.changeImage(2)
+        elif self.orientation ==4:
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(4)
+        else:
+            self.rect.x = self.rect.x - self.speed
+            self.changeImage(6)
+        
+        
