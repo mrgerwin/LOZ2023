@@ -9,6 +9,12 @@ def ItemDrop(enemy):
     #3 Fairy
     #4 Bomb
     #5 Clock
+    if enemy == None:
+        return None
+    else:
+        print(enemy)
+        print(enemy.link)
+        print(enemy.link.kills)
     
     A= [0, 1, 0, 3, 0, 1, 1, 0, 0, 1]
     B= [4, 0, 5, 0, 1, 4, 0, 4, 1, 1]
@@ -173,6 +179,7 @@ class DarkMoblin(Enemy):
         self.health = 3
         self.type = "B"
     def move(self, frame, link=None):
+        self.link = link
         a_arrow = None
         if self.step == 25:
             self.speed = 0
@@ -218,6 +225,7 @@ class Moblin(Enemy):
         self.step = 0
         self.health = 2
     def move(self, frame, link=None):
+        self.link = link
         a_arrow = None
         if self.step == 25:
             self.speed = 0
@@ -266,6 +274,7 @@ class Octorok(Enemy):
         self.step = 0
         self.health = 2
     def move(self, frame, link=None):
+        self.link = link
         a_rock = None
         if self.step == 25:
             self.speed = 0
@@ -308,7 +317,7 @@ class Leever(Enemy):
         self.health = 3
         self.type = "C"
     def move(self, frame, link=None):
-
+        self.link = link
         if self.step == 25:
             pass
             
@@ -358,6 +367,7 @@ class wizzrobe(Enemy):
     
 
     def move(self, frame, link=None):
+        self.link = link
         W_rock=None
         if frame % 2 == 0:
             self.step += 1
@@ -404,6 +414,7 @@ class Tektite(Enemy):
         self.health = 4
         
     def move(self, frame, link):
+        self.link = link
         if self.speedy <= 6 and self.jump == True:
             self.speedy += 1
         self.time += 1
@@ -459,6 +470,7 @@ class BlueOctorok(Enemy):
 
         self.health = 3
     def move(self, frame, link=None):
+        self.link = link
         a_rock = None
         if self.step == 25:
 
@@ -499,10 +511,11 @@ class WaterMonster(Enemy):
         self.orientation = 1
         self.frame = 0
         self.type = "D"
-        Health = 4
+        self.health = 4
         self.link = link
         
     def move(self, frame, link):
+        self.link = link
         a_target = None
 
         if self.frame <= 3:
