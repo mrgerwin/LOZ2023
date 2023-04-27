@@ -508,7 +508,7 @@ class Projectile(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
 
-        self.speed = 3
+        self.speed = 13
 
         
     def move(self, frame):
@@ -534,7 +534,7 @@ class Rock( Projectile):
 class Arrow(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
-        self.speed = 3
+        self.speed = 13
 
         
     def move(self, frame):
@@ -558,7 +558,7 @@ class AArrow(Arrow):
 class TargetRock(Projectile):
     def __init__(self, link):
          Projectile.__init__(self,"Rocks.png", 2, 1)
-         self.speed = 4
+         self.speed = 14
          self.quad = 0
          self.angle = 45
          self.link = link
@@ -601,7 +601,7 @@ class TargetRock(Projectile):
 class TargetFireball(Projectile):
     def __init__(self, link):
          Projectile.__init__(self,"fireball1.png", 3, 1)
-         self.speed = 4
+         self.speed = 14
          self.quad = 0
          self.angle = 45
          self.link = link

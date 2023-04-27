@@ -72,11 +72,11 @@ Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1, Bomb2, Bomb3
 showSprite(link)
 
 HealthText = newLabel(str(link.health), 20, 'Arial', 'black', 50, 20,"clear")
-HealthWords = newLabel("Health", 20, 'Arial', 'black', 50, 5, "clear")
+HealthWords = newLabel("Health", 20, 'Arial', 'black', 50, 2, "clear")
 MoneyText = newLabel(str(link.money), 20, 'Arial', 'black', 150, 20, "clear")
-MoneyWords = newLabel("Money", 20, 'Arial', 'black', 150, 5, "clear")
+MoneyWords = newLabel("Money", 20, 'Arial', 'black', 150, 2, "clear")
 BombText = newLabel(str(link.Bomb), 20, 'Arial', 'black', 250, 20,"clear")
-BombWords = newLabel("Bombs", 20, 'Arial', 'black', 250, 5, "clear")
+BombWords = newLabel("Bombs", 20, 'Arial', 'black', 250, 2, "clear")
 
 textboxGroup.add(BombText)
 
@@ -210,7 +210,7 @@ while True:
             if touching (enemy, link):
                 #killSprite(link)
                 link.hit(enemy,ded)
-                changeLabel(HealthText,str(link.health), black)
+                changeLabel(HealthText,str(link.health), 'black')
         for projectile in projectiles:
             projectile.move(frame)
             if touching(link, projectile):
@@ -220,14 +220,16 @@ while True:
             Item.animate(frame)
             if touching (link, Item):
                 if type(Item) == BlueRupee:
-                    link.money +=5
-                    changeLabel(MoneyText,str(link.money), black)
+                    link.money += 5 
+                    changeLabel(MoneyText,str(link.money), 'black')
+                if type(Item) == Rupee:
+                    link.money += 1
+                    changeLabel(MoneyText,str(link.money), 'black')
                     
                 
                 
                 elif type(Item) == BombItem:
                     link.Bomb +=1
-                    link.hit(enemy, ded)
                     changeLabel(BombText,str(link.Bomb), 'black')
                     print(link.Bomb)
 
