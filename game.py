@@ -34,7 +34,6 @@ leeverspawned=True
 sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
 heart1 = Heart(link)
-Bomb = PlacableBomb(link, BombItem)
 Bomb1 = BombItem(link)
 Bomb2 = BombItem(link)
 Bomb3 = BombItem(link)
@@ -172,7 +171,18 @@ while True:
                       hideSprite(sword)
                       
                   if event.key == pygame.K_b:
-                      Placebomb()
+                      if link.Bomb >= 1:
+                          bomb = PlacableBomb(link.rect.x, link.rect.y)
+                          showSprite(bomb)
+                      else:
+                          pass
+                      
+                  if event.key == pygame.K_b:
+                      if link.Bomb >= 1:
+                          link.Bomb -= 1
+                          changeLabel(BombText,str(link.Bomb), 'black')
+                      else:
+                          pass
 
 
               if event.type == pygame.KEYUP:
@@ -232,6 +242,7 @@ while True:
                     link.Bomb +=1
                     changeLabel(BombText,str(link.Bomb), 'black')
                     print(link.Bomb)
+                 
 
                 elif type(Item)==Clock:
                     ClockAquired=True

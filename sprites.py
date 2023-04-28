@@ -10,7 +10,7 @@ class Player(newSprite):
         self.speed = 0
         self.money = 0
         self.Bomb = 3
-        self.health=3
+        self.health = 3
         self.orientation = 0
         
     def hit(self,enemy, ded):
@@ -754,17 +754,19 @@ class BombItem(Item):
     def animate (self, frame=0):
         pass
 
-class PlacableBomb():
-    def __init__(self, link, BombItem):
-        Item.__init__(self, "Bomb.png", 1, link)
-        BombItem.value = 1
-    def Placebomb(link):
-        if BombItem.value <= 1:
-            showSprite(BombItem)
-            self.rect.x = link.rect.x
-            self.rect.y = link.rect.y
+class PlacableBomb(newSprite):
+    def __init__(self, x, y):
+        newSprite.__init__(self, "Bomb.png", 1)
+        self.rect.x = x
+        self.rect.y = y
+        self.frames = 0
+    def animate (self, frame=0):
+        if self.frames == 10:
+            hideSprite(self)
         else:
-            pass
+            self.frames += 1
+
+
     
 class Rupee(Item):
     def __init__(self,link):
