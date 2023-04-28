@@ -874,22 +874,33 @@ class Clock(Item):
     def animate(self,frame=0):
         pass
     
-class Sworb(projectile):
+class Sworb(Projectile):
     def __init__(self):
         self.speed = 2
-        projectile.__init__(self, "SwordProjectile.png", 7,1)
+        Projectile.__init__(self, "SwordProjectile.png", 7,1)
     def move(self,frame):
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
             self.changeImage(0)
-        elif self.orientation ==2:
+        elif self.orientation ==1:
             self.rect.y = self.rect.y - self.speed
-            self.changeImage(2)
-        elif self.orientation ==4:
+            self.changeImage(1)
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(3)
+        elif self.orientation ==3:
             self.rect.x = self.rect.x + self.speed
             self.changeImage(4)
+        elif self.orientation ==4:
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(5)
+        elif self.orientation ==5:
+            self.rect.x = self.rect.x + self.speed
+            self.changeImage(6)
+        
         else:
             self.rect.x = self.rect.x - self.speed
-            self.changeImage(6)
+            self.changeImage(7)
+        
         
         

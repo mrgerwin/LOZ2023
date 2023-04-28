@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock, Fairy
+from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, Sworb, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock, Fairy
 
 screenX = 1024
 screenY = 768
@@ -34,7 +34,7 @@ sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
 
 projectiles = []
-
+linkProjectiles=[]
 nextFrame = clock()
 frame = 0
 green = (0,102,0)
@@ -153,7 +153,15 @@ while True:
                       link.speed = 0
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
-       
+                  if event.key == pygame.K_SPACE:
+                      changeSpriteImage(link,link.orientation + 8)
+                      sword.stab(link.rect.x, link.rect.y, link.orientation)
+                      aswordProjectile = Sworb()
+                      aswordProjectile.orientation = link.orientation
+                      linkProjectiles.append(aswordProjectile)
+                
+        for projectile in linkProjectiles:
+            projectile.move(frame)
         for enemy in enemies:
             if ClockAquired==False:
                 projectile = enemy.move(frame,link)
