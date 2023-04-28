@@ -13,8 +13,12 @@ ClockNumber=0
 music = makeMusic("linkMusic.mp3")
 #link_die = makeSound("LOZ_Link_DIE.wav")
 #link_die = makeSound("link'sPain.mp3")
-link_die = makeSound("LinkInMaximumPain.mp3")
+#link_die = makeSound("LinkInMaximumPain.mp3")
+link_die = makeSound("LinkScreamsForALittleBit.mp3")
 link_hit = makeSound("LOZ_Link_Hurt.wav")
+link_hit1 = makeSound("LinkHit1.mp3")
+link_hit2 = makeSound("LinkHit2.mp3")
+link_hit3 = makeSound("LinkHit3.mp3")
 enemy_die = makeSound("LOZ_Enemy_DIE.wav")
 enemy_hit = makeSound("LOZ_Enemy_Hit.wav")
 sword_slash = makeSound("LOZ_Sword_Slash.wav")
@@ -158,6 +162,8 @@ while True:
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
                       print("Aiden do the sword thing")
+                  if event.key == pygame.K_b:
+                      link.shoot(frame)
                   if event.key == pygame.K_LEFT:
                       link.speed = 0
                   if event.key == pygame.K_RIGHT:
@@ -192,12 +198,13 @@ while True:
                 
             if touching (enemy, link):
                 #killSprite(link)
-                if link.health>=0.5:
-                    pygame.mixer.Sound.play(link_hit)
-                elif link.health == 0:
+                print (link.health)
+                if link.health <= 0.5:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
                     pygame.mixer.Sound.play(link_die)
+                elif link.health>=0.5:
+                    pygame.mixer.Sound.play(link_hit)
                 link.hit(enemy,ded,link.orientation)
             for projectile in projectiles:
                 projectile.move(frame)

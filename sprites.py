@@ -10,7 +10,22 @@ class Player(newSprite):
         self.speed = 0
         self.money = 0
         self.health=3
-        
+    def shoot(self,frame):
+        aaarrow = AArrow()
+        aaarrow.rect.x = self.rect.x
+        aaarrow.rect.y = self.rect.y
+        aaarrow.orientation = self.orientation
+        showSprite(aaarrow)
+        if self.orientation ==1:
+            aaarrow.changeImage(1)
+        elif self.orientation ==2:
+            aaarrow.changeImage(2)
+        elif self.orientation ==3:
+            aaarrow.changeImage(3)
+        else:
+            aaarrow.changeImage(0)
+        aaarrow.speed=0
+        return aaarrow
     def hit(self,enemies, ded,llorientation):
         #print (llorientation)
         if self.health <= 0:
