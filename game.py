@@ -1,20 +1,20 @@
 from pygame_functions import *
+from sprites import *
 
 #from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock, Fairy
 
 screenX = 1024
 screenY = 768
 
-screenSize(screenX,screenY)
+window = screenSize(screenX,screenY)
 setBackgroundColour('grey')
 
 setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
-
-scene1 = Scene(link,"./ZeldaMapTilesBrown.png", "./map1.txt", 6,8)
-
+scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
+showBackground(scene1)
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
@@ -141,7 +141,7 @@ while True:
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
        
-        for enemy in enemies:
+        for enemy in scene1.Enemies:
             if ClockAquired==False:
                 projectile = enemy.move(frame,link)
                 if projectile != None:

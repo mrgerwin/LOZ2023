@@ -1,5 +1,10 @@
+import pygame.display
+from pygame_functions import *
 import random
+from os import path
+import base64
 import math
+
 
 def ItemDrop(enemy):
     #0 yellow Rupee
@@ -37,7 +42,7 @@ def ItemDrop(enemy):
         return Bomb(enemy.link)
     elif itemNum == 5:
         return Clock(enemy.link)
-"""            
+            
 class Player(newSprite):
     def __init__(self):
         newSprite.__init__(self, "LinkSimple.png", 14)
@@ -115,8 +120,7 @@ class Player(newSprite):
                 self.changeImage(2*2 + frame)
             else:
                 self.rect.x = self.rect.x - self.speed
-                self.changeImage(3*2 + frame)
-"""                
+                self.changeImage(3*2 + frame)               
                 
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
@@ -874,3 +878,171 @@ class Clock(Item):
             
     def animate(self,frame=0):
         pass         
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.images = []
+        self.images.append(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (0, 0)
+        self.mask = pygame.mask.from_surface(self.image)
+        self.angle = 9
+        self.scale = 1
+        self.x = self.rect.x
+        self.y = self.rect.y
+        self.passThrough = False
+
+    def addImage(self, aImage):
+        self.images.append(aImage)
+
+    def changeImage(self, index=0):
+        self.image = self.images[index]
+
+    def move(self, xpos, ypos, centre=False):
+        if centre:
+            self.rect.center = [xpos, ypos]
+        else:
+            self.rect.topleft = [xpos, ypos]
+
+
+# Note that Wall inherits from pygame sprite not newSprite
+class Wall(Tile):
+    """
+    Walls are Scene Objects that most sprites cannot pass through
+    """
+
+    def __init__(self, image):
+        Tile.__init__(self, image)
+        self.passThrough = False
+        self.choppable = False
+
+    def move(self, xpos, ypos, centre=False):
+        if centre:
+            self.rect.center = [xpos, ypos]
+        else:
+            self.rect.topleft = [xpos, ypos]
+
+
+class Scene:
+    """
+    A Scene is a background that does interact with the sprites.  For instance
+    there are walls that the sprites cannot pass through
+    """
+    passTiles = ["C", "W", "b", "c", "d", "h", "i", "j", "n", "o", "p", "d", "q", "r", "s", "t", "k", "v"]
+
+    def __init__(self, screen, player, spriteSheetFileName, mapFileName, framesX=1, framesY=1):
+        global background
+
+        self.player = player
+        print("Loading: "+str(spriteSheetFileName))
+        spriteSheet = loadImage(spriteSheetFileName)
+        self.originalWidth = spriteSheet.get_width() // framesX
+        self.originalHeight = spriteSheet.get_height() // framesY
+        frameSurf = pygame.Surface((self.originalWidth, self.originalHeight), pygame.SRCALPHA, 32)
+        x = 0
+        y = 0
+        self.images = []
+        for column in range(framesY):
+            for frameNo in range(framesX):
+                frameSurf = pygame.Surface((self.originalWidth, self.originalHeight), pygame.SRCALPHA, 32)
+                frameSurf.blit(spriteSheet, (x, y))
+                self.images.append(frameSurf.copy())
+                x -= self.originalWidth
+            y -= self.originalHeight
+            x = 0
+        # Other initialized parameters
+        self.Wall_Tiles = []
+        self.Ground_Tiles = []
+        self.Water_Tiles = []
+        self.Enemies = []
+        self.Projectiles = []
+        self.Items = []
+        # Populate the lists
+        game_folder = os.getcwd()
+        map_data = []
+        with open(path.join(game_folder, mapFileName), 'rt') as f:
+            for line in f:
+                map_data.append(line)
+
+        i = 0
+        for row, tiles in enumerate(map_data):
+            for col, tile in enumerate(tiles):
+                if tile in base64dict:
+                    if tile in Scene.passTiles:
+                        passTile = Tile(self.images[base64dict[tile]])
+                        passTile.move(col * 32, row * 32)
+                        self.Ground_Tiles.append(passTile)
+                    else:
+                        thisWall = Wall(self.images[base64dict[tile]])
+                        thisWall.move(col * 32, row * 32)
+                        if tile == 'Y' or tile == 'Z' or tile == 'a' or tile == 'e' or tile == 'f' or tile == 'g' or tile == 'k' or tile == 'l' or tile == 'm':
+                            self.Water_Tiles.append(thisWall)
+                        else:
+                            self.Wall_Tiles.append(thisWall)
+                            if tile == 'H':
+                                thisWall.choppable = True
+                                thisWall.addImage(self.images[base64dict['i']])
+                            
+                elif tile == "@":
+                    enemy = Octorok()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "^":
+                    enemy = Leever()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "#":
+                    enemy = BlueOctorok()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "$":
+                    enemy = Moblin()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "&":
+                    enemy = DarkMoblin()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "*":
+                    enemy = WaterMonster()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "!":
+                    enemy = wizzrobe()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "~":
+                    enemy = Tektite()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                if tile not in base64dict:
+                    thisGround = Tile(self.images[2])
+                    thisGround.move(col * 32, row * 32)
+                    self.Ground_Tiles.append(thisGround)
+        self.surface = screen.copy()
+        background = self.surface
+        # Methods for Scrolling the Scene
+
+    def scroll(self, x, y):
+        for enemy in self.Enemies:
+            enemy.speed = 0
+            hideSprite(enemy)
+        for projectile in self.Projectiles:
+            killSprite(projectile)
+        self.Projectiles = []
+        for item in self.Items:
+            killSprite(item)
+        self.Items = []
+        for tile in self.all_wall_panels:
+            tile.move(tile.rect.x + x, tile.rect.y + y)
+        for tile in self.all_ground_tiles:
+            tile.move(tile.rect.x + x, tile.rect.y + y)

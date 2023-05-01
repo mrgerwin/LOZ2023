@@ -8,7 +8,6 @@ import pygame, math, sys, os
 import random
 from os import path
 import base64
-from sprites import *
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
@@ -107,93 +106,7 @@ class Background():
         screen.fill(self.colour)
         pygame.display.update()
         self.surface = screen.copy()
-class Scene:
-    """
-    A Scene is a background that does interact with the sprites.  For instance
-    there are walls that the sprites cannot pass through
-    """
-    def __init__(self, player, spriteSheetFileName, mapFileName, framesX=1, framesY=1):
-        self.player = player
-        spriteSheet = loadImage(spriteSheetFileName)
-        self.originalWidth = spriteSheet.get_width() // framesX
-        self.originalHeight = spriteSheet.get_height() // framesY
-        frameSurf = pygame.Surface((self.originalWidth, self.originalHeight), pygame.SRCALPHA, 32)
-        x = 0
-        y = 0
-        self.images = []
-        for column in range(framesY):
-            for frameNo in range(framesX):
-                frameSurf = pygame.Surface((self.originalWidth, self.originalHeight), pygame.SRCALPHA, 32)
-                frameSurf.blit(spriteSheet, (x, y))
-                self.images.append(frameSurf.copy())
-                x -= self.originalWidth
-            y -=self.originalHeight
-            x = 0
-        #Other initialized parameters
-        self.Wall_Tiles = []
-        self.Ground_Tiles = []
-        self.Enemies = []
-        self.Projectiles = []
-        self.Items=[]
-        #Populate the lists
-        game_folder = os.getcwd()
-        map_data = []
-        with open(path.join(game_folder, mapFileName), 'rt') as f:
-            for line in f:
-                map_data.append(line)
-                
-        i = 0
-        for row, tiles in enumerate(map_data):
-                for col, tile in enumerate(tiles):
-                    if tile in base64dict:
-                        thisWall = Wall(self.images[base64dict[tile]])
-                        thisWall.move(col*32, row*32)
-                        self.Wall_Tiles.append(thisWall)    
-                    elif tile == "@":
-                        enemy = Octorok()
-                        enemy.rect.x=col*32
-                        enemy.rect.y=row*32
-                        self.Enemies.append(enemy)
-                    if tile not in base64dict:
-                        thisGround = Wall(self.images[2])
-                        thisGround.move(col*32, row*32)
-                        self.Ground_Tiles.append(thisGround)
-        self.surface=screen.copy()
-        background=self.surface
-        #Methods for Scrolling the Scene
-    def scroll(self, x, y):
-        for enemy in self.Enemies:
-            enemy.speed = 0
-            hideSprite(enemy)
-        for projectile in self.Projectiles:
-            killSprite(projectile)
-        self.Projectiles = []
-        for item in self.Items:
-            killSprite(item)
-        self.Items = []
-        for tile in self.all_wall_panels:
-            tile.move(tile.rect.x+x, tile.rect.y+y)
-        for tile in self.all_ground_tiles:
-            tile.move(tile.rect.x+x, tile.rect.y+y)
-class Wall(pygame.sprite.Sprite):
-    """
-    Walls are Scene Objects that most sprites cannot pass through
-    """
-    def __init__(self, image):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = image
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (0,0)
-        self.mask = pygame.mask.from_surface(self.image)
-        self.angle = 9
-        self.scale = 1
-        self.x = self.rect.x
-        self.y = self.rect.y
-    def move(self, xpos, ypos, centre=False):
-        if centre:
-            self.rect.center = [xpos, ypos]
-        else:
-            self.rect.topleft = [xpos, ypos]
+
 class newSprite(pygame.sprite.Sprite):
     def __init__(self, filename, framesX=1, framesY=1):
         pygame.sprite.Sprite.__init__(self)
@@ -257,92 +170,6 @@ class newSprite(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         if screenRefresh:
             updateDisplay()
-class Player(newSprite):
-    def __init__(self):
-        newSprite.__init__(self, "LinkSimple.png", 14)
-        self.rect.x = 500
-        self.rect.y = 350
-        self.speed = 0
-        self.money = 0
-        self.Bomb = 3
-        self.health=3
-        self.orientation = 0
-        self.kills = 0
-        
-    def hit(self,enemy, ded):
-        #print (llorientation)
-        if self.health <= 0:
-            #Die Animation
-            changeSpriteImage(self, 0)
-            pause(125)
-            changeSpriteImage(self, 5)
-            pause(125)
-            changeSpriteImage(self, 2)
-            pause(125)
-            changeSpriteImage(self, 6)
-            pause(125)
-            changeSpriteImage(self, 0)
-            pause(125)
-            changeSpriteImage(self, 5)
-            pause(125)
-            changeSpriteImage(self, 2)
-            pause(125)
-            changeSpriteImage(self, 6)
-            pause(125)
-            changeSpriteImage(self, 0)
-            pause(125)
-            changeSpriteImage(self, 5)
-            pause(125)
-            changeSpriteImage(self, 2)
-            pause(125)
-            changeSpriteImage(self, 6)
-            pause(125)
-            changeSpriteImage(self, 0)
-            pause(125)
-            changeSpriteImage(self, 5)
-            pause(125)
-            changeSpriteImage(self, 2)
-            pause(125)
-            changeSpriteImage(self, 6)
-            pause(125)
-        elif self.orientation ==0:
-            self.rect.y -=32
-            self.health= self.health - 0.5
-        elif self.orientation ==1:
-            self.rect.y +=32
-            self.health= self.health - 0.5
-        elif self.orientation ==2:
-            self.rect.x -=32
-            self.health= self.health - 0.5
-        elif self.orientation ==3:
-            self.rect.x +=32
-            self.health= self.health - 0.5
-
-    def move(self, frame):
-        if self.speed == 0:
-            pass
-        else:
-        
-            if self.orientation == 0:
-                self.rect.y = self.rect.y + self.speed
-                self.changeImage(0*2 + frame)
-            elif self.orientation ==1:
-                self.rect.y = self.rect.y - self.speed
-                self.changeImage(1*2 + frame)
-            elif self.orientation ==2:
-                self.rect.x = self.rect.x + self.speed
-                self.changeImage(2*2 + frame)
-            else:
-                self.rect.x = self.rect.x - self.speed
-                self.changeImage(3*2 + frame)
-    """
-    def hit(self):
-        self.health -=1
-        self.rect.y +=32
-
-        if self.health == 0:
-            killSprite(self)
-    """
 
 class newTextBox(pygame.sprite.Sprite):
     def __init__(self, text, xpos, ypos, width, case, maxLength, fontSize):
