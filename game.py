@@ -11,6 +11,7 @@ link = Player()
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
+linkIsDie = False
 #link_die = makeSound("LOZ_Link_DIE.wav")
 #link_die = makeSound("link'sPain.mp3")
 #link_die = makeSound("LinkInMaximumPain.mp3")
@@ -41,6 +42,7 @@ sword = Sword("Sworb.png", 4, 1)
 
 
 projectiles = []
+linksProjectiles = []
 showSprite(link)
 Bomb = BombItem(link)
 heart1 = Heart()
@@ -60,7 +62,6 @@ bluerupee2.move(64, 96)
 bluerupee3.move(46, 69)
 
 watermonster = WaterMonster(link)
-projectiles = []
 
 nextFrame = clock()
 frame = 0
@@ -164,6 +165,7 @@ while True:
                       print("Aiden do the sword thing")
                   if event.key == pygame.K_b:
                       link.shoot(frame)
+                      linksProjectiles.append()
                   if event.key == pygame.K_LEFT:
                       link.speed = 0
                   if event.key == pygame.K_RIGHT:
@@ -202,8 +204,10 @@ while True:
                 if link.health <= 0.5:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
-                    pygame.mixer.Sound.play(link_die)
-                elif link.health>=0.5:
+                    if linkIsDie == False:
+                        pygame.mixer.Sound.play(link_die)
+                        linkIsDie=True
+                else:
                     pygame.mixer.Sound.play(link_hit)
                 link.hit(enemy,ded,link.orientation)
             for projectile in projectiles:

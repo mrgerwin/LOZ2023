@@ -16,15 +16,19 @@ class Player(newSprite):
         aaarrow.rect.y = self.rect.y
         aaarrow.orientation = self.orientation
         showSprite(aaarrow)
+        aaarrow.speed=6
         if self.orientation ==1:
             aaarrow.changeImage(1)
+            aaarrow.move(frame)
         elif self.orientation ==2:
             aaarrow.changeImage(2)
+            aaarrow.move(frame)
         elif self.orientation ==3:
             aaarrow.changeImage(3)
+            aaarrow.move(frame)
         else:
             aaarrow.changeImage(0)
-        aaarrow.speed=0
+            aaarrow.move(frame)
         return aaarrow
     def hit(self,enemies, ded,llorientation):
         #print (llorientation)
