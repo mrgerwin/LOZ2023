@@ -1,6 +1,6 @@
 from pygame_functions import *
 
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock, Fairy
+#from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock, Fairy
 
 screenX = 1024
 screenY = 768
@@ -12,6 +12,9 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+
+scene1 = Scene(link,"./ZeldaMapTilesBrown.png", "./map1.txt", 6,8)
+
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
@@ -21,15 +24,6 @@ enemy_die = makeSound("LOZ_Enemy_DIE.wav")
 enemy_hit = makeSound("LOZ_Enemy_Hit.wav")
 sword_slash = makeSound("LOZ_Sword_Slash.wav")
 
-Blueoctorok = BlueOctorok()
-octorok = Octorok()
-leever=Leever()
-wizzrobe = wizzrobe(link)
-watermonster = WaterMonster(link)
-tektite = Tektite()
-moblin = Moblin()
-dmoblin = DarkMoblin()
-leeverspawned=True
 sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
 
@@ -43,7 +37,6 @@ playSound(backgroundMusic,10)
 
 bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 200, 60,"clear")
 #textboxGroup.add(bombs)
-enemies = [octorok, Blueoctorok, leever, watermonster]
 Items = [] 
 showSprite(link)
 
@@ -52,12 +45,6 @@ MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
 
 showLabel(HealthText)
 showLabel(MoneyText)
-
-for enemy in enemies:
-    showSprite(enemy)
-    
-for item in Items:
-    showSprite(item)
 
 dieOn=False
 ded=False

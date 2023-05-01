@@ -1,4 +1,3 @@
-from pygame_functions import *
 import random
 import math
 
@@ -38,8 +37,7 @@ def ItemDrop(enemy):
         return Bomb(enemy.link)
     elif itemNum == 5:
         return Clock(enemy.link)
-
-
+"""            
 class Player(newSprite):
     def __init__(self):
         newSprite.__init__(self, "LinkSimple.png", 14)
@@ -118,14 +116,8 @@ class Player(newSprite):
             else:
                 self.rect.x = self.rect.x - self.speed
                 self.changeImage(3*2 + frame)
-    """
-    def hit(self):
-        self.health -=1
-        self.rect.y +=32
-
-        if self.health == 0:
-            killSprite(self)
-    """
+"""                
+                
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
