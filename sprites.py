@@ -759,12 +759,12 @@ class PlacableBomb(newSprite):
         newSprite.__init__(self, "Bomb.png", 1)
         self.rect.x = x
         self.rect.y = y
-        self.frames = 0
-    def animate (self, frame=0):
-        if self.frames == 10:
+        self.step = 0
+    def animate (self, step=0):
+        self.frames += 1
+        if self.step == 10:
             hideSprite(self)
-        else:
-            self.frames += 1
+            self.step = 0
 
 
     
