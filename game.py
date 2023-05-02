@@ -158,7 +158,7 @@ while True:
             if touching(enemy, sword):
                 #killSprite(enemy)
                 if enemy.health ==1:
-                    enemies.remove(enemy)
+                    scene1.Enemies.remove(enemy)
                     link.kills +=1
                 item=enemy.hit(link.orientation)
                 if item != None:
