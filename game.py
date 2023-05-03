@@ -13,7 +13,8 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
-scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
+scene5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.xtx", 6, 8)
+#scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
 showBackground(scene1)
 ClockAquired=False
 ClockNumber=0
