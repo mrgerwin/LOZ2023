@@ -13,9 +13,9 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
-scene5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.xtx", 6, 8)
-#scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
-showBackground(scene1)
+scene5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.txt", 6, 8)
+scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6, 8)
+showBackground(scene5)
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
