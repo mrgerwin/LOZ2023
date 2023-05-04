@@ -13,8 +13,9 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
-scene5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.txt", 6, 8)
 scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6, 8)
+hideBackground(scene1)
+scene5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.txt", 6, 8)
 showBackground(scene5)
 ClockAquired=False
 ClockNumber=0
@@ -41,11 +42,20 @@ bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 200, 60,"clear")
 Items = [] 
 showSprite(link)
 
-HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
-MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
+HealthText = newLabel(str(link.health), 20, 'Arial', 'black', 50, 50,"clear")
+HealthWords = newLabel("Health", 20, 'Arial', 'black', 50, 30, "clear")
+MoneyText = newLabel(str(link.money), 20, 'Arial', 'black', 150, 50, "clear")
+MoneyWords = newLabel("Money", 20, 'Arial', 'black', 150, 30, "clear")
+BombText = newLabel(str(link.Bomb), 20, 'Arial', 'black', 250, 50,"clear")
+BombWords = newLabel("Bombs", 20, 'Arial', 'black', 250, 30, "clear")
 
+textboxGroup.add(BombText)
+showLabel(HealthWords)
 showLabel(HealthText)
+showLabel(MoneyWords)
 showLabel(MoneyText)
+showLabel(BombWords)
+showLabel(BombText)
 
 dieOn=False
 ded=False
@@ -128,7 +138,7 @@ while True:
                       
                   if event.key == pygame.K_b:
                       link.Bomb -= 1
-                      if link.Bomb >= 1:
+                      if link.Bomb >= 0:
                           bomb = PlacableBomb(link.rect.x, link.rect.y)
                           showSprite(bomb)
                       else:
