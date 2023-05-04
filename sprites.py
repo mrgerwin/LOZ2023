@@ -804,6 +804,7 @@ class BombItem(Item):
     def animate (self, frame=0):
         pass
 
+<<<<<<< Updated upstream
 class PlacableBomb(newSprite):
     def __init__(self, x, y):
         newSprite.__init__(self, "Bomb.png", 1)
@@ -816,6 +817,19 @@ class PlacableBomb(newSprite):
             hideSprite(self)
             self.step = 0
 
+=======
+class PlacableBomb():
+    def __init__(self, link, BombItem):
+        Item.__init__(self, "Bomb.png", 1, link)
+        BombItem = 1
+    def Placebomb(link):
+        if BombItem.value <= 1:
+            showSprite(BombItem)
+            self.rect.x = link.rect.x
+            self.rect.y = link.rect.y
+        else:
+            pass
+>>>>>>> Stashed changes
     
 class Rupee(Item):
     def __init__(self,link):
