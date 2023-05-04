@@ -804,17 +804,18 @@ class BombItem(Item):
     def animate (self, frame=0):
         pass
 
-class PlacableBomb():
-    def __init__(self, link, BombItem):
-        Item.__init__(self, "Bomb.png", 1, link)
-        BombItem.value = 1
-    def Placebomb(link):
-        if BombItem.value <= 1:
-            showSprite(BombItem)
-            self.rect.x = link.rect.x
-            self.rect.y = link.rect.y
-        else:
-            pass
+class PlacableBomb(newSprite):
+    def __init__(self, x, y):
+        newSprite.__init__(self, "Bomb.png", 1)
+        self.rect.x = x
+        self.rect.y = y
+        self.step = 0
+    def animate (self, step=0):
+        self.frames += 1
+        if self.step == 10:
+            hideSprite(self)
+            self.step = 0
+
     
 class Rupee(Item):
     def __init__(self,link):
