@@ -32,8 +32,15 @@ dmoblin = DarkMoblin()
 leeverspawned=True
 sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
+showSprite(sword)
+flyingSword = Sworb()
+flyingSword.orientation = link.orientation
+flyingSword.rect.x = link.rect.x
+flyingSword.rect.y = link.rect.y
+showSprite(flyingSword)
 
 projectiles = []
+projectiles.append(flyingSword)
 linkProjectiles=[]
 nextFrame = clock()
 frame = 0
@@ -153,7 +160,7 @@ while True:
                       link.speed = 0
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
-                  if event.key == pygame.K_SPACE:
+                  if event.key == pygame.K_s:
                       changeSpriteImage(link,link.orientation + 8)
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
                       aswordProjectile = Sworb()
