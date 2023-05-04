@@ -13,8 +13,8 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
-scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
-showBackground(scene1)
+scene3 = Scene(window, link, "ZeldaMapTilesBrown.png", "map3.txt", 6,8)
+showBackground(scene3)
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
@@ -141,7 +141,7 @@ while True:
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
        
-        for enemy in scene1.Enemies:
+        for enemy in scene3.Enemies:
             if ClockAquired==False:
                 projectile = enemy.move(frame,link)
                 if projectile != None:
