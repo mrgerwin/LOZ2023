@@ -127,6 +127,7 @@ while True:
                       hideSprite(sword)
                       
                   if event.key == pygame.K_b:
+                      link.Bomb -= 1
                       if link.Bomb >= 1:
                           bomb = PlacableBomb(link.rect.x, link.rect.y)
                           showSprite(bomb)
