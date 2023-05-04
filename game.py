@@ -55,7 +55,7 @@ showLabel(HealthText)
 showLabel(MoneyWords)
 showLabel(MoneyText)
 showLabel(BombWords)
-showLabel(BombText)
+textboxGroup.add(BombText)
 
 dieOn=False
 ded=False
