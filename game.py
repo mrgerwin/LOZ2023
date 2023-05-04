@@ -17,6 +17,7 @@ scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6, 8)
 hideBackground(scene1)
 scene5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.txt", 6, 8)
 showBackground(scene5)
+scenes = [scene1, scene5]
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
@@ -156,19 +157,19 @@ while True:
                       link.speed = 0
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
-       
-        for enemy in scene1.Enemies:
-            if ClockAquired==False:
-                projectile = enemy.move(frame,link)
-                if projectile != None:
-                    projectiles.append(projectile)
-            else:
-                if ClockNumber==500:
-                    ClockAquired=False
-                    ClockNumber=0
+        for scene in scenes:
+            for enemy in scene.Enemies:
+                if ClockAquired==False:
+                    projectile = enemy.move(frame,link)
+                    if projectile != None:
+                        projectiles.append(projectile)
                 else:
-                    ClockNumber+=1
-                    #print(ClockNumber)
+                    if ClockNumber==500:
+                        ClockAquired=False
+                        ClockNumber=0
+                    else:
+                        ClockNumber+=1
+                        #print(ClockNumber)
 
 
             if touching(enemy, sword):
