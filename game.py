@@ -34,10 +34,10 @@ sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
 showSprite(sword)
 flyingSword = Sworb()
-flyingSword.orientation = link.orientation
-flyingSword.rect.x = link.rect.x
-flyingSword.rect.y = link.rect.y
-showSprite(flyingSword)
+#flyingSword.orientation = link.orientation
+#flyingSword.rect.x = link.rect.x
+#flyingSword.rect.y = link.rect.y
+#showSprite(flyingSword)
 
 projectiles = []
 projectiles.append(flyingSword)
@@ -163,10 +163,14 @@ while True:
                   if event.key == pygame.K_s:
                       changeSpriteImage(link,link.orientation + 8)
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
-                      aswordProjectile = Sworb()
-                      aswordProjectile.orientation = link.orientation
-                      linkProjectiles.append(aswordProjectile)
-                
+                      flyingSword = Sworb()
+                      flyingSword.orientation = link.orientation
+                      linkProjectiles.append(flyingSword)
+                      flyingSword.orientation = link.orientation
+                      flyingSword.rect.x = link.rect.x
+                      flyingSword.rect.y = link.rect.y
+                      showSprite(flyingSword)
+                      
         for projectile in linkProjectiles:
             projectile.move(frame)
         for enemy in enemies:
