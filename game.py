@@ -132,6 +132,8 @@ while True:
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
                       hideSprite(sword)
+                  if event.key==pygame.K_b:
+                      link.FireArrow(frame)
                   if event.key == pygame.K_LEFT:
                       link.speed = 0
                   if event.key == pygame.K_RIGHT:
