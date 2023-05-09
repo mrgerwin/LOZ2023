@@ -477,6 +477,9 @@ class Boomerang(newSprite):
         
     def reset(self):
         self.increment = 0
+        self.rect.x = self.link.rect.x
+        self.rect.y = self.link.rect.y
+        
         
     def animate(self):
         nextSpriteImage(self)

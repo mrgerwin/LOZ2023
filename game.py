@@ -142,9 +142,9 @@ while True:
                       hideSprite(sword)
                       
                   if event.key == pygame.K_c and BoomerangThrow == True:
+                      boomerang.reset()
                       showSprite(boomerang)
                       boomerang.orientate()
-                      boomerang.reset()
                       BoomerangMove = True
                       BoomerangThrow = False
                       
@@ -175,7 +175,12 @@ while True:
                     #print(ClockNumber)
 
 
-            if touching(enemy, sword):
+            if touching(enemy, sword) or touching(enemy, boomerang):
+                if touching(enemy, boomerang):
+                    BoomerangMove = False
+                    BoomerangThrow = True
+                    hideSprite(boomerang) 
+                    boomerang.reset()
                 #killSprite(enemy)
                 if enemy.health ==1:
                     enemies.remove(enemy)
