@@ -35,7 +35,6 @@ leeverspawned=True
 sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
 boomerang = Boomerang(link, "Boomerang.png", 3, 1)
-showSprite(boomerang)
 
 projectiles = []
 
@@ -145,6 +144,7 @@ while True:
                   if event.key == pygame.K_c and BoomerangThrow == True:
                       showSprite(boomerang)
                       boomerang.orientate()
+                      boomerang.reset()
                       BoomerangMove = True
                       BoomerangThrow = False
                       

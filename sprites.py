@@ -459,24 +459,24 @@ class Boomerang(newSprite):
         self.increment += .05
         self.radian = (math.pi * self.multiplier) + self.increment
         
-        if self.number == 1:
-            self.xpos = (math.cos(self.radian)*self.radius)+self.link.rect.x
-            self.ypos = self.link.rect.y
-        elif self.number == 0:
-            self.ypos = (math.sin(self.radian)*self.radius)+self.link.rect.y
-            self.xpos = self.link.rect.x
         
         self.rect.x = self.xpos
         self.rect.y = self.ypos
         
         if self.increment >= math.pi:
-            print("cat")
-            #hideSprite(self)
-            self.increment = 0
+            hideSprite(self)
             return True
         else:
+            if self.number == 1:
+                self.xpos = (math.cos(self.radian)*self.radius)+self.link.rect.x
+                self.ypos = self.link.rect.y
+            elif self.number == 0:
+                self.ypos = (math.sin(self.radian)*self.radius)+self.link.rect.y
+                self.xpos = self.link.rect.x
             return False
         
+    def reset(self):
+        self.increment = 0
             
     
 class Sword(newSprite):
