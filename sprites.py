@@ -810,10 +810,11 @@ class PlacableBomb(newSprite):
         self.rect.x = x
         self.rect.y = y
         self.step = 0
-    def animate (self, step=0):
-        self.frames += 1
-        if self.step == 10:
-            hideSprite(self)
+    def move(self, frame):
+        if self.step <= 15:
+            self.step += 1
+        if self.step == 15:
+            killSprite(self)
             self.step = 0
     
 class Rupee(Item):

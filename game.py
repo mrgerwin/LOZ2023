@@ -141,6 +141,7 @@ while True:
                       if link.Bomb >= 1:
                           link.Bomb -= 1
                           bomb = PlacableBomb(link.rect.x, link.rect.y)
+                          projectiles.append(bomb)
                           changeLabel(BombText,str(link.Bomb), 'black')
                           showSprite(bomb)
                       else:
