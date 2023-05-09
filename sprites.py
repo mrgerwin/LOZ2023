@@ -477,6 +477,9 @@ class Boomerang(newSprite):
         
     def reset(self):
         self.increment = 0
+        
+    def animate(self):
+        nextSpriteImage(self)
             
     
 class Sword(newSprite):

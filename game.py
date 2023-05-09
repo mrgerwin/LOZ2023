@@ -223,6 +223,7 @@ while True:
         #fairy.Move()
         if BoomerangMove == True:
             boomerang.move()
+            boomerang.animate()
             if boomerang.move() == True:
                 BoomerangMove = False
                 BoomerangThrow = True
