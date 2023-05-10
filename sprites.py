@@ -1,6 +1,7 @@
 from pygame_functions import *
 import random
 import math
+sword_throw = makeSound("yeetsword.wav")
 
 class Player(newSprite):
     def __init__(self):
@@ -107,6 +108,7 @@ class Player(newSprite):
         if self.health == 0:
             killSprite(self)
     """
+
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
@@ -131,7 +133,7 @@ class Enemy(newSprite):
     def hit(self, lorientation):
         self.health -=1
         if self.health == 0:
-            killSprite(self)
+            pass
         elif lorientation ==0:
             self.rect.y +=32
         elif lorientation ==1:
@@ -476,8 +478,8 @@ class WaterMonster(Enemy):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
-
-        Health = 4
+        
+        self.health = 4
         self.link = link
         
     def move(self, frame, link):
@@ -506,9 +508,11 @@ class WaterMonster(Enemy):
             self.changeImage(3)
 
         elif self.frame ==40:
-            a_target= TargetRock(link)
+            #a_target= TargetRock(link)
             a_target= HotWater(link)
-            a_target.moveTo(self.rect.x, self.rect.y)
+            a_target.rect.x = self.rect.x
+            a_target.rect.y = self.rect.y
+            #a_target.moveTo(self.rect.x, self.rect.y)
             showSprite(a_target)
 
             self.frame += 1
@@ -545,18 +549,15 @@ class Projectile(newSprite):
             self.rect.x = self.rect.x - self.speed
             
         self.changeImage(frame)
-<<<<<<< Updated upstream
-    
-class Rock( Projectile):
-=======
+
         
 class Item(newSprite):
     def __init__(self, img, x):
         newSprite.__init__(self, img, x)
         self.value = 0
         
-        def animate(self):
-            nextSpriteImage(self)
+    def animate(self):
+        nextSpriteImage(self)
             
 class Rubee(Item):
     def __init__(self):
@@ -566,7 +567,6 @@ class Rubee(Item):
         pass
 
 class Rock(Projectile):
->>>>>>> Stashed changes
     def __init__(self):
          Projectile.__init__(self,"Rocks.png", 2, 1)
 
@@ -636,7 +636,26 @@ class TargetRock(Projectile):
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
-        
+
+class ThrowSword(Projectile):
+    def __init__(self, framesX=1, framesY=1):
+         Projectile.__init__(self,"flyingrainbowsword.png", 8, 1)
+         self.speed = 20
+         self.orientation = 0
+         playSound(sword_throw)
+         showSprite(self)
+         #pause(100)
+         
+    def move(self, frame):
+        self.changeImage(self.orientation*2+frame)
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+        elif self.orientation ==1:
+            self.rect.y = self.rect.y - self.speed
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+        else:
+            self.rect.x = self.rect.x - self.speed
         
 class TargetFireball(Projectile):
     def __init__(self, link):
@@ -728,8 +747,6 @@ class HotWater(Projectile):
         self.quad = 0
         self.angle = 0
         self.link = link
-
-         Projectile.__init__(self,"Rocks.png", 2, 1)
          
 class TargetRock(Projectile):
     def __init__(self, link):
@@ -768,7 +785,7 @@ class TargetRock(Projectile):
             if (self.rect.y -self.link.rect.y)<0:
                 #print("right and below")
                 self.quad = 4
-<<<<<<< Updated upstream
+
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
         
@@ -818,8 +835,6 @@ class HeartContainer(Item):
     def animate(self):
         pass
     
-
-=======
         if self.rect.x-self.link.rect.x != 0:
             self.angle =math.atan((self.rect.y-self.link.rect.y)/(self.rect.x-self.link.rect.x))
         
@@ -827,4 +842,4 @@ class drawScore:
     def __init__(self, link):
         ScoreText = GameFont.render("BankAccount:"+ str(score), True, white)
         print("BankAccount:")
->>>>>>> Stashed changes
+
