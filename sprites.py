@@ -795,7 +795,46 @@ class Item(newSprite):
             return False
     def animate(self, frame = 0):
         nextSpriteImage(self)
-          
+        
+class Explosion(Projectile):
+    def __init__(self, x, y):
+        Projectile.__init__(self, "BombBlast.png", 3)
+        self.step = 0
+        self.rect.x = x
+        self.rect.y = y
+        self.explosionL = newSprite("BombBlast.png", 3)
+        self.explosionL.rect.x = self.rect.x - 32
+        self.explosionL.rect.y = self.rect.y
+        self.explosionR = newSprite("BombBlast.png", 3)
+        self.explosionR.rect.x = self.rect.x + 32
+        self.explosionR.rect.y = self.rect.y
+        self.explosionU = newSprite("BombBlast.png", 3)
+        self.explosionU.rect.y = self.rect.y - 32
+        self.explosionU.rect.x = self.rect.x
+        self.explosionD = newSprite("BombBlast.png", 3)
+        self.explosionD.rect.y = self.rect.y + 32
+        self.explosionD.rect.x = self.rect.x
+        #Corners
+        self.explosionLD = newSprite("BombBlast.png", 3)
+        self.explosionLD.rect.x = self.rect.x - 32
+        self.explosionLD.rect.y = self.rect.y - 32
+        self.explosionRD = newSprite("BombBlast.png", 3)
+        self.explosionRD.rect.x = self.rect.x + 32
+        self.explosionRD.rect.y = self.rect.y + 32
+        self.explosionLU = newSprite("BombBlast.png", 3)
+        self.explosionLU.rect.y = self.rect.y - 32
+        self.explosionLU.rect.x = self.rect.x + 32
+        self.explosionRU = newSprite("BombBlast.png", 3)
+        self.explosionRU.rect.y = self.rect.y + 32
+        self.explosionRU.rect.x = self.rect.x - 32
+        
+        self.explosionList = [self.explosionL, self.explosionR, self.explosionU, self.explosionD, self.explosionLD, self.explosionRD, self.explosionLU, self.explosionRU]
+        for explosion in self.explosionList:
+            showSprite(explosion)
+    def move(self, frame):
+        pass
+        
+        
 class BombItem(Item):
     def __init__(self,link):
         self.link = link
@@ -805,17 +844,17 @@ class BombItem(Item):
         pass
 
 class PlacableBomb(newSprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, Explosion):
         newSprite.__init__(self, "Bomb.png", 1)
         self.rect.x = x
         self.rect.y = y
         self.step = 0
     def move(self, frame):
-        if self.step <= 15:
+        if self.step <= 35:
             self.step += 1
-        if self.step == 15:
+        if self.step == 35:
             killSprite(self)
-            self.step = 0
+            theExplosion = Explosion(self.rect.x, self.rect.y)
     
 class Rupee(Item):
     def __init__(self,link):

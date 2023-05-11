@@ -140,8 +140,9 @@ while True:
                   if event.key == pygame.K_b:
                       if link.Bomb >= 1:
                           link.Bomb -= 1
-                          bomb = PlacableBomb(link.rect.x, link.rect.y)
+                          bomb = PlacableBomb(link.rect.x, link.rect.y, Explosion)
                           projectiles.append(bomb)
+                          bomb.move(frame)
                           changeLabel(BombText,str(link.Bomb), 'black')
                           showSprite(bomb)
                       else:
