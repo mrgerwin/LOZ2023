@@ -29,7 +29,7 @@ sword = Sword("Sworb.png", 4, 1)
 showSprite(link)
 
 projectiles = []
-
+linksProjectiles = []
 nextFrame = clock()
 frame = 0
 green = (0,102,0)
