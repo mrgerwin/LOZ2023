@@ -122,7 +122,12 @@ class Player(newSprite):
                 self.rect.x = self.rect.x - self.speed
                 self.changeImage(3*2 + frame)
     def FireArrow(self,frame):
-        print("ArrowFired")
+        aaarrow = AArrow()
+        aaarrow.rect.x = self.rect.x
+        aaarrow.rect.y = self.rect.y
+        aaarrow.orientation = self.orientation
+        showSprite(aaarrow)
+        return aaarrow
                 
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):

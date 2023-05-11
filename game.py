@@ -174,6 +174,7 @@ while True:
                 changeLabel(HealthText,str(link.health), green)
         for projectile in projectiles:
             projectile.move(frame)
+            print(projectiles)
             if touching(link, projectile):
                 link.hit(projectile, ded)
                 
