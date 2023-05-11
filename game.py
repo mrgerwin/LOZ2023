@@ -1,6 +1,5 @@
 from pygame_functions import *
-from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, HotWater,Clock,Arrow
-
+from sprites import *
 screenSize(1024,768)
 setBackgroundColour('grey')
 
@@ -164,8 +163,7 @@ while True:
                   if event.key == pygame.K_SPACE:
                       print("Aiden do the sword thing")
                   if event.key == pygame.K_b:
-                      link.shoot(frame)
-                      linksProjectiles.append(Arrow)
+                      link.shoot(linksProjectiles,frame)
                   if event.key == pygame.K_LEFT:
                       link.speed = 0
                   if event.key == pygame.K_RIGHT:
@@ -212,8 +210,9 @@ while True:
                 link.hit(enemy,ded,link.orientation)
             for projectile in projectiles:
                 projectile.move(frame)
+                #print(projectiles)
             for projectile in linksProjectiles:
-                projectile.move(link,frame)
+                projectile.move(frame)
                 
         for Item in Items:
             Item.animate(frame)
