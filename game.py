@@ -177,9 +177,10 @@ while True:
                 #killSprite(link)
                 link.hit(enemy,ded)
                 changeLabel(HealthText,str(link.health), green)
+        for projectile in linksProjectiles:
+                projectile.move(frame)
         for projectile in projectiles:
             projectile.move(frame)
-            print(projectiles)
             if touching(link, projectile):
                 link.hit(projectile, ded)
                 
