@@ -6,6 +6,7 @@ from sprites import *
 screenX = 1024
 screenY = 768
 
+
 window = screenSize(screenX,screenY)
 setBackgroundColour('grey')
 

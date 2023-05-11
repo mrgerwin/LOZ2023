@@ -49,12 +49,32 @@ class Player(newSprite):
         self.rect.x = 500
         self.rect.y = 350
         self.speed = 0
-        self.money = 0
+        self.money = 10
         self.Bomb = 3
         self.health=3
         self.orientation = 0
         self.kills = 0
-        
+    def shoot(self,linksProjectiles,frame):
+        aaarrow = AArrow()
+        aaarrow.rect.x = self.rect.x
+        aaarrow.rect.y = self.rect.y
+        aaarrow.orientation = self.orientation
+        showSprite(aaarrow)
+        aaarrow.speed=6
+        if self.orientation ==1:
+            aaarrow.changeImage(1)
+            linksProjectiles.append(aaarrow)
+        elif self.orientation ==2:
+            aaarrow.changeImage(2)
+            linksProjectiles.append(aaarrow)
+        elif self.orientation ==3:
+            aaarrow.changeImage(3)
+            linksProjectiles.append(aaarrow)
+        else:
+            aaarrow.changeImage(0)
+            linksProjectiles.append(aaarrow)
+        return aaarrow
+        return linksProjectiles   
     def hit(self,enemy, ded):
         #print (llorientation)
         if self.health <= 0:
@@ -121,13 +141,6 @@ class Player(newSprite):
             else:
                 self.rect.x = self.rect.x - self.speed
                 self.changeImage(3*2 + frame)
-    def FireArrow(self,frame):
-        aaarrow = AArrow()
-        aaarrow.rect.x = self.rect.x
-        aaarrow.rect.y = self.rect.y
-        aaarrow.orientation = self.orientation
-        showSprite(aaarrow)
-        return aaarrow
                 
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
