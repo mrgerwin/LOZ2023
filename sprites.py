@@ -602,10 +602,10 @@ class Rock( Projectile):
 class Arrow(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
-        self.speed = 3
 
         
     def move(self, frame):
+        self.speed = 20
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
             self.changeImage(0)
