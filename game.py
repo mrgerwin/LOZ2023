@@ -247,6 +247,7 @@ while True:
             
             if theExplosion == True:
                 LinkProjectiles.remove(projectile)
+                #LinkProjectiles.clear()
                 killSprite(projectile)
             elif theExplosion == False:
                 pass
