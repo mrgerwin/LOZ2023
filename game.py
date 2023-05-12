@@ -49,7 +49,7 @@ MoneyText = newLabel(str(link.money), 20, 'Arial', 'black', 150, 50, "clear")
 MoneyWords = newLabel("Money", 20, 'Arial', 'black', 150, 30, "clear")
 BombText = newLabel(str(link.Bomb), 20, 'Arial', 'black', 250, 50,"clear")
 BombWords = newLabel("Bombs", 20, 'Arial', 'black', 250, 30, "clear")
-
+explosion = Explosion
 textboxGroup.add(BombText)
 showLabel(HealthWords)
 showLabel(HealthText)
@@ -142,7 +142,7 @@ while True:
                           link.Bomb -= 1
                           bomb = PlacableBomb(link.rect.x, link.rect.y, Explosion)
                           projectiles.append(bomb)
-                          bomb.move(frame)
+                          theExplosion = bomb.move(frame)
                           changeLabel(BombText,str(link.Bomb), 'black')
                           showSprite(bomb)
                       else:
