@@ -52,10 +52,30 @@ class Player(newSprite):
         self.money = 0
         self.Bomb = 3
         self.health=3
-        self.orientation = 0
-        self.kills = 0
         
-    def hit(self,enemy, ded):
+    def shoot(self,linksProjectiles,frame):
+        aaarrow = AArrow()
+        aaarrow.rect.x = self.rect.x
+        aaarrow.rect.y = self.rect.y
+        aaarrow.orientation = self.orientation
+        showSprite(aaarrow)
+        aaarrow.speed=6
+        if self.orientation ==1:
+            aaarrow.changeImage(1)
+            linksProjectiles.append(aaarrow)
+        elif self.orientation ==2:
+            aaarrow.changeImage(2)
+            linksProjectiles.append(aaarrow)
+        elif self.orientation ==3:
+            aaarrow.changeImage(3)
+            linksProjectiles.append(aaarrow)
+        else:
+            aaarrow.changeImage(0)
+            linksProjectiles.append(aaarrow)
+        return aaarrow
+        return linksProjectiles
+      
+    def hit(self,enemies, ded,llorientation):
         #print (llorientation)
         if self.health <= 0:
             #Die Animation
@@ -503,6 +523,7 @@ class WaterMonster(Enemy):
         self.orientation = 1
         self.frame = 0
         self.type = "D"
+
         self.health = 4
         self.link = link
         

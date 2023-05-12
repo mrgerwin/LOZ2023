@@ -1,12 +1,10 @@
 from pygame_functions import *
 from sprites import *
-
-#from sprites import Player, Octorok, WaterMonster, Projectile, BlueOctorok, Tektite, Sword, wizzrobe, Leever, TargetRock, DarkMoblin, Moblin, Heart, Rupee, BlueRupee, BombItem, PlacableBomb, HotWater,Clock, Fairy
-
 screenX = 1024
 screenY = 768
 
 window = screenSize(screenX,screenY)
+
 setBackgroundColour('grey')
 
 setAutoUpdate(False)
@@ -19,16 +17,28 @@ showBackground(scene1)
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
-link_die = makeSound("LOZ_Link_DIE.wav")
+linkIsDie = False
+#link_die = makeSound("LOZ_Link_DIE.wav")
+#link_die = makeSound("link'sPain.mp3")
+#link_die = makeSound("LinkInMaximumPain.mp3")
+link_die = makeSound("LinkScreamsForALittleBit.mp3")
 link_hit = makeSound("LOZ_Link_Hurt.wav")
+link_hit1 = makeSound("LinkHit1.mp3")
+link_hit2 = makeSound("LinkHit2.mp3")
+link_hit3 = makeSound("LinkHit3.mp3")
 enemy_die = makeSound("LOZ_Enemy_DIE.wav")
 enemy_hit = makeSound("LOZ_Enemy_Hit.wav")
 sword_slash = makeSound("LOZ_Sword_Slash.wav")
+#sword_slash = makeSound("MrBeast.mp3")
+get_rupee = makeSound("LOZ_Get_Rupee.wav")
 
 sword = Sword("Sworb.png", 4, 1)
-showSprite(link)
 
+
+showSprite(link)
+linksProjectiles = []
 projectiles = []
+
 
 nextFrame = clock()
 frame = 0
@@ -36,10 +46,10 @@ green = (0,102,0)
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
+
 bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 200, 60,"clear")
 #textboxGroup.add(bombs)
 Items = [] 
-showSprite(link)
 
 HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
 MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
@@ -114,6 +124,7 @@ while True:
                           tsword.orientation  = link.orientation
                           LinkProjectiles.append(tsword)
                       showSprite(sword)
+                      pygame.mixer.Sound.play(sword_slash)
                       
                   if event.key == pygame.K_LEFT:
                       link.orientation =3
@@ -142,6 +153,13 @@ while True:
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
                       hideSprite(sword)
+                  if event.key == pygame.K_b:
+                      if link.money >= 1:
+                          link.shoot(linksProjectiles,frame)
+                          link.money-=1
+                      else:
+                           pass
+
                   if event.key == pygame.K_LEFT:
                       link.speed = 0
                   if event.key == pygame.K_RIGHT:
@@ -168,18 +186,28 @@ while True:
             if touching(enemy, sword):
                 #killSprite(enemy)
                 if enemy.health ==1:
+                    pygame.mixer.Sound.play(enemy_die)
                     scene1.Enemies.remove(enemy)
                     link.kills +=1
-                item=enemy.hit(link.orientation)
-                if item != None:
-                    print(item)
-                    showSprite(item)
-                    Items.append(item)
-                
+                    item=enemy.hit(link.orientation)
+                    if item != None:
+                      print(item)
+                      showSprite(item)
+                      Items.append(item)
+                else:
+                    item=enemy.hit(link.orientation)
+                    pygame.mixer.Sound.play(enemy_hit)   
+          
             if touching (enemy, link):
                 #killSprite(link)
-                link.hit(enemy,ded)
+                link.hit(enemy,ded,link.orientation) 
                 changeLabel(HealthText,str(link.health), green)
+                if link.health <= 0.5:
+                    print("you died")
+                    pygame.mixer.Sound.stop(backgroundMusic)
+                    if linkIsDie == False:
+                        pygame.mixer.Sound.play(link_die)
+                        linkIsDie=True
         for projectile in projectiles:
             projectile.move(frame)
             if touching(link, projectile):
@@ -212,10 +240,8 @@ while True:
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
-                    changeLabel(MoneyText,str(link.money), green)
-                    
-                
-                
+                    pygame.mixer.Sound.play(get_rupee)
+                    changeLabel(MoneyText,str(link.money), green)   
                 elif type(Item) == BombItem:
                     link.Bomb +=1
                     link.hit(enemy, ded)
