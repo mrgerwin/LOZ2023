@@ -149,16 +149,17 @@ while True:
                   if event.key == pygame.K_b:
                       #PlacableBomb.Placebomb
                       pass
+                  if event.key == pygame.K_s:
+                      if link.money >= 1:
+                          LinkProjectiles.append(link.shoot(frame))
+                          link.money-=1
+                      else:
+                           pass
 
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
                       hideSprite(sword)
-                  if event.key == pygame.K_b:
-                      if link.money >= 1:
-                          link.shoot(linksProjectiles,frame)
-                          link.money-=1
-                      else:
-                           pass
+                  
 
                   if event.key == pygame.K_LEFT:
                       link.speed = 0

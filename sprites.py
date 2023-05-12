@@ -50,11 +50,11 @@ class Player(newSprite):
         self.rect.x = 500
         self.rect.y = 350
         self.speed = 0
-        self.money = 0
+        self.money = 10
         self.Bomb = 3
         self.health=3
         
-    def shoot(self,linksProjectiles,frame):
+    def shoot(self,frame):
         aaarrow = AArrow()
         aaarrow.rect.x = self.rect.x
         aaarrow.rect.y = self.rect.y
@@ -63,18 +63,13 @@ class Player(newSprite):
         aaarrow.speed=6
         if self.orientation ==1:
             aaarrow.changeImage(1)
-            linksProjectiles.append(aaarrow)
         elif self.orientation ==2:
             aaarrow.changeImage(2)
-            linksProjectiles.append(aaarrow)
         elif self.orientation ==3:
             aaarrow.changeImage(3)
-            linksProjectiles.append(aaarrow)
         else:
             aaarrow.changeImage(0)
-            linksProjectiles.append(aaarrow)
         return aaarrow
-        return linksProjectiles
       
     def hit(self,enemies, ded,llorientation):
         #print (llorientation)
