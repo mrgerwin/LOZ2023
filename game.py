@@ -13,6 +13,7 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+LinkProjectiles = []
 scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
 showBackground(scene1)
 ClockAquired=False
@@ -103,6 +104,15 @@ while True:
                   if event.key == pygame.K_SPACE:
                       changeSpriteImage(link, link.orientation + 8)
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
+                      if len(LinkProjectiles) >= 1:
+                          print("other projectile not cleared")
+                      else:
+                          
+                          tsword=ThrowSword()
+                          tsword.rect.x = link.rect.x
+                          tsword.rect.y = link.rect.y
+                          tsword.orientation  = link.orientation
+                          LinkProjectiles.append(tsword)
                       showSprite(sword)
                       
                   if event.key == pygame.K_LEFT:
@@ -174,7 +184,29 @@ while True:
             projectile.move(frame)
             if touching(link, projectile):
                 link.hit(projectile, ded)
+        
+        for projectile in LinkProjectiles:
+            projectile.move(frame)
+            if projectile.rect.x >= 1028:
+                killSprite(projectile)
+                LinkProjectiles.remove(projectile)
+            if projectile.rect.y >= 768:
+                killSprite(projectile)
+                LinkProjectiles.remove(projectile)
+            if projectile.rect.y <= 0:
+                killSprite(projectile)
+                LinkProjectiles.remove(projectile)
+            if projectile.rect.x <= 0:
+                killSprite(projectile)
+                LinkProjectiles.remove(projectile)
                 
+            if touching(enemy, projectile):
+                enemy.hit(link.orientation)
+                if enemy.health <=1:
+                    print("Enemy hit by projectile")
+                    #enemies.remove(enemy)
+                    killSprite(enemy)
+                    
         for Item in Items:
             Item.animate(frame)
             if touching (link, Item):

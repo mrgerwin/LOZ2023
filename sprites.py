@@ -771,7 +771,26 @@ class TargetRock(Projectile):
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
 
-        
+class ThrowSword(Projectile):
+    def __init__(self, framesX=1, framesY=1):
+         Projectile.__init__(self,"flyingrainbowsword.png", 8, 1)
+         self.speed = 20
+         self.orientation = 0
+         playSound(sword_throw)
+         showSprite(self)
+         #pause(100)
+         
+    def move(self, frame):
+        self.changeImage(self.orientation*2+frame)
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+        elif self.orientation ==1:
+            self.rect.y = self.rect.y - self.speed
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+        else:
+            self.rect.x = self.rect.x - self.speed
+            
 class Item(newSprite):
     def __init__(self, img, x, link):
         newSprite.__init__(self, img, x)
