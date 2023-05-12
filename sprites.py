@@ -662,10 +662,14 @@ class Cloud(Projectile):
         self.count +=1
         if self.count == 5:
             self.changeImage(1)
-        if self.count == 10:
+            return False
+        elif self.count == 10:
             self.changeImage(2)
-        if self.count == 15:
-            killSprite(self)
+            return False
+        elif self.count == 15:
+            return True
+        else:
+            return False
 
 class Rock( Projectile):
     def __init__(self):

@@ -245,7 +245,12 @@ while True:
         for projectile in LinkProjectiles:
             theExplosion = projectile.move(frame)
             
-            if theExplosion != None:
+            if theExplosion == True:
+                LinkProjectiles.remove(projectile)
+                killSprite(projectile)
+            elif theExplosion == False:
+                pass
+            elif theExplosion != None:
                 for projectile in theExplosion.explosionList:
                     LinkProjectiles.append(projectile)
             if projectile.rect.x >= 1028:
