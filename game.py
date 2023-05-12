@@ -170,9 +170,21 @@ while True:
                       flyingSword.rect.x = link.rect.x
                       flyingSword.rect.y = link.rect.y
                       showSprite(flyingSword)
+                  if flyingSword.rect.x>=998:
+                      print("Killed It")
+                      killSprite(flyingSword)
+                  elif flyingSword.rect.x<= 32:
+                      print("Killed It")
+                      killSprite(flyingSword)
+                  
+                
                       
         for projectile in linkProjectiles:
             projectile.move(frame)
+            if projectile.rect.x < 0:
+                linkProjectiles.remove
+            elif projectile.rect.x > 1028:
+                linkProjectiles.remove
         for enemy in enemies:
             if ClockAquired==False:
                 projectile = enemy.move(frame,link)

@@ -890,4 +890,9 @@ class Sworb(Projectile):
         else:
             self.rect.x = self.rect.x - self.speed
             self.changeImage(3*2 + frame)
+    def edgereached(self,frame):
+        if self.rect.x>=998:
+            killSprite(Sworb)
+        elif self.rect.x<= 24:
+            killSprite(Sworb)
         
