@@ -5,6 +5,7 @@ from os import path
 import base64
 import math
 
+sword_throw= makeSound("yeetsword.wav")
 
 def ItemDrop(enemy):
     #0 yellow Rupee
