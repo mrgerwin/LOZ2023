@@ -1,7 +1,48 @@
+import pygame.display
 from pygame_functions import *
 import random
+from os import path
+import base64
 import math
 
+
+def ItemDrop(enemy):
+    #0 yellow Rupee
+    #1 heart
+    #2 Blue Rupee
+    #3 Fairy
+    #4 Bomb
+    #5 Clock
+    if enemy == None:
+        return None
+    
+    A= [0, 1, 0, 3, 0, 1, 1, 0, 0, 1]
+    B= [4, 0, 5, 0, 1, 4, 0, 4, 1, 1]
+    C = [0, 1, 0, 2, 1, 5, 0, 0, 0, 2]
+    D = [1, 3, 0, 1, 3, 1, 1, 1, 0, 1]
+    
+    if enemy.type == "A":
+        itemNum = A[enemy.link.kills]
+    elif enemy.type == "B":
+        itemNum = B[enemy.link.kills]
+    elif enemy.type == "C":
+        itemNum = C[enemy.link.kills]
+    elif enemy.type == "D":
+        itemNum = D[enemy.link.kills]
+    
+    if itemNum == 0:
+        return Rupee(enemy.link)
+    elif itemNum == 1:
+        return Heart(enemy.link)
+    elif itemNum == 2:
+        return BlueRupee(enemy.link)
+    elif itemNum == 3:
+        return Fairy(enemy.link)
+    elif itemNum == 4:
+        return Bomb(enemy.link)
+    elif itemNum == 5:
+        return Clock(enemy.link)
+            
 class Player(newSprite):
     def __init__(self):
         newSprite.__init__(self, "LinkSimple.png", 14)
@@ -9,7 +50,9 @@ class Player(newSprite):
         self.rect.y = 350
         self.speed = 0
         self.money = 0
+        self.Bomb = 3
         self.health=3
+        
     def shoot(self,linksProjectiles,frame):
         aaarrow = AArrow()
         aaarrow.rect.x = self.rect.x
@@ -31,74 +74,53 @@ class Player(newSprite):
             linksProjectiles.append(aaarrow)
         return aaarrow
         return linksProjectiles
+      
     def hit(self,enemies, ded,llorientation):
         #print (llorientation)
         if self.health <= 0:
-            if ded == False:
-                dieAvailable=False
-                theReaper=True
-                if theReaper==True:
-                    dieAvailable=True
-                    if dieAvailable==True:
-                        dieAvailable=False
-                        theReaper=False
-                        dieOn=True
-                        ded=True
-                        if llorientation ==0:
-                            self.rect.y -=32
-                            self.health= self.health - 0.5
-                        elif llorientation ==1:
-                            self.rect.y +=32
-                            self.health= self.health - 0.5
-                        elif llorientation ==2:
-                            self.rect.x -=32
-                            self.health= self.health - 0.5
-                        elif llorientation ==3:
-                            self.rect.x +=32
-                            self.health= self.health - 0.5
-                        hideSprite(enemies)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-                        changeSpriteImage(self, 0)
-                        pause(125)
-                        changeSpriteImage(self, 5)
-                        pause(125)
-                        changeSpriteImage(self, 2)
-                        pause(125)
-                        changeSpriteImage(self, 6)
-                        pause(125)
-        elif llorientation ==0:
+            #Die Animation
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+            changeSpriteImage(self, 0)
+            pause(125)
+            changeSpriteImage(self, 5)
+            pause(125)
+            changeSpriteImage(self, 2)
+            pause(125)
+            changeSpriteImage(self, 6)
+            pause(125)
+        elif self.orientation ==0:
             self.rect.y -=32
             self.health= self.health - 0.5
-        elif llorientation ==1:
+        elif self.orientation ==1:
             self.rect.y +=32
             self.health= self.health - 0.5
-        elif llorientation ==2:
+        elif self.orientation ==2:
             self.rect.x -=32
             self.health= self.health - 0.5
-        elif llorientation ==3:
+        elif self.orientation ==3:
             self.rect.x +=32
             self.health= self.health - 0.5
 
@@ -118,22 +140,18 @@ class Player(newSprite):
                 self.changeImage(2*2 + frame)
             else:
                 self.rect.x = self.rect.x - self.speed
-                self.changeImage(3*2 + frame)
-    """
-    def hit(self):
-        self.health -=1
-        self.rect.y +=32
-
-        if self.health == 0:
-            killSprite(self)
-    """
+                self.changeImage(3*2 + frame)               
+                
 class Enemy(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
         self.speed = 3
         self.rect.x = 200
         self.rect.y = 200
+        self.link = None
+        self.type = "A"
     def move(self, frame, link):
+        self.link = link
         if self.orientation == 0:
             self.rect.y = self.rect.y + self.speed
             self.changeImage(0 + frame *4)
@@ -150,7 +168,7 @@ class Enemy(newSprite):
 
     def hit(self, lorientation):
         self.health -=1
-        if self.health == 0:
+        if self.health <= 0:
             killSprite(self)
         elif lorientation ==0:
             self.rect.y +=32
@@ -160,10 +178,10 @@ class Enemy(newSprite):
             self.rect.x +=32
         elif lorientation ==3:
             self.rect.x -=32
-
-        self.health -=1
-
-
+        if self.health <= 0:
+            item = ItemDrop(self)
+            moveSprite(item, self.rect.x, self.rect.y)
+            return item
 
 class DarkMoblin(Enemy):
     def __init__(self):
@@ -171,7 +189,9 @@ class DarkMoblin(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.health = 3
+        self.type = "B"
     def move(self, frame, link=None):
+        self.link = link
         a_arrow = None
         if self.step == 25:
             self.speed = 0
@@ -217,6 +237,7 @@ class Moblin(Enemy):
         self.step = 0
         self.health = 2
     def move(self, frame, link=None):
+        self.link = link
         a_arrow = None
         if self.step == 25:
             self.speed = 0
@@ -265,6 +286,7 @@ class Octorok(Enemy):
         self.step = 0
         self.health = 2
     def move(self, frame, link=None):
+        self.link = link
         a_rock = None
         if self.step == 25:
             self.speed = 0
@@ -305,8 +327,9 @@ class Leever(Enemy):
         self.step = 0
         self.changeImage(0)
         self.health = 3
+        self.type = "C"
     def move(self, frame, link=None):
-
+        self.link = link
         if self.step == 25:
             pass
             
@@ -356,6 +379,7 @@ class wizzrobe(Enemy):
     
 
     def move(self, frame, link=None):
+        self.link = link
         W_rock=None
         if frame % 2 == 0:
             self.step += 1
@@ -402,6 +426,7 @@ class Tektite(Enemy):
         self.health = 4
         
     def move(self, frame, link):
+        self.link = link
         if self.speedy <= 6 and self.jump == True:
             self.speedy += 1
         self.time += 1
@@ -453,9 +478,11 @@ class BlueOctorok(Enemy):
         Enemy.__init__(self,"BlueOctorok.png",8,1)
         self.orientation = random.randint(0,3)
         self.step = 0
+        self.type = "B"
 
         self.health = 3
     def move(self, frame, link=None):
+        self.link = link
         a_rock = None
         if self.step == 25:
 
@@ -495,11 +522,13 @@ class WaterMonster(Enemy):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
+        self.type = "D"
 
         self.health = 4
         self.link = link
         
     def move(self, frame, link):
+        self.link = link
         a_target = None
 
         if self.frame <= 3:
@@ -676,9 +705,9 @@ class TargetFireball(Projectile):
             if (self.rect.y -self.link.rect.y)<0:
                 #("right and below")
                 self.quad = 4
-            
-        self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
-
+        if (self.rect.x-self.link.rect.x) != 0:    
+            self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
+        
 class Rock( Projectile):
     def __init__(self):
 
@@ -722,7 +751,6 @@ class HotWater(Projectile):
                 self.quad = 4
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
-        
          
 class TargetRock(Projectile):
     def __init__(self, link):
@@ -764,59 +792,297 @@ class TargetRock(Projectile):
             
         self.angle = math.atan((self.rect.y -self.link.rect.y)/(self.rect.x-self.link.rect.x))
 
-        
+class ThrowSword(Projectile):
+    def __init__(self, framesX=1, framesY=1):
+         Projectile.__init__(self,"SwordProjectile.png", 8, 1)
+         self.speed = 20
+         self.orientation = 0
+         playSound(sword_throw)
+         showSprite(self)
+         #pause(100)
+         
+    def move(self, frame):
+        self.changeImage(self.orientation*2+frame)
+        if self.orientation == 0:
+            self.rect.y = self.rect.y + self.speed
+        elif self.orientation ==1:
+            self.rect.y = self.rect.y - self.speed
+        elif self.orientation ==2:
+            self.rect.x = self.rect.x + self.speed
+        else:
+            self.rect.x = self.rect.x - self.speed
+            
 class Item(newSprite):
-    def __init__(self, img, x):
+    def __init__(self, img, x, link):
         newSprite.__init__(self, img, x)
         self.value = 0
         self.health = 0
         self.bomb = 0
         self.time = 0
         self.maxHealth = 0
- 
+        self.link = link
+          
+    def animate(self):
+        nextSpriteImage(self)
+        
+    def collision(self):
+        if touching(self, self.link):
+            killSprite(self)
+            return True
+        else:
+            return False
     def animate(self, frame = 0):
         nextSpriteImage(self)
-
           
 class BombItem(Item):
-    def __init__(self, link):
-        Item.__init__(self, "Bomb.png", 1)
+    def __init__(self,link):
+        self.link = link
+        Item.__init__(self, "Bomb.png", 1, self.link)           
         self.value = 1
     def animate (self, frame=0):
         pass
 
+class PlacableBomb():
+    def __init__(self, link, BombItem):
+        Item.__init__(self, "Bomb.png", 1, link)
+        BombItem.value = 1
+    def Placebomb(link):
+        if BombItem.value <= 1:
+            showSprite(BombItem)
+            self.rect.x = link.rect.x
+            self.rect.y = link.rect.y
+        else:
+            pass
     
 class Rupee(Item):
-    def __init__(self):
-        Item.__init__(self, "coins.png", 2)
+    def __init__(self,link):
+        self.link = link
+        Item.__init__(self, "Coins.png", 2, self.link)
         self.value = 1
     def animate (self, frame=0):
         pass
   
 class BlueRupee(Item):
-    def __init__(self):
-        Item.__init__(self, "coins.png", 2)
+    def __init__(self,link):
+        self.link = link
+        Item.__init__(self, "Coins.png", 2, self.link)
         self.value = 5
         self.changeImage(1)
-        
     def hit(self):
         killSprite(self)
     def animate(self, frame=0):
-        pass        
-            
+        pass 
+
 class Heart(Item):
-    def __init__(self):
-        Item.__init__(self, "Hearts.png", 3)
-        self.maxHealth = 1
-        self.changeImage(2)
-            
-    def animate(self, frame):
+    def __init__(self, link):
+        self.link = link
+        Item.__init__(self,"Hearts.png", 3, self.link)
+        self.health = 1
+        
+    def animate(self, frame=0):
         self.changeImage(frame)
+    
+    
+class Fairy(Item):
+    def __init__(self, x, y, link):
+        self.link = link
+        Item.__init__(self, "Fairy.png", 2, self.link)
+        self.radian = 0
+        self.radius = 250
+        self.x = x
+        self.y = y
+        self.xPos = x
+        self.yPos = y
+        self.speed = .1
+        self.rotations = 3
+        
+        
+    def Move(self):
+         
+        if self.rotations*(math.pi*2) <= self.radian:
+            self.xPos -= 20
+            self.yPos -= 10
+             
+        else:
+            self.yPos = (math.sin(self.radian)*self.radius) + self.y
+            self.xPos = (math.cos(self.radian)*self.radius) + self.x
+            self.radian += self.speed
+            self.speed += .001
+            self.radius -= 1
+        
+        self.move(self.xPos, self.yPos)
         
 class Clock(Item):
-    def __init__(self):
-        Item.__init__(self, "Clock.png", 1)
+    def __init__(self, link):
+        Item.__init__(self, "Clock.png", 1, link)
             
     def animate(self,frame=0):
-        pass
+        pass         
+class Tile(pygame.sprite.Sprite):
+    def __init__(self, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.images = []
+        self.images.append(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (0, 0)
+        self.mask = pygame.mask.from_surface(self.image)
+        self.angle = 9
+        self.scale = 1
+        self.x = self.rect.x
+        self.y = self.rect.y
+        self.passThrough = False
 
+    def addImage(self, aImage):
+        self.images.append(aImage)
+
+    def changeImage(self, index=0):
+        self.image = self.images[index]
+
+    def move(self, xpos, ypos, centre=False):
+        if centre:
+            self.rect.center = [xpos, ypos]
+        else:
+            self.rect.topleft = [xpos, ypos]
+
+
+# Note that Wall inherits from pygame sprite not newSprite
+class Wall(Tile):
+    """
+    Walls are Scene Objects that most sprites cannot pass through
+    """
+
+    def __init__(self, image):
+        Tile.__init__(self, image)
+        self.passThrough = False
+        self.choppable = False
+
+    def move(self, xpos, ypos, centre=False):
+        if centre:
+            self.rect.center = [xpos, ypos]
+        else:
+            self.rect.topleft = [xpos, ypos]
+
+
+class Scene:
+    """
+    A Scene is a background that does interact with the sprites.  For instance
+    there are walls that the sprites cannot pass through
+    """
+    passTiles = ["C", "W", "b", "c", "d", "h", "i", "j", "n", "o", "p", "d", "q", "r", "s", "t", "k", "v"]
+
+    def __init__(self, screen, player, spriteSheetFileName, mapFileName, framesX=1, framesY=1):
+        global background
+
+        self.player = player
+        print("Loading: "+str(spriteSheetFileName))
+        spriteSheet = loadImage(spriteSheetFileName)
+        self.originalWidth = spriteSheet.get_width() // framesX
+        self.originalHeight = spriteSheet.get_height() // framesY
+        frameSurf = pygame.Surface((self.originalWidth, self.originalHeight), pygame.SRCALPHA, 32)
+        x = 0
+        y = 0
+        self.images = []
+        for column in range(framesY):
+            for frameNo in range(framesX):
+                frameSurf = pygame.Surface((self.originalWidth, self.originalHeight), pygame.SRCALPHA, 32)
+                frameSurf.blit(spriteSheet, (x, y))
+                self.images.append(frameSurf.copy())
+                x -= self.originalWidth
+            y -= self.originalHeight
+            x = 0
+        # Other initialized parameters
+        self.Wall_Tiles = []
+        self.Ground_Tiles = []
+        self.Water_Tiles = []
+        self.Enemies = []
+        self.Projectiles = []
+        self.Items = []
+        # Populate the lists
+        game_folder = os.getcwd()
+        map_data = []
+        with open(path.join(game_folder, mapFileName), 'rt') as f:
+            for line in f:
+                map_data.append(line)
+
+        i = 0
+        for row, tiles in enumerate(map_data):
+            for col, tile in enumerate(tiles):
+                if tile in base64dict:
+                    if tile in Scene.passTiles:
+                        passTile = Tile(self.images[base64dict[tile]])
+                        passTile.move(col * 32, row * 32)
+                        self.Ground_Tiles.append(passTile)
+                    else:
+                        thisWall = Wall(self.images[base64dict[tile]])
+                        thisWall.move(col * 32, row * 32)
+                        if tile == 'Y' or tile == 'Z' or tile == 'a' or tile == 'e' or tile == 'f' or tile == 'g' or tile == 'k' or tile == 'l' or tile == 'm':
+                            self.Water_Tiles.append(thisWall)
+                        else:
+                            self.Wall_Tiles.append(thisWall)
+                            if tile == 'H':
+                                thisWall.choppable = True
+                                thisWall.addImage(self.images[base64dict['i']])
+                            
+                elif tile == "@":
+                    enemy = Octorok()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "^":
+                    enemy = Leever()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "#":
+                    enemy = BlueOctorok()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "$":
+                    enemy = Moblin()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "&":
+                    enemy = DarkMoblin()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "*":
+                    enemy = WaterMonster()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "!":
+                    enemy = wizzrobe()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                elif tile == "~":
+                    enemy = Tektite()
+                    enemy.rect.x = col * 32
+                    enemy.rect.y = row * 32
+                    self.Enemies.append(enemy)
+                if tile not in base64dict:
+                    thisGround = Tile(self.images[2])
+                    thisGround.move(col * 32, row * 32)
+                    self.Ground_Tiles.append(thisGround)
+        self.surface = screen.copy()
+        background = self.surface
+        # Methods for Scrolling the Scene
+
+    def scroll(self, x, y):
+        for enemy in self.Enemies:
+            enemy.speed = 0
+            hideSprite(enemy)
+        for projectile in self.Projectiles:
+            killSprite(projectile)
+        self.Projectiles = []
+        for item in self.Items:
+            killSprite(item)
+        self.Items = []
+        for tile in self.all_wall_panels:
+            tile.move(tile.rect.x + x, tile.rect.y + y)
+        for tile in self.all_ground_tiles:
+            tile.move(tile.rect.x + x, tile.rect.y + y)

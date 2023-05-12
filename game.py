@@ -1,12 +1,19 @@
 from pygame_functions import *
 from sprites import *
-screenSize(1024,768)
+screenX = 1024
+screenY = 768
+
+window = screenSize(screenX,screenY)
+
 setBackgroundColour('grey')
 
 setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+LinkProjectiles = []
+scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
+showBackground(scene1)
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
@@ -25,59 +32,30 @@ sword_slash = makeSound("LOZ_Sword_Slash.wav")
 #sword_slash = makeSound("MrBeast.mp3")
 get_rupee = makeSound("LOZ_Get_Rupee.wav")
 
-Blueoctorok = BlueOctorok()
-octorok = Octorok()
-leever=Leever()
-leeverspawned=True
-showSprite(leever)
-
-wizzrobe = wizzrobe(link)
-watermonster = WaterMonster(link)
-
-tektite = Tektite()
-moblin = Moblin()
-dmoblin = DarkMoblin()
 sword = Sword("Sworb.png", 4, 1)
 
 
-projectiles = []
-linksProjectiles = []
 showSprite(link)
-Bomb = BombItem(link)
-heart1 = Heart()
-Bomb1 = BombItem(link)
-rupee1 = Rupee()
-bluerupee1 = BlueRupee()
-bluerupee2 = BlueRupee()
-bluerupee3 = BlueRupee()
-clock1=Clock()
-heart1.move(64,64)
-rupee1.move(128, 64)
-clock1.move(160,64)
-Bomb1.rect.x = 156
-Bomb1.rect.y = 64
-bluerupee1.move(96,64)
-bluerupee2.move(64, 96)
-bluerupee3.move(46, 69)
+linksProjectiles = []
+projectiles = []
 
-watermonster = WaterMonster(link)
 
 nextFrame = clock()
 frame = 0
+green = (0,102,0)
 backgroundMusic=makeSound("linkMusic.mp3")
 playSound(backgroundMusic,10)
 
 
-enemies = [octorok, Blueoctorok, watermonster, tektite, wizzrobe, leever, moblin, dmoblin]
-Items = [heart1, rupee1, bluerupee1, bluerupee2, bluerupee3, Bomb1, clock1] 
+bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 200, 60,"clear")
+#textboxGroup.add(bombs)
+Items = [] 
 
-showSprite(link)
+HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
+MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
 
-for enemy in enemies:
-    showSprite(enemy)
-    
-for item in Items:
-    showSprite(item)
+showLabel(HealthText)
+showLabel(MoneyText)
 
 dieOn=False
 ded=False
@@ -118,6 +96,7 @@ def Die():
     changeSpriteImage(link, 6)
     pause(125)
     changeSpriteImage(link, 0)
+    killSprite(link)
     
 while True:
     if clock() >nextFrame:
@@ -135,6 +114,15 @@ while True:
                   if event.key == pygame.K_SPACE:
                       changeSpriteImage(link, link.orientation + 8)
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
+                      if len(LinkProjectiles) >= 1:
+                          print("other projectile not cleared")
+                      else:
+                          
+                          tsword=ThrowSword()
+                          tsword.rect.x = link.rect.x
+                          tsword.rect.y = link.rect.y
+                          tsword.orientation  = link.orientation
+                          LinkProjectiles.append(tsword)
                       showSprite(sword)
                       pygame.mixer.Sound.play(sword_slash)
                       
@@ -158,16 +146,20 @@ while True:
                       link.speed = 4
                       hideSprite(sword)
                       
+                  if event.key == pygame.K_b:
+                      #PlacableBomb.Placebomb
+                      pass
 
               if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
-                      print("Aiden do the sword thing")
+                      hideSprite(sword)
                   if event.key == pygame.K_b:
                       if link.money >= 1:
                           link.shoot(linksProjectiles,frame)
                           link.money-=1
                       else:
                            pass
+
                   if event.key == pygame.K_LEFT:
                       link.speed = 0
                   if event.key == pygame.K_RIGHT:
@@ -177,7 +169,7 @@ while True:
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
        
-        for enemy in enemies:
+        for enemy in scene1.Enemies:
             if ClockAquired==False:
                 projectile = enemy.move(frame,link)
                 if projectile != None:
@@ -188,53 +180,85 @@ while True:
                     ClockNumber=0
                 else:
                     ClockNumber+=1
-                    print(ClockNumber)
+                    #print(ClockNumber)
 
 
             if touching(enemy, sword):
                 #killSprite(enemy)
                 if enemy.health ==1:
-                    enemies.remove(enemy)
                     pygame.mixer.Sound.play(enemy_die)
+                    scene1.Enemies.remove(enemy)
+                    link.kills +=1
+                    item=enemy.hit(link.orientation)
+                    if item != None:
+                      print(item)
+                      showSprite(item)
+                      Items.append(item)
                 else:
-                    pygame.mixer.Sound.play(enemy_hit)
-                enemy.hit(link.orientation)
-                
+                    item=enemy.hit(link.orientation)
+                    pygame.mixer.Sound.play(enemy_hit)   
+          
             if touching (enemy, link):
                 #killSprite(link)
-                print (link.health)
+                link.hit(enemy,ded,link.orientation) 
+                changeLabel(HealthText,str(link.health), green)
                 if link.health <= 0.5:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
                     if linkIsDie == False:
                         pygame.mixer.Sound.play(link_die)
                         linkIsDie=True
-                else:
-                    pygame.mixer.Sound.play(link_hit)
-                link.hit(enemy,ded,link.orientation)
-            for projectile in projectiles:
-                projectile.move(frame)
-                #print(projectiles)
-            for projectile in linksProjectiles:
-                projectile.move(frame)
+        for projectile in projectiles:
+            projectile.move(frame)
+            if touching(link, projectile):
+                link.hit(projectile, ded)
+        
+        for projectile in LinkProjectiles:
+            projectile.move(frame)
+            if projectile.rect.x >= 1028:
+                killSprite(projectile)
+                LinkProjectiles.remove(projectile)
+            if projectile.rect.y >= 768:
+                killSprite(projectile)
+                LinkProjectiles.remove(projectile)
+            if projectile.rect.y <= 0:
+                killSprite(projectile)
+                LinkProjectiles.remove(projectile)
+            if projectile.rect.x <= 0:
+                killSprite(projectile)
+                LinkProjectiles.remove(projectile)
                 
+            if touching(enemy, projectile):
+                enemy.hit(link.orientation)
+                if enemy.health <=1:
+                    print("Enemy hit by projectile")
+                    #enemies.remove(enemy)
+                    killSprite(enemy)
+                    
         for Item in Items:
             Item.animate(frame)
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
                     pygame.mixer.Sound.play(get_rupee)
+                    changeLabel(MoneyText,str(link.money), green)   
+                elif type(Item) == BombItem:
+                    link.Bomb +=1
+                    link.hit(enemy, ded)
+                    changeLabel(bombs,str(link.Bomb), 'green')
+                    print(link.Bomb)
 
                 elif type(Item)==Clock:
                     ClockAquired=True
 
-                elif type(Item) == Bomb:
-                    link.bomb += 1
-
                 Items.remove(Item)
                 killSprite(Item)
                 print(link.money)
-            
+        if link.health == 0:
+            print("you died")
+            ded = True
+            Die()
+        #fairy.Move()
         sword.facing()
         link.move(frame)
         updateDisplay()
