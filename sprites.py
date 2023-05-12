@@ -53,6 +53,7 @@ class Player(newSprite):
         self.money = 10
         self.Bomb = 3
         self.health=3
+        self.kills = 0
         
     def shoot(self,frame):
         aaarrow = AArrow()
@@ -652,7 +653,20 @@ class Projectile(newSprite):
     def moveTo(self, x,y):
         self.rect.x = x
         self.rect.y = y
-        
+
+class Cloud(Projectile):
+    def __init__(self, img, x=1, y=1):
+         Projectile.__init__(self,img, x, y)
+         self.count = 0
+    def move(self, frame):
+        self.count +=1
+        if self.count == 5:
+            self.changeImage(1)
+        if self.count == 10:
+            self.changeImage(2)
+        if self.count == 15:
+            killSprite(self)
+
 class Rock( Projectile):
     def __init__(self):
          Projectile.__init__(self,"Rocks.png", 2, 1)
@@ -900,18 +914,67 @@ class BombItem(Item):
     def animate (self, frame=0):
         pass
 
-class PlacableBomb():
-    def __init__(self, link, BombItem):
-        Item.__init__(self, "Bomb.png", 1, link)
-        BombItem.value = 1
-    def Placebomb(link):
-        if BombItem.value <= 1:
-            showSprite(BombItem)
-            self.rect.x = link.rect.x
-            self.rect.y = link.rect.y
-        else:
-            pass
-    
+class Explosion(Projectile):
+    def __init__(self, x, y):
+        Projectile.__init__(self, "BombBlast.png", 3)
+        self.step = 0
+        self.rect.x = x
+        self.rect.y = y
+        self.explosionL = Cloud("BombBlast.png", 3)
+        self.explosionL.rect.x = self.rect.x - 32
+        self.explosionL.rect.y = self.rect.y
+        self.explosionR = Cloud("BombBlast.png", 3)
+        self.explosionR.rect.x = self.rect.x + 32
+        self.explosionR.rect.y = self.rect.y
+        self.explosionU = Cloud("BombBlast.png", 3)
+        self.explosionU.rect.y = self.rect.y - 32
+        self.explosionU.rect.x = self.rect.x
+        self.explosionD = Cloud("BombBlast.png", 3)
+        self.explosionD.rect.y = self.rect.y + 32
+        self.explosionD.rect.x = self.rect.x
+        self.explosionM = Cloud("BombBlast.png", 3)
+        self.explosionM.rect.y = self.rect.y
+        self.explosionM.rect.x = self.rect.x
+        #Corners
+        self.explosionLD = Cloud("BombBlast.png", 3)
+        self.explosionLD.rect.x = self.rect.x - 32
+        self.explosionLD.rect.y = self.rect.y - 32
+        self.explosionRD = Cloud("BombBlast.png", 3)
+        self.explosionRD.rect.x = self.rect.x + 32
+        self.explosionRD.rect.y = self.rect.y + 32
+        self.explosionLU = Cloud("BombBlast.png", 3)
+        self.explosionLU.rect.y = self.rect.y - 32
+        self.explosionLU.rect.x = self.rect.x + 32
+        self.explosionRU = Cloud("BombBlast.png", 3)
+        self.explosionRU.rect.y = self.rect.y + 32
+        self.explosionRU.rect.x = self.rect.x - 32
+        
+        self.explosionList = [self.explosionL, self.explosionR, self.explosionU, self.explosionD, self.explosionM, self.explosionLD, self.explosionRD, self.explosionLU, self.explosionRU]
+        for explosion in self.explosionList:
+            showSprite(explosion)
+    def move(self, frame):
+        self.step += 1
+        if self.step == 15:
+            changeSpriteImage(self, 1)
+        if self.step == 30:
+            changeSpriteImage(self, 2)
+class PlacableBomb(newSprite):
+    def __init__(self, x, y, Explosion):
+        newSprite.__init__(self, "Bomb.png", 1)
+        self.rect.x = x
+        self.rect.y = y
+        self.step = 0
+    def move(self, frame):
+        theExplosion = None
+        if theExplosion != None:
+            theExplosion.move(frame)
+        if self.step <= 35:
+            self.step += 1
+        if self.step == 35:
+            killSprite(self)
+            theExplosion = Explosion(self.rect.x, self.rect.y)
+            
+        return theExplosion
 class Rupee(Item):
     def __init__(self,link):
         self.link = link

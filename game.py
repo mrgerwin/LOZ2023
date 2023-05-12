@@ -163,7 +163,14 @@ while True:
 
                   if event.key == pygame.K_b:
                       #PlacableBomb.Placebomb
-                      pass
+                      if link.Bomb >= 1:
+                          link.Bomb -= 1
+                          bomb = PlacableBomb(link.rect.x, link.rect.y, Explosion)
+                          LinkProjectiles.append(bomb)
+                          #changeLabel(BombText,str(link.Bomb), 'black')
+                          showSprite(bomb)
+                      else:
+                          pass
                   if event.key == pygame.K_s:
                       if link.money >= 1:
                           LinkProjectiles.append(link.shoot(frame))
@@ -236,7 +243,11 @@ while True:
                 link.hit(projectile, ded)
         
         for projectile in LinkProjectiles:
-            projectile.move(frame)
+            theExplosion = projectile.move(frame)
+            
+            if theExplosion != None:
+                for projectile in theExplosion.explosionList:
+                    LinkProjectiles.append(projectile)
             if projectile.rect.x >= 1028:
                 killSprite(projectile)
                 LinkProjectiles.remove(projectile)
