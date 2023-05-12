@@ -5,6 +5,9 @@
 
 
 import pygame, math, sys, os
+import random
+from os import path
+import base64
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
@@ -104,7 +107,6 @@ class Background():
         pygame.display.update()
         self.surface = screen.copy()
 
-
 class newSprite(pygame.sprite.Sprite):
     def __init__(self, filename, framesX=1, framesY=1):
         pygame.sprite.Sprite.__init__(self)
@@ -168,7 +170,6 @@ class newSprite(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         if screenRefresh:
             updateDisplay()
-
 
 class newTextBox(pygame.sprite.Sprite):
     def __init__(self, text, xpos, ypos, width, case, maxLength, fontSize):
