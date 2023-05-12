@@ -441,7 +441,69 @@ class Tektite(Enemy):
             
         self.rect.x += self.speedx
         self.rect.y += self.speedy
+    
+class Boomerang(newSprite):
+    def __init__(self, link, filename, framesX=1, framesY=1):
+        newSprite.__init__(self, filename, framesX, framesY)
+        self.link = link
+        self.rect.x = self.link.rect.x
+        self.rect.y = self.link.rect.y
+        self.radius = 250
+        self.radian = 0
+        self.increment = 0
+        self.xpos = 0
+        self.ypos = 0
+        self.multiplier = 0
+        self.number = 0
         
+    def orientate(self):
+        if self.link.orientation == 0:
+            self.multiplier = 2
+            self.number = 0
+            
+        elif self.link.orientation == 1:
+            self.multiplier = 1
+            self.number = 0
+            
+        elif self.link.orientation == 2:
+            self.multiplier = 1.5
+            self.number = 1
+            
+        elif self.link.orientation == 3:
+            self.multiplier = 0.5
+            self.number = 1
+             
+    def move(self):
+            
+        self.increment += .05
+        self.radian = (math.pi * self.multiplier) + self.increment
+        
+        
+        self.rect.x = self.xpos
+        self.rect.y = self.ypos
+        
+        if self.increment >= math.pi:
+            hideSprite(self)
+            return True
+        else:
+            if self.number == 1:
+                self.xpos = (math.cos(self.radian)*self.radius)+self.link.rect.x
+                self.ypos = self.link.rect.y
+            elif self.number == 0:
+                self.ypos = (math.sin(self.radian)*self.radius)+self.link.rect.y
+                self.xpos = self.link.rect.x
+            return False
+        
+    def reset(self):
+        self.increment = 0
+        self.rect.x = self.link.rect.x
+        self.rect.y = self.link.rect.y
+        
+        
+    def animate(self):
+        nextSpriteImage(self)
+            
+    
 class Sword(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)

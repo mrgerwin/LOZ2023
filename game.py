@@ -1,5 +1,6 @@
 from pygame_functions import *
 from sprites import *
+
 screenX = 1024
 screenY = 768
 
@@ -11,9 +12,14 @@ setAutoUpdate(False)
 
 #Making all sprites
 link = Player()
+
+BoomerangMove = False
+BoomerangThrow = True
+
 LinkProjectiles = []
 scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
 showBackground(scene1)
+
 ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
@@ -34,7 +40,7 @@ get_rupee = makeSound("LOZ_Get_Rupee.wav")
 
 sword = Sword("Sworb.png", 4, 1)
 
-
+boomerang = Boomerang(link, "Boomerang.png", 3, 1)
 showSprite(link)
 linksProjectiles = []
 projectiles = []
@@ -110,7 +116,7 @@ while True:
                 sys.exit(0)
         
             if dieOn == False:
-              if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN:
                   if event.key == pygame.K_SPACE:
                       changeSpriteImage(link, link.orientation + 8)
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
@@ -146,6 +152,15 @@ while True:
                       link.speed = 4
                       hideSprite(sword)
                       
+
+                  if event.key == pygame.K_c and BoomerangThrow == True:
+                      boomerang.reset()
+                      showSprite(boomerang)
+                      boomerang.orientate()
+                      BoomerangMove = True
+                      BoomerangThrow = False
+                      
+
                   if event.key == pygame.K_b:
                       #PlacableBomb.Placebomb
                       pass
@@ -156,7 +171,8 @@ while True:
                       else:
                            pass
 
-              if event.type == pygame.KEYUP:
+
+                if event.type == pygame.KEYUP:
                   if event.key == pygame.K_SPACE:
                       hideSprite(sword)
                   
@@ -184,7 +200,12 @@ while True:
                     #print(ClockNumber)
 
 
-            if touching(enemy, sword):
+            if touching(enemy, sword) or touching(enemy, boomerang):
+                if touching(enemy, boomerang):
+                    BoomerangMove = False
+                    BoomerangThrow = True
+                    hideSprite(boomerang) 
+                    boomerang.reset()
                 #killSprite(enemy)
                 if enemy.health ==1:
                     pygame.mixer.Sound.play(enemy_die)
@@ -260,8 +281,13 @@ while True:
             ded = True
             Die()
         #fairy.Move()
+        if BoomerangMove == True:
+            boomerang.move()
+            boomerang.animate()
+            if boomerang.move() == True:
+                BoomerangMove = False
+                BoomerangThrow = True
         sword.facing()
         link.move(frame)
         updateDisplay()
-
 endWait()
