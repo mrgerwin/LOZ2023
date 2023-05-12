@@ -773,7 +773,7 @@ class TargetRock(Projectile):
 
 class ThrowSword(Projectile):
     def __init__(self, framesX=1, framesY=1):
-         Projectile.__init__(self,"flyingrainbowsword.png", 8, 1)
+         Projectile.__init__(self,"SwordProjectile.png", 8, 1)
          self.speed = 20
          self.orientation = 0
          playSound(sword_throw)
