@@ -1,6 +1,21 @@
 from pygame_functions import *
 from sprites import *
 
+def sceneChange(direction):
+    global currentScene
+    
+    currentIndex = maps.index(currentScene)
+    hideBackground(currentScene)
+    
+    if direction == "right":
+        currentScene = maps[currentIndex + 1]
+    elif direction == "left":
+        currentScene = maps[currentIndex - 1]
+    
+    showBackground(currentScene)
+    hideSprite(link)
+    showSprite(link)
+
 screenX = 1024
 screenY = 768
 
@@ -17,8 +32,15 @@ BoomerangMove = False
 BoomerangThrow = True
 
 LinkProjectiles = []
-scene1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
-showBackground(scene1)
+map1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
+map2 = Scene(window, link, "ZeldaMapTilesBrown.png", "map2.txt", 6,8)
+map3 = Scene(window, link, "ZeldaMapTilesBrown.png", "map3.txt", 6,8)
+
+maps = [map3, map1, map2]
+
+currentScene = map1
+
+showBackground(currentScene)
 
 ClockAquired=False
 ClockNumber=0
@@ -135,11 +157,11 @@ while True:
                   if event.key == pygame.K_LEFT:
                       link.orientation =3
                       hideSprite(sword)
-                      link.speed = 4
+                      link.speed = 8
                       
                   if event.key == pygame.K_RIGHT:
                       link.orientation =2
-                      link.speed = 4
+                      link.speed = 8
                       hideSprite(sword)
                       
                   if event.key == pygame.K_UP:
@@ -193,7 +215,7 @@ while True:
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
        
-        for enemy in scene1.Enemies:
+        for enemy in currentScene.Enemies:
             if ClockAquired==False:
                 projectile = enemy.move(frame,link)
                 if projectile != None:
@@ -216,7 +238,7 @@ while True:
                 #killSprite(enemy)
                 if enemy.health ==1:
                     pygame.mixer.Sound.play(enemy_die)
-                    scene1.Enemies.remove(enemy)
+                    currentScene.Enemies.remove(enemy)
                     link.kills +=1
                     item=enemy.hit(link.orientation)
                     if item != None:
@@ -306,5 +328,11 @@ while True:
                 BoomerangThrow = True
         sword.facing()
         link.move(frame)
+        if link.rect.x > screenX:
+            sceneChange("right")
+            link.rect.x = 1
+        elif link.rect.x < 0:
+            sceneChange("left")
+            link.rect.x = screenX - 1
         updateDisplay()
 endWait()
