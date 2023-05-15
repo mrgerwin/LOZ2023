@@ -35,8 +35,9 @@ LinkProjectiles = []
 map1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
 map2 = Scene(window, link, "ZeldaMapTilesBrown.png", "map2.txt", 6,8)
 map3 = Scene(window, link, "ZeldaMapTilesBrown.png", "map3.txt", 6,8)
+map6 = Scene(window, link, "ZeldaMapTilesBrown.png", "map6.txt", 6,8)
 
-maps = [map3, map1, map2]
+maps = [map3, map1, map2, map6]
 
 currentScene = map1
 
