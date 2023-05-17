@@ -1175,10 +1175,13 @@ class Scene:
                     enemy.rect.y = row * 32
                     self.Enemies.append(enemy)
                 elif tile == "*":
+                    thisWall = Wall(self.images[base64dict["f"]])
+                    thisWall.move(col * 32, row * 32)
                     enemy = WaterMonster()
                     enemy.rect.x = col * 32
                     enemy.rect.y = row * 32
                     self.Enemies.append(enemy)
+                    self.Water_Tiles.append(thisWall)
                 elif tile == "!":
                     enemy = wizzrobe()
                     enemy.rect.x = col * 32
