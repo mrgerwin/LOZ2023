@@ -2,15 +2,33 @@ from pygame_functions import *
 from sprites import *
 
 def sceneChange(direction):
-    global currentScene
+    global currentScene, indexX, indexY
     
-    currentIndex = maps.index(currentScene)
+    #currentIndex = maps.index(currentScene)
     hideBackground(currentScene)
     
+    
+    
     if direction == "right":
-        currentScene = maps[currentIndex + 1]
+        if indexX + 1>= len(maps[indexY]):
+            indexX = 0
+        else:
+            indexX += 1
+        currentScene = maps[indexY][indexX]
+    
     elif direction == "left":
-        currentScene = maps[currentIndex - 1]
+        if indexX - 1< 0:
+            indexX = len(maps[indexY])-1
+        else:
+            indexX -= 1
+        currentScene = maps[indexY][indexX]
+    elif direction == "up":
+        indexY += 1
+        
+        currentScene = maps[indexY][indexX]
+    elif direction == "down":
+        indexY -= 1
+        currentScene = maps[indexY][indexX]
     
     showBackground(currentScene)
     hideSprite(link)
@@ -35,8 +53,18 @@ LinkProjectiles = []
 map1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
 map2 = Scene(window, link, "ZeldaMapTilesBrown.png", "map2.txt", 6,8)
 map3 = Scene(window, link, "ZeldaMapTilesBrown.png", "map3.txt", 6,8)
+map4 = Scene(window, link, "ZeldaMapTilesBrown.png", "map4.txt", 6,8)
+map5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.txt", 6,8)
+map6 = Scene(window, link, "ZeldaMapTilesBrown.png", "map6.txt", 6,8)
 
-maps = [map3, map1, map2]
+low = [map1, map1, map1]
+middle = [map3, map1, map2]
+high = [map4, map5, map6]
+
+maps = [low, middle, high]
+
+indexX=1
+indexY=1
 
 currentScene = map1
 
@@ -328,11 +356,29 @@ while True:
                 BoomerangThrow = True
         sword.facing()
         link.move(frame)
+        for tile in currentScene.Wall_Tiles:
+            if touching(link, tile):
+                link.speed=0
+                if link.orientation == 0:
+                    link.rect.y -= link.speed
+                elif link.orientation == 1:
+                    link.rect.y += link.speed
+                elif link.orientation == 2:
+                    link.rect.x -= link.speed
+                elif link.orientation == 3:
+                    link.rect.x += link.speed
         if link.rect.x > screenX:
             sceneChange("right")
             link.rect.x = 1
         elif link.rect.x < 0:
             sceneChange("left")
             link.rect.x = screenX - 1
+        elif link.rect.y <= 0:
+            sceneChange("up")
+            link.rect.y = screenY -1
+        elif link.rect.y >= screenY:
+            sceneChange("down")
+            link.rect.y = 1
+            
         updateDisplay()
 endWait()
