@@ -50,9 +50,9 @@ BoomerangMove = False
 BoomerangThrow = True
 
 LinkProjectiles = []
-map1 = Scene(window, link, "ZeldaMapTilesBrown.png", "map1.txt", 6,8)
-map2 = Scene(window, link, "ZeldaMapTilesBrown.png", "map2.txt", 6,8)
-map3 = Scene(window, link, "ZeldaMapTilesBrown.png", "map3.txt", 6,8)
+map1 = Scene(window, link, "ZeldaMapTilesGreen.png", "map1.txt", 6,8)
+map2 = Scene(window, link, "ZeldaMapTilesGreen.png", "map2.txt", 6,8)
+map3 = Scene(window, link, "ZeldaMapTilesGreen.png", "map3.txt", 6,8)
 map4 = Scene(window, link, "ZeldaMapTilesBrown.png", "map4.txt", 6,8)
 map5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.txt", 6,8)
 map6 = Scene(window, link, "ZeldaMapTilesBrown.png", "map6.txt", 6,8)
