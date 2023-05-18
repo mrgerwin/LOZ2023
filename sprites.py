@@ -31,6 +31,7 @@ def ItemDrop(enemy):
     elif enemy.type == "D":
         itemNum = D[enemy.link.kills]
     
+    
     if itemNum == 0:
         return Rupee(enemy.link)
     elif itemNum == 1:
@@ -1007,33 +1008,34 @@ class Heart(Item):
     
     
 class Fairy(Item):
-    def __init__(self, x, y, link):
+    def __init__(self, link):
         self.link = link
         Item.__init__(self, "Fairy.png", 2, self.link)
         self.radian = 0
-        self.radius = 250
-        self.x = x
-        self.y = y
-        self.xPos = x
-        self.yPos = y
-        self.speed = .1
+        self.radius = 2
+        self.xPos = self.rect.x
+        self.yPos = self.rect.y
+        self.speed = .05
         self.rotations = 3
         
         
-    def Move(self):
+    def animate(self, frame):
          
         if self.rotations*(math.pi*2) <= self.radian:
             self.xPos -= 20
             self.yPos -= 10
              
         else:
-            self.yPos = (math.sin(self.radian)*self.radius) + self.y
-            self.xPos = (math.cos(self.radian)*self.radius) + self.x
+            self.yPos = (math.sin(self.radian)*self.radius) + self.rect.y
+            self.xPos = (math.cos(self.radian)*self.radius) + self.rect.x
             self.radian += self.speed
             self.speed += .001
             self.radius -= 1
         
-        self.move(self.xPos, self.yPos)
+        print(self.xPos, self.yPos)
+        
+        self.rect.x = self.xPos
+        self.rect.y = self.yPos
         
 class Clock(Item):
     def __init__(self, link):

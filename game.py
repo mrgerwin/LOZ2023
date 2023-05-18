@@ -290,7 +290,7 @@ while True:
         for projectile in projectiles:
             projectile.move(frame)
             if touching(link, projectile):
-                link.hit(projectile, ded)
+                link.hit(projectile, ded, link.orientation)
         
         for projectile in LinkProjectiles:
             theExplosion = projectile.move(frame)
