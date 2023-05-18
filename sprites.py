@@ -366,7 +366,7 @@ class Leever(Enemy):
 
 
 class wizzrobe(Enemy):
-    def __init__(self, link):
+    def __init__(self):
         Enemy.__init__(self, "blueghost2.png", 3, 2)
         self.orientation = random.randint(0, 3)
         self.step = 0
@@ -577,7 +577,7 @@ class BlueOctorok(Enemy):
         return a_rock
         
 class WaterMonster(Enemy):
-    def __init__(self, link):
+    def __init__(self):
         Enemy.__init__(self,"WaterMonster.png", 5, 1)
         self.orientation = 1
         self.frame = 0
