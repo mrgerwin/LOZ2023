@@ -372,7 +372,6 @@ class wizzrobe(Enemy):
         self.step = 0
         self.ShootReady = False
         self.health = 3
-        self.link = link
     
 
     def move(self, frame, link=None):
@@ -584,7 +583,6 @@ class WaterMonster(Enemy):
         self.type = "D"
 
         self.health = 4
-        self.link = link
         
     def move(self, frame, link):
         self.link = link
