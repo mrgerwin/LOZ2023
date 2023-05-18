@@ -316,13 +316,22 @@ while True:
             if projectile.rect.x <= 0:
                 killSprite(projectile)
                 LinkProjectiles.remove(projectile)
-                
-            if touching(enemy, projectile):
-                enemy.hit(link.orientation)
-                if enemy.health <=1:
+            for enemy in currentScene.Enemies:
+                if touching(enemy, projectile):
                     print("Enemy hit by projectile")
-                    #enemies.remove(enemy)
-                    killSprite(enemy)
+                    
+                    if enemy.health <=1:
+                        pygame.mixer.Sound.play(enemy_die)
+                        currentScene.Enemies.remove(enemy)
+                        link.kills +=1
+                        item=enemy.hit(link.orientation)
+                        if item != None:
+                          print(item)
+                          showSprite(item)
+                          Items.append(item)
+                    else:
+                        item=enemy.hit(link.orientation)
+                        pygame.mixer.Sound.play(enemy_hit)
                     
         for Item in Items:
             Item.animate(frame)
