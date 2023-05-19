@@ -56,25 +56,12 @@ map3 = Scene(window, link, "ZeldaMapTilesBrown.png", "map3.txt", 6,8)
 map4 = Scene(window, link, "ZeldaMapTilesBrown.png", "map4.txt", 6,8)
 map5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.txt", 6,8)
 map6 = Scene(window, link, "ZeldaMapTilesBrown.png", "map6.txt", 6,8)
-<<<<<<< Updated upstream
-map7 = Scene(window, link, "ZeldaMapTilesBrown.png", "map6.txt", 6,8)
-
-
-low = [map7, map1, map1]
-=======
-<<<<<<< HEAD
 map8 = Scene(window, link, "ZeldaMapTilesBrown.png", "map8.txt", 6,8)
 map7 = Scene(window, link, "ZeldaMapTilesBrown.png", "map7.txt", 6,8)
 
 
+
 low = [map7, map8, map1]
-=======
-map7 = Scene(window, link, "ZeldaMapTilesBrown.png", "map6.txt", 6,8)
-
-
-low = [map7, map1, map1]
->>>>>>> 1ed49a27349ee0ba2e0e8461caea651a0ee7dc3f
->>>>>>> Stashed changes
 middle = [map3, map1, map2]
 high = [map4, map5, map6]
 
