@@ -1,11 +1,11 @@
 fffffffiiiiiiiii..............H
 fffffffiiiiiiiii..............H
-fffffffiiiiiiiii.@..........HHH
+fffffffiiiiiiiii.@......~...HHH
 fffffffiiiiiiiii.............HH
 fffffffiiiiiiiii............HHH
 fffffffiiiiiiiii............HHH
 fffffiiiiiiiiiii.............HH
-fffffffiiiiiiiiii........@.....
+fffffffiiiiiiiiii....~...@.....
 fffffffiiiiiiiiii..............
 ffffffiiiiiiiiiii.........HHHHH
 fffffffiiiiiiiiii..........HHHH
@@ -18,6 +18,6 @@ fffffffiiiiiiiiDEF.............
 fffffffiiiiiiiiJKL...........HH
 fffffffiiiiiiiiii.............H
 fffffffiiiiiiiiii...........HHH
-fffffffiiiiiiiiii@.........HHHH
+fffffffiiiiiiiiii@.~.......HHHH
 fffffffiiiiiiiiiii..........HHH
 fffffffiiiiiiiiiiii..........HA
