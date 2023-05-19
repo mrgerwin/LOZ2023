@@ -20,5 +20,14 @@ fffffffiiiiiiiiI..............H
 fffffffiiiiiiiii............HHH
 fffffffiiiiiiiii.@.........HHHH
 fffffffiiiiiiiii............HHH
+<<<<<<< Updated upstream
 fffffffiiiiiiiii.............HH
 
+=======
+<<<<<<< HEAD
+fffffffiiiiiiiii.............HH
+=======
+fffffffiiiiiiiii.............HH
+
+>>>>>>> 1ed49a27349ee0ba2e0e8461caea651a0ee7dc3f
+>>>>>>> Stashed changes
