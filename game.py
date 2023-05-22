@@ -56,20 +56,13 @@ map3 = Scene(window, link, "ZeldaMapTilesBrown.png", "map3.txt", 6,8)
 map4 = Scene(window, link, "ZeldaMapTilesBrown.png", "map4.txt", 6,8)
 map5 = Scene(window, link, "ZeldaMapTilesBrown.png", "map5.txt", 6,8)
 map6 = Scene(window, link, "ZeldaMapTilesBrown.png", "map6.txt", 6,8)
-<<<<<<< HEAD
 map7 = Scene(window, link, "ZeldaMapTilesBrown.png", "map7.txt", 6,8)
 map9 = Scene(window, link, "ZeldaMapTilesBrown.png", "map9.txt", 6,8)
-
-
-low = [map7, map1, map9]
-=======
 map8 = Scene(window, link, "ZeldaMapTilesBrown.png", "map8.txt", 6,8)
-map7 = Scene(window, link, "ZeldaMapTilesBrown.png", "map7.txt", 6,8)
 
 
 
-low = [map7, map8, map1]
->>>>>>> d2e2acb0ea2b7f03ab8d6473887e444c31ffc1b7
+low = [map7, map8, map9]
 middle = [map3, map1, map2]
 high = [map4, map5, map6]
 

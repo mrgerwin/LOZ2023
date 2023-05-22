@@ -1,6 +1,6 @@
-fffffffiiiiiiii...............H
-fffffffiiiiiiii...............H
-fffffffiiiiiiii..@..........HHH
+fffffffiiiiiiiiHHHHHHHHHHHHHHHH
+fffffffiiiiiiii.H..HH....HH...H
+fffffffiiiiiiii.H@.H........HHH
 fffffffiiiiiiii..............HH
 fffffffiiiiiiii.............HHH
 fffffffiiiiiiii.............HHH
