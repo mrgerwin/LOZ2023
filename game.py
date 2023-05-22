@@ -187,6 +187,8 @@ while True:
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
                       if len(LinkProjectiles) >= 1:
                           print("other projectile not cleared")
+                      elif link.health < 3:
+                          print("not enough health to throw sword")
                       else:
                           
                           tsword=ThrowSword()

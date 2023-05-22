@@ -31,7 +31,6 @@ def ItemDrop(enemy):
     elif enemy.type == "D":
         itemNum = D[enemy.link.kills]
     
-    return Clock(enemy.link)
     if itemNum == 0:
         return Rupee(enemy.link)
     elif itemNum == 1:
