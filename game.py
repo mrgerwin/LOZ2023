@@ -287,7 +287,7 @@ while True:
                 #killSprite(link)
                 link.hit(enemy,ded,link.orientation) 
                 changeLabel(HealthText,str(link.health), green)
-                if link.health <= 0.5:
+                if link.health <= 0.4:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
                     if linkIsDie == False:
