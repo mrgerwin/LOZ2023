@@ -31,7 +31,7 @@ def ItemDrop(enemy):
     elif enemy.type == "D":
         itemNum = D[enemy.link.kills]
     
-    
+    return Clock(enemy.link)
     if itemNum == 0:
         return Rupee(enemy.link)
     elif itemNum == 1:
@@ -41,7 +41,7 @@ def ItemDrop(enemy):
     elif itemNum == 3:
         return Fairy(enemy.link)
     elif itemNum == 4:
-        return Bomb(enemy.link)
+        return BombItem(enemy.link)
     elif itemNum == 5:
         return Clock(enemy.link)
             
@@ -148,6 +148,7 @@ class Enemy(newSprite):
         self.rect.y = 200
         self.link = None
         self.type = "A"
+        self.ospeed = self.speed
     def move(self, frame, link):
         self.link = link
         if self.orientation == 0:
@@ -186,8 +187,10 @@ class DarkMoblin(Enemy):
         Enemy.__init__(self,"DarkMoblin.png", 8, 1)
         self.orientation = random.randint(0,3)
         self.step = 0
-        self.health = 3
+        self.health = 4
         self.type = "B"
+        self.speed = 4
+        self.ospeed = self.speed
     def move(self, frame, link=None):
         self.link = link
         a_arrow = None
@@ -538,11 +541,12 @@ class BlueOctorok(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.type = "B"
-
+        self.speed = 4
         self.health = 3
+        self.ospeed = self.speed
         
-    def __name__(self):
-        return "Blue Octorok"
+    def __repr__(self):
+        return "Blue Octorok with health = " + str(self.health)
     
     def move(self, frame, link=None):
         self.link = link
