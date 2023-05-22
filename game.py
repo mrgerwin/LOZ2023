@@ -25,9 +25,14 @@ def sceneChange(direction):
     elif direction == "up":
         indexY += 1
         
+        if indexY>3:
+            index = 0
+        
         currentScene = maps[indexY][indexX]
     elif direction == "down":
         indexY -= 1
+        if indexY < 0 :
+            index = 2
         currentScene = maps[indexY][indexX]
     
     showBackground(currentScene)
