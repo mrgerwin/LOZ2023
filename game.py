@@ -82,8 +82,8 @@ music = makeMusic("linkMusic.mp3")
 linkIsDie = False
 #link_die = makeSound("LOZ_Link_DIE.wav")
 #link_die = makeSound("link'sPain.mp3")
-#link_die = makeSound("LinkInMaximumPain.mp3")
-link_die = makeSound("LinkScreamsForALittleBit.mp3")
+link_die = makeSound("LinkInMaximumPain.mp3")
+#link_die = makeSound("LinkScreamsForALittleBit.mp3")
 link_hit = makeSound("LOZ_Link_Hurt.wav")
 link_hit1 = makeSound("LinkHit1.mp3")
 link_hit2 = makeSound("LinkHit2.mp3")
@@ -106,6 +106,7 @@ nextFrame = clock()
 frame = 0
 green = (0,102,0)
 backgroundMusic=makeSound("linkMusic.mp3")
+#backgroundMusic=makeSound("betterCallSaulTheme.mp3")
 playSound(backgroundMusic,10)
 
 

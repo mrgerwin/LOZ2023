@@ -1012,10 +1012,10 @@ class Fairy(Item):
         self.link = link
         Item.__init__(self, "Fairy.png", 2, self.link)
         self.radian = 0
-        self.radius = 2
+        self.radius = 0.000000000000000000005
         self.xPos = self.rect.x
         self.yPos = self.rect.y
-        self.speed = .05
+        self.speed = 0.7
         self.rotations = 3
         
         
