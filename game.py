@@ -251,6 +251,7 @@ while True:
                       link.speed = 0
        
         for enemy in currentScene.Enemies:
+            print(enemy)
             if ClockAquired==False:
                 projectile = enemy.move(frame,link)
                 if projectile != None:
@@ -271,17 +272,16 @@ while True:
                     hideSprite(boomerang) 
                     boomerang.reset()
                 #killSprite(enemy)
-                if enemy.health ==1:
+                item=enemy.hit(link.orientation)
+                if item != None:
+                  showSprite(item)
+                  Items.append(item)
+                if enemy.health ==0:
                     pygame.mixer.Sound.play(enemy_die)
                     currentScene.Enemies.remove(enemy)
+                    killSprite(enemy)
                     link.kills +=1
-                    item=enemy.hit(link.orientation)
-                    if item != None:
-                      print(item)
-                      showSprite(item)
-                      Items.append(item)
                 else:
-                    item=enemy.hit(link.orientation)
                     pygame.mixer.Sound.play(enemy_hit)   
           
             if touching (enemy, link):

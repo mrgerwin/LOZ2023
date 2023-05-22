@@ -540,6 +540,10 @@ class BlueOctorok(Enemy):
         self.type = "B"
 
         self.health = 3
+        
+    def __name__(self):
+        return "Blue Octorok"
+    
     def move(self, frame, link=None):
         self.link = link
         a_rock = None
@@ -585,6 +589,9 @@ class WaterMonster(Enemy):
 
         self.health = 4
         
+    def __name__(self):
+        return "Water Monster"
+    
     def move(self, frame, link):
         self.link = link
         a_target = None
