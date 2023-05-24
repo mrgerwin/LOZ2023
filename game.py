@@ -376,12 +376,16 @@ while True:
                 link.speed=0
                 if link.orientation == 0:
                     link.rect.y -= link.speed
+                    link.rect.y -=7
                 elif link.orientation == 1:
                     link.rect.y += link.speed
+                    link.rect.y +=7
                 elif link.orientation == 2:
                     link.rect.x -= link.speed
+                    link.rect.x -= 7
                 elif link.orientation == 3:
                     link.rect.x += link.speed
+                    link.rect.x +=7
         if link.rect.x > screenX:
             sceneChange("right")
             link.rect.x = 1
