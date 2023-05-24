@@ -2,10 +2,18 @@ from pygame_functions import *
 from sprites import *
 
 def sceneChange(direction):
-    global currentScene, indexX, indexY
+    global currentScene, indexX, indexY, Items, LinkProjectiles
     
     #currentIndex = maps.index(currentScene)
     hideBackground(currentScene)
+    for projectile in LinkProjectiles:
+        killSprite(projectile)
+        
+    for item in Items:
+        killSprite(item)
+    
+    LinkProjectiles = []
+    Items = []
     
     
     
@@ -99,7 +107,7 @@ sword = Sword("Sworb.png", 4, 1)
 boomerang = Boomerang(link, "Boomerang.png", 3, 1)
 showSprite(link)
 linksProjectiles = []
-projectiles = []
+#projectiles = []
 
 
 nextFrame = clock()
@@ -179,6 +187,8 @@ while True:
                       sword.stab(link.rect.x, link.rect.y, link.orientation)
                       if len(LinkProjectiles) >= 1:
                           print("other projectile not cleared")
+                      elif link.health < 3:
+                          print("not enough health to throw sword")
                       else:
                           
                           tsword=ThrowSword()
@@ -252,16 +262,18 @@ while True:
        
         for enemy in currentScene.Enemies:
             if ClockAquired==False:
-                projectile = enemy.move(frame,link)
-                if projectile != None:
-                    projectiles.append(projectile)
+                enemy.speed = enemy.ospeed
             else:
+                enemy.speed = 0
                 if ClockNumber==500:
                     ClockAquired=False
                     ClockNumber=0
                 else:
                     ClockNumber+=1
                     #print(ClockNumber)
+            projectile = enemy.move(frame,link)
+            if projectile != None:
+                currentScene.Projectiles.append(projectile)
 
 
             if touching(enemy, sword) or touching(enemy, boomerang):
@@ -271,17 +283,16 @@ while True:
                     hideSprite(boomerang) 
                     boomerang.reset()
                 #killSprite(enemy)
-                if enemy.health ==1:
+                item=enemy.hit(link.orientation)
+                if item != None:
+                  showSprite(item)
+                  Items.append(item)
+                if enemy.health ==0:
                     pygame.mixer.Sound.play(enemy_die)
                     currentScene.Enemies.remove(enemy)
+                    killSprite(enemy)
                     link.kills +=1
-                    item=enemy.hit(link.orientation)
-                    if item != None:
-                      print(item)
-                      showSprite(item)
-                      Items.append(item)
                 else:
-                    item=enemy.hit(link.orientation)
                     pygame.mixer.Sound.play(enemy_hit)   
           
             if touching (enemy, link):
@@ -294,7 +305,7 @@ while True:
                     if linkIsDie == False:
                         pygame.mixer.Sound.play(link_die)
                         linkIsDie=True
-        for projectile in projectiles:
+        for projectile in currentScene.Projectiles:
             projectile.move(frame)
             if touching(link, projectile):
                 link.hit(projectile, ded, link.orientation)
@@ -326,22 +337,24 @@ while True:
             for enemy in currentScene.Enemies:
                 if touching(enemy, projectile):
                     print("Enemy hit by projectile")
-                    
-                    if enemy.health <=1:
-                        pygame.mixer.Sound.play(enemy_die)
-                        currentScene.Enemies.remove(enemy)
-                        link.kills +=1
-                        item=enemy.hit(link.orientation)
-                        if item != None:
+                    item=enemy.hit(link.orientation)
+                    if item != None:
                           print(item)
                           showSprite(item)
                           Items.append(item)
+                    if enemy.health <= 0:
+                        pygame.mixer.Sound.play(enemy_die)
+                        currentScene.Enemies.remove(enemy)
+                        link.kills +=1
+                        
                     else:
-                        item=enemy.hit(link.orientation)
                         pygame.mixer.Sound.play(enemy_hit)
                     
         for Item in Items:
             Item.animate(frame)
+            if Item.rect.x > screenX or Item.rect.x<0 or Item.rect.y>screenY or Item.rect.y<0:
+                Items.remove(Item)
+                killSprite(Item)
             if touching (link, Item):
                 if type(Item) == BlueRupee:
                     link.money +=5
@@ -349,7 +362,7 @@ while True:
                     changeLabel(MoneyText,str(link.money), green)   
                 elif type(Item) == BombItem:
                     link.Bomb +=1
-                    link.hit(enemy, ded)
+                    link.hit(enemy, ded, link.orientation)
                     changeLabel(bombs,str(link.Bomb), 'green')
                     print(link.Bomb)
                 elif type(Item) == Rupee:
@@ -381,12 +394,31 @@ while True:
                 link.speed=0
                 if link.orientation == 0:
                     link.rect.y -= link.speed
+                    link.rect.y -=7
                 elif link.orientation == 1:
                     link.rect.y += link.speed
+                    link.rect.y +=7
                 elif link.orientation == 2:
                     link.rect.x -= link.speed
+                    link.rect.x -= 7
                 elif link.orientation == 3:
                     link.rect.x += link.speed
+                    link.rect.x +=7
+        for tile in currentScene.Water_Tiles:
+            if touching(link, tile):
+                link.speed=0
+                if link.orientation == 0:
+                    link.rect.y -= link.speed
+                    link.rect.y -=7
+                elif link.orientation == 1:
+                    link.rect.y += link.speed
+                    link.rect.y +=7
+                elif link.orientation == 2:
+                    link.rect.x -= link.speed
+                    link.rect.x -= 7
+                elif link.orientation == 3:
+                    link.rect.x += link.speed
+                    link.rect.x +=7
         if link.rect.x > screenX:
             sceneChange("right")
             link.rect.x = 1
