@@ -31,7 +31,6 @@ def ItemDrop(enemy):
     elif enemy.type == "D":
         itemNum = D[enemy.link.kills]
     
-    
     if itemNum == 0:
         return Rupee(enemy.link)
     elif itemNum == 1:
@@ -41,7 +40,7 @@ def ItemDrop(enemy):
     elif itemNum == 3:
         return Fairy(enemy.link)
     elif itemNum == 4:
-        return Bomb(enemy.link)
+        return BombItem(enemy.link)
     elif itemNum == 5:
         return Clock(enemy.link)
             
@@ -148,6 +147,7 @@ class Enemy(newSprite):
         self.rect.y = 200
         self.link = None
         self.type = "A"
+        self.ospeed = self.speed
     def move(self, frame, link):
         self.link = link
         if self.orientation == 0:
@@ -186,8 +186,10 @@ class DarkMoblin(Enemy):
         Enemy.__init__(self,"DarkMoblin.png", 8, 1)
         self.orientation = random.randint(0,3)
         self.step = 0
-        self.health = 3
+        self.health = 4
         self.type = "B"
+        self.speed = 4
+        self.ospeed = self.speed
     def move(self, frame, link=None):
         self.link = link
         a_arrow = None
@@ -538,8 +540,13 @@ class BlueOctorok(Enemy):
         self.orientation = random.randint(0,3)
         self.step = 0
         self.type = "B"
-
+        self.speed = 4
         self.health = 3
+        self.ospeed = self.speed
+        
+    def __repr__(self):
+        return "Blue Octorok with health = " + str(self.health)
+    
     def move(self, frame, link=None):
         self.link = link
         a_rock = None
@@ -585,6 +592,9 @@ class WaterMonster(Enemy):
 
         self.health = 4
         
+    def __name__(self):
+        return "Water Monster"
+    
     def move(self, frame, link):
         self.link = link
         a_target = None
@@ -1012,10 +1022,10 @@ class Fairy(Item):
         self.link = link
         Item.__init__(self, "Fairy.png", 2, self.link)
         self.radian = 0
-        self.radius = 2
+        self.radius = 0.000000000000000000005
         self.xPos = self.rect.x
         self.yPos = self.rect.y
-        self.speed = .05
+        self.speed = 0.7
         self.rotations = 3
         
         
