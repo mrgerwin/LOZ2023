@@ -352,6 +352,10 @@ while True:
                     link.hit(enemy, ded)
                     changeLabel(bombs,str(link.Bomb), 'green')
                     print(link.Bomb)
+                elif type(Item) == Rupee:
+                    link.money += 1
+                    pygame.mixer.Sound.play(get_rupee)
+                    changeLabel(MoneyText,str(link.money), green)   
 
                 elif type(Item)==Clock:
                     ClockAquired=True
