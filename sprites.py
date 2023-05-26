@@ -180,6 +180,15 @@ class Enemy(newSprite):
             item = ItemDrop(self)
             moveSprite(item, self.rect.x, self.rect.y)
             return item
+    def turnAround(self):
+        if self.orientation == 0:
+            self.orientation = 3
+        elif self.orientation ==1:
+            self.orientation = 2
+        elif self.orientation == 2:
+            self.orientation = 1
+        elif self.orientation ==3:
+            self.orientation = 0
 
 class DarkMoblin(Enemy):
     def __init__(self):

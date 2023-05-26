@@ -405,20 +405,10 @@ while True:
                     link.rect.x += link.speed
                     link.rect.x +=7
         for tile in currentScene.Water_Tiles:
-            if touching(link, tile):
-                link.speed=0
-                if link.orientation == 0:
-                    link.rect.y -= link.speed
-                    link.rect.y -=7
-                elif link.orientation == 1:
-                    link.rect.y += link.speed
-                    link.rect.y +=7
-                elif link.orientation == 2:
-                    link.rect.x -= link.speed
-                    link.rect.x -= 7
-                elif link.orientation == 3:
-                    link.rect.x += link.speed
-                    link.rect.x +=7
+            for enemy in currentScene.Enemies:
+                touching(tile, enemy):
+                    enemy.turnAround()
+                
         if link.rect.x > screenX:
             sceneChange("right")
             link.rect.x = 1
