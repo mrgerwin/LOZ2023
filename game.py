@@ -336,6 +336,8 @@ while True:
                 LinkProjectiles.remove(projectile)
             for enemy in currentScene.Enemies:
                 if touching(enemy, projectile):
+                    LinkProjectiles.remove(projectile)
+                    killSprite(projectile)
                     print("Enemy hit by projectile")
                     item=enemy.hit(link.orientation)
                     if item != None:
