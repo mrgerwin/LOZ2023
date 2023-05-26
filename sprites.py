@@ -61,7 +61,7 @@ class Player(newSprite):
         aaarrow.rect.y = self.rect.y
         aaarrow.orientation = self.orientation
         showSprite(aaarrow)
-        aaarrow.speed=6
+        aaarrow.speed=12
         if self.orientation ==1:
             aaarrow.changeImage(1)
         elif self.orientation ==2:
@@ -688,7 +688,7 @@ class Rock( Projectile):
 class Arrow(newSprite):
     def __init__(self, filename, framesX=1, framesY=1):
         newSprite.__init__(self, filename, framesX, framesY)
-        self.speed = 3
+        self.speed = 12
 
         
     def move(self, frame):
