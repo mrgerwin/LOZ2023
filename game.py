@@ -113,20 +113,29 @@ linksProjectiles = []
 nextFrame = clock()
 frame = 0
 green = (0,102,0)
+black = (0, 0, 0)
 backgroundMusic=makeSound("linkMusic.mp3")
 #backgroundMusic=makeSound("betterCallSaulTheme.mp3")
 playSound(backgroundMusic,10)
 
 
 bombs = newLabel(str(link.Bomb), 20, 'Arial', 'green', 200, 60,"clear")
-#textboxGroup.add(bombs)
+
 Items = [] 
-
-HealthText = newLabel(str(link.health), 20, 'Arial', 'green', 200, 60,"clear")
-MoneyText = newLabel(str(link.money), 20, 'Arial', 'green', 300, 60, "clear")
-
+HealthText = newLabel(str(link.health), 20, 'Arial', 'black', 50, 50,"clear")
+HealthWords = newLabel("Health", 20, 'Arial', 'black', 50, 30, "clear")
+MoneyText = newLabel(str(link.money), 20, 'Arial', 'black', 150, 50, "clear")
+MoneyWords = newLabel("Money", 20, 'Arial', 'black', 150, 30, "clear")
+BombText = newLabel(str(link.Bomb), 20, 'Arial', 'black', 250, 50,"clear")
+BombWords = newLabel("Bombs", 20, 'Arial', 'black', 250, 30, "clear")
+explosion = Explosion
+textboxGroup.add(BombText)
+showLabel(HealthWords)
 showLabel(HealthText)
+showLabel(MoneyWords)
 showLabel(MoneyText)
+showLabel(BombWords)
+textboxGroup.add(BombText)
 
 dieOn=False
 ded=False
@@ -202,11 +211,11 @@ while True:
                   if event.key == pygame.K_LEFT:
                       link.orientation =3
                       hideSprite(sword)
-                      link.speed = 8
+                      link.speed = 6
                       
                   if event.key == pygame.K_RIGHT:
                       link.orientation =2
-                      link.speed = 8
+                      link.speed = 6
                       hideSprite(sword)
                       
                   if event.key == pygame.K_UP:
@@ -218,6 +227,9 @@ while True:
                       link.orientation =0
                       link.speed = 4
                       hideSprite(sword)
+                    
+                  if event.key == pygame.K_v:
+                      link.speed = 12
                       
 
                   if event.key == pygame.K_c and BoomerangThrow == True:
@@ -242,7 +254,7 @@ while True:
                       if link.money >= 1:
                           LinkProjectiles.append(link.shoot(frame))
                           link.money-=1
-                          changeLabel(MoneyText,str(link.money), green)
+                          changeLabel(MoneyText,str(link.money), black)
                       else:
                            pass
 
@@ -260,6 +272,8 @@ while True:
                       link.speed = 0
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
+                  if event.key == pygame.K_v:
+                      link.speed = 4
        
         for enemy in currentScene.Enemies:
             if ClockAquired==False:
@@ -299,7 +313,7 @@ while True:
             if touching (enemy, link):
                 #killSprite(link)
                 link.hit(enemy,ded,link.orientation) 
-                changeLabel(HealthText,str(link.health), green)
+                changeLabel(HealthText,str(link.health), black)
                 if link.health <= 0.4:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
@@ -310,9 +324,10 @@ while True:
             projectile.move(frame)
             if touching(link, projectile):
                 link.hit(projectile, ded, link.orientation)
-                changeLabel(HealthText,str(link.health), green)
+                changeLabel(HealthText,str(link.health), black)
                 killSprite(projectile)
                 currentScene.Projectiles.remove(projectile)
+
                 if link.health <= 0.4:
                     killSprite(projectile)
                     currentScene.Projectiles.remove(projectile)
@@ -348,6 +363,8 @@ while True:
                 LinkProjectiles.remove(projectile)
             for enemy in currentScene.Enemies:
                 if touching(enemy, projectile):
+                    LinkProjectiles.remove(projectile)
+                    killSprite(projectile)
                     print("Enemy hit by projectile")
                     item=enemy.hit(link.orientation)
                     if item != None:
@@ -361,8 +378,6 @@ while True:
                         
                     else:
                         pygame.mixer.Sound.play(enemy_hit)
-                        killSprite(projectile)
-                        LinkProjectiles.remove(projectile)
                     
         for Item in Items:
             Item.animate(frame)
@@ -373,15 +388,17 @@ while True:
                 if type(Item) == BlueRupee:
                     link.money +=5
                     pygame.mixer.Sound.play(get_rupee)
-                    changeLabel(MoneyText,str(link.money), green)   
+                    changeLabel(MoneyText,str(link.money), black)   
                 elif type(Item) == BombItem:
                     link.Bomb +=1
-                    changeLabel(bombs,str(link.Bomb), 'green')
+
+                    changeLabel(bombs,str(link.Bomb), black)
+
                     print(link.Bomb)
                 elif type(Item) == Rupee:
                     link.money += 1
                     pygame.mixer.Sound.play(get_rupee)
-                    changeLabel(MoneyText,str(link.money), green)   
+                    changeLabel(MoneyText,str(link.money), black)   
 
                 elif type(Item)==Clock:
                     ClockAquired=True
@@ -417,21 +434,14 @@ while True:
                 elif link.orientation == 3:
                     link.rect.x += link.speed
                     link.rect.x +=7
+            for enemy in currentScene.Enemies:
+                if touching(tile, enemy):
+                    enemy.turnAround()
         for tile in currentScene.Water_Tiles:
-            if touching(link, tile):
-                link.speed=0
-                if link.orientation == 0:
-                    link.rect.y -= link.speed
-                    link.rect.y -=7
-                elif link.orientation == 1:
-                    link.rect.y += link.speed
-                    link.rect.y +=7
-                elif link.orientation == 2:
-                    link.rect.x -= link.speed
-                    link.rect.x -= 7
-                elif link.orientation == 3:
-                    link.rect.x += link.speed
-                    link.rect.x +=7
+            for enemy in currentScene.Enemies:
+                if touching(tile, enemy):
+                    enemy.turnAround()
+                
         if link.rect.x > screenX:
             sceneChange("right")
             link.rect.x = 1
