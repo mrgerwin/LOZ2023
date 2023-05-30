@@ -372,8 +372,6 @@ while True:
                         
                     else:
                         pygame.mixer.Sound.play(enemy_hit)
-                        killSprite(projectile)
-                        LinkProjectiles.remove(projectile)
                     
         for Item in Items:
             Item.animate(frame)
