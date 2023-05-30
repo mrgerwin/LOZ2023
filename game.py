@@ -299,7 +299,7 @@ while True:
             if touching (enemy, link):
                 #killSprite(link)
                 link.hit(enemy,ded,link.orientation) 
-                changeLabel(HealthText,str(link.health), green))
+                changeLabel(HealthText,str(link.health), green)
                 if link.health <= 0.4:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
@@ -311,7 +311,11 @@ while True:
             if touching(link, projectile):
                 link.hit(projectile, ded, link.orientation)
                 changeLabel(HealthText,str(link.health), green)
+                killSprite(projectile)
+                currentScene.Projectiles.remove(projectile)
                 if link.health <= 0.4:
+                    killSprite(projectile)
+                    currentScene.Projectiles.remove(projectile)
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
                     if linkIsDie == False:
@@ -372,7 +376,6 @@ while True:
                     changeLabel(MoneyText,str(link.money), green)   
                 elif type(Item) == BombItem:
                     link.Bomb +=1
-                    link.hit(enemy, ded, link.orientation)
                     changeLabel(bombs,str(link.Bomb), 'green')
                     print(link.Bomb)
                 elif type(Item) == Rupee:
