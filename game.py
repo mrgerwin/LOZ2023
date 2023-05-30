@@ -405,10 +405,14 @@ while True:
 
                 elif type(Item)==Clock:
                     ClockAquired=True
-
+                elif type(Item)==Fairy:
+                       link.health=3
+                       changeLabel(HealthText,str(link.health), black)
                 Items.remove(Item)
                 killSprite(Item)
                 print(link.money)
+                    
+            
         if link.health == 0:
             print("you died")
             ded = True
