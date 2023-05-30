@@ -88,9 +88,9 @@ ClockAquired=False
 ClockNumber=0
 music = makeMusic("linkMusic.mp3")
 linkIsDie = False
-#link_die = makeSound("LOZ_Link_DIE.wav")
+link_die = makeSound("LOZ_Link_DIE.wav")
 #link_die = makeSound("link'sPain.mp3")
-link_die = makeSound("LinkInMaximumPain.mp3")
+#link_die = makeSound("LinkInMaximumPain.mp3")
 #link_die = makeSound("LinkScreamsForALittleBit.mp3")
 link_hit = makeSound("LOZ_Link_Hurt.wav")
 link_hit1 = makeSound("LinkHit1.mp3")
@@ -242,6 +242,7 @@ while True:
                       if link.money >= 1:
                           LinkProjectiles.append(link.shoot(frame))
                           link.money-=1
+                          changeLabel(MoneyText,str(link.money), green)
                       else:
                            pass
 
@@ -309,6 +310,13 @@ while True:
             projectile.move(frame)
             if touching(link, projectile):
                 link.hit(projectile, ded, link.orientation)
+                changeLabel(HealthText,str(link.health), green)
+                if link.health <= 0.4:
+                    print("you died")
+                    pygame.mixer.Sound.stop(backgroundMusic)
+                    if linkIsDie == False:
+                        pygame.mixer.Sound.play(link_die)
+                        linkIsDie=True
         
         for projectile in LinkProjectiles:
             theExplosion = projectile.move(frame)
@@ -351,6 +359,8 @@ while True:
                         
                     else:
                         pygame.mixer.Sound.play(enemy_hit)
+                        killSprite(projectile)
+                        LinkProjectiles.remove(projectile)
                     
         for Item in Items:
             Item.animate(frame)
