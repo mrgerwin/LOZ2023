@@ -404,6 +404,9 @@ while True:
                 elif link.orientation == 3:
                     link.rect.x += link.speed
                     link.rect.x +=7
+            for enemy in currentScene.Enemies:
+                if touching(tile, enemy):
+                    enemy.turnAround()
         for tile in currentScene.Water_Tiles:
             for enemy in currentScene.Enemies:
                 if touching(tile, enemy):
