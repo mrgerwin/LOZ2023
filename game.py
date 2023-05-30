@@ -202,11 +202,11 @@ while True:
                   if event.key == pygame.K_LEFT:
                       link.orientation =3
                       hideSprite(sword)
-                      link.speed = 8
+                      link.speed = 6
                       
                   if event.key == pygame.K_RIGHT:
                       link.orientation =2
-                      link.speed = 8
+                      link.speed = 6
                       hideSprite(sword)
                       
                   if event.key == pygame.K_UP:
@@ -218,6 +218,9 @@ while True:
                       link.orientation =0
                       link.speed = 4
                       hideSprite(sword)
+                    
+                  if event.key == pygame.K_v:
+                      link.speed = 12
                       
 
                   if event.key == pygame.K_c and BoomerangThrow == True:
@@ -259,6 +262,8 @@ while True:
                       link.speed = 0
                   if event.key == pygame.K_DOWN:
                       link.speed = 0
+                  if event.key == pygame.K_v:
+                      link.speed = 4
        
         for enemy in currentScene.Enemies:
             if ClockAquired==False:
