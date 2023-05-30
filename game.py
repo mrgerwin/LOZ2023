@@ -368,7 +368,11 @@ while True:
                 elif type(Item) == Rupee:
                     link.money += 1
                     pygame.mixer.Sound.play(get_rupee)
-                    changeLabel(MoneyText,str(link.money), green)   
+                    changeLabel(MoneyText,str(link.money), green)
+                elif type(item) == Heart:
+                    if link.health <= 3:
+                        link.health + 1
+                    print("YOU ATE SOMEONE "+ str(link.health) + " Heart")
 
                 elif type(Item)==Clock:
                     ClockAquired=True

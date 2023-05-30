@@ -884,6 +884,8 @@ class ThrowSword(Projectile):
          self.orientation = 0
          playSound(sword_throw)
          showSprite(self)
+        
+             
          #pause(100)
          
     def move(self, frame):
