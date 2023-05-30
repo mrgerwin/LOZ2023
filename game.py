@@ -299,7 +299,7 @@ while True:
             if touching (enemy, link):
                 #killSprite(link)
                 link.hit(enemy,ded,link.orientation) 
-                changeLabel(HealthText,str(link.health), green))
+                changeLabel(HealthText,str(link.health), green)
                 if link.health <= 0.4:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
