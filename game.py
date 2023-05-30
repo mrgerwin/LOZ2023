@@ -406,7 +406,7 @@ while True:
                     link.rect.x +=7
         for tile in currentScene.Water_Tiles:
             for enemy in currentScene.Enemies:
-                touching(tile, enemy):
+                if touching(tile, enemy):
                     enemy.turnAround()
                 
         if link.rect.x > screenX:
