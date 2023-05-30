@@ -363,8 +363,11 @@ while True:
                 LinkProjectiles.remove(projectile)
             for enemy in currentScene.Enemies:
                 if touching(enemy, projectile):
-                    LinkProjectiles.remove(projectile)
-                    killSprite(projectile)
+                    try:
+                        LinkProjectiles.remove(projectile)
+                        killSprite(projectile)
+                    except:
+                        pass
                     print("Enemy hit by projectile")
                     item=enemy.hit(link.orientation)
                     if item != None:
@@ -392,7 +395,7 @@ while True:
                 elif type(Item) == BombItem:
                     link.Bomb +=1
 
-                    changeLabel(bombs,str(link.Bomb), black)
+                    changeLabel(BombText,str(link.Bomb), black)
 
                     print(link.Bomb)
                 elif type(Item) == Rupee:
