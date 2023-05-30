@@ -113,6 +113,7 @@ linksProjectiles = []
 nextFrame = clock()
 frame = 0
 green = (0,102,0)
+black = (0, 0, 0)
 backgroundMusic=makeSound("linkMusic.mp3")
 #backgroundMusic=makeSound("betterCallSaulTheme.mp3")
 playSound(backgroundMusic,10)
@@ -253,7 +254,7 @@ while True:
                       if link.money >= 1:
                           LinkProjectiles.append(link.shoot(frame))
                           link.money-=1
-                          changeLabel(MoneyText,str(link.money), green)
+                          changeLabel(MoneyText,str(link.money), black)
                       else:
                            pass
 
@@ -312,7 +313,7 @@ while True:
             if touching (enemy, link):
                 #killSprite(link)
                 link.hit(enemy,ded,link.orientation) 
-                changeLabel(HealthText,str(link.health), green)
+                changeLabel(HealthText,str(link.health), black)
                 if link.health <= 0.4:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
@@ -323,7 +324,7 @@ while True:
             projectile.move(frame)
             if touching(link, projectile):
                 link.hit(projectile, ded, link.orientation)
-                changeLabel(HealthText,str(link.health), green)
+                changeLabel(HealthText,str(link.health), black)
                 if link.health <= 0.4:
                     print("you died")
                     pygame.mixer.Sound.stop(backgroundMusic)
@@ -382,16 +383,16 @@ while True:
                 if type(Item) == BlueRupee:
                     link.money +=5
                     pygame.mixer.Sound.play(get_rupee)
-                    changeLabel(MoneyText,str(link.money), green)   
+                    changeLabel(MoneyText,str(link.money), black)   
                 elif type(Item) == BombItem:
                     link.Bomb +=1
                     link.hit(enemy, ded, link.orientation)
-                    changeLabel(bombs,str(link.Bomb), 'green')
+                    changeLabel(bombs,str(link.Bomb), 'black')
                     print(link.Bomb)
                 elif type(Item) == Rupee:
                     link.money += 1
                     pygame.mixer.Sound.play(get_rupee)
-                    changeLabel(MoneyText,str(link.money), green)   
+                    changeLabel(MoneyText,str(link.money), black)   
 
                 elif type(Item)==Clock:
                     ClockAquired=True
