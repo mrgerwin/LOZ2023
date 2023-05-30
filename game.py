@@ -402,7 +402,13 @@ while True:
                     link.money += 1
                     pygame.mixer.Sound.play(get_rupee)
                     changeLabel(MoneyText,str(link.money), black)   
-
+                elif type(item) == Heart:
+                    if link.health <= 3:
+                        link.health += 1
+                    if link.health > 3:
+                        link.health = 3
+                    print("You commited a crime by stealing that heart, the FBI have been sent to your location "+ str(link.health) + " Heart")
+                    changeLabel(HealthText,str(link.health), black)
                 elif type(Item)==Clock:
                     ClockAquired=True
                 elif type(Item)==Fairy:
