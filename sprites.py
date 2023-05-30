@@ -183,12 +183,16 @@ class Enemy(newSprite):
     def turnAround(self):
         if self.orientation == 0:
             self.orientation = 1
+            self.rect.x += 32
         elif self.orientation ==1:
             self.orientation = 0
+            self.rect.x-=32
         elif self.orientation == 2:
             self.orientation = 3
+            self.rect.x-=32
         elif self.orientation ==3:
             self.orientation = 2
+            self.rect.x+=32
 
 class DarkMoblin(Enemy):
     def __init__(self):
