@@ -246,7 +246,7 @@ while True:
                           link.Bomb -= 1
                           bomb = PlacableBomb(link.rect.x, link.rect.y, Explosion)
                           LinkProjectiles.append(bomb)
-                          #changeLabel(BombText,str(link.Bomb), 'black')
+                          changeLabel(BombText,str(link.Bomb), 'black')
                           showSprite(bomb)
                       else:
                           pass
