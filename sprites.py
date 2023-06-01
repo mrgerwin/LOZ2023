@@ -30,7 +30,6 @@ def ItemDrop(enemy):
         itemNum = C[enemy.link.kills]
     elif enemy.type == "D":
         itemNum = D[enemy.link.kills]
-    return Fairy(enemy.link)
     if itemNum == 0:
         return Rupee(enemy.link)
     elif itemNum == 1:
